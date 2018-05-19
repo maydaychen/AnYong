@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.wshoto.user.anyong.ui.activity.ConfirmActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title">
+
+        <TextView
+            android:id="@+id/tv_select_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/margin_size_8dp"
+            android:text="取消"
+            android:textColor="@color/yellow"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_size_8dp"
+            android:layout_toLeftOf="@id/tv_select_back"
+            android:background="@drawable/boder_select">
+
+            <ImageView
+                android:id="@+id/iv_select_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/margin_size_8dp"
+                android:src="@drawable/ss"/>
+
+            <ImageView
+                android:id="@+id/iv_select_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/margin_size_8dp"
+                android:src="@drawable/gb"/>
+
+            <EditText
+                android:id="@+id/et_thank_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_select_clear"
+                android:layout_toRightOf="@id/iv_select_search"
+                android:background="@null"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_size_8dp"
+        android:text="搜索列表"
+        android:textColor="@color/white"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/margin_size_8dp"
+        android:layout_marginRight="@dimen/margin_size_8dp"
+        android:background="@color/line_44"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_thank_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_size_8dp"/>
+</LinearLayout>

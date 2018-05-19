@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background"
+                android:orientation="vertical"
+                tools:context="com.wshoto.user.anyong.ui.fragment.ConfirmStep1Fragment">
+
+    <LinearLayout
+        android:id="@+id/step1_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:padding="@dimen/margin_size_8dp"
+        android:textColor="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="在"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="安永"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/font_size_20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="这个大家庭"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/step1_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/step1_1"
+        android:gravity="center"
+        android:padding="@dimen/margin_size_8dp"
+        android:text="我们都有自己的工号和英文名"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:id="@+id/ll_step1_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/step1_2"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_size_8dp"
+            android:text="工号"
+            android:textColor="@color/white"/>
+
+        <EditText
+            android:id="@+id/et_step1_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:inputType="number"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/step1_line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_step1_1"
+        android:background="@color/line_44"/>
+
+    <LinearLayout
+        android:id="@+id/ll_step1_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/step1_line1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_size_8dp"
+            android:text="英文名"
+            android:textColor="@color/white"/>
+
+        <EditText
+            android:id="@+id/et_step1_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:inputType="text"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/step1_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_step1_2"
+        android:background="@color/line_44"/>
+
+    <TextView
+        android:id="@+id/tv_step1_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/margin_size_8dp"
+        android:text="下一步"
+        android:textColor="@color/yellow"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/bj11"/>
+
+</RelativeLayout>

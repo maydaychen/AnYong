@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.wshoto.user.anyong.ui.activity.ConfirmActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_confirm_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title">
+
+        <TextView
+            android:id="@+id/iv_comfirm_back"
+            style="@style/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/back"
+            android:drawablePadding="@dimen/margin_size_8dp"
+            android:text="返回"
+            android:textColor="@color/white"/>
+
+        <TextView
+            style="@style/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ThankU"/>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_thanku_send"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:padding="@dimen/margin_size_8dp"
+        android:text="浏览"
+        android:textColor="#010101"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tv_thanku_send"
+        android:layout_below="@id/rl_confirm_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:text="发送对象："
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:id="@+id/tv_thank_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="@dimen/margin_size_8dp"
+                    android:drawableRight="@drawable/jia"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:paddingRight="@dimen/margin_size_8dp"
+                    android:text="使用数据库中英文名用于搜索"
+                    android:textColor="#808080"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/margin_size_8dp"
+                android:layout_marginRight="@dimen/margin_size_8dp"
+                android:background="@color/line_44"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:text="发送主题："
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:id="@+id/tv_thank_theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="@dimen/margin_size_8dp"
+                    android:drawableRight="@drawable/xia"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:paddingRight="@dimen/margin_size_8dp"
+                    android:text="选择固定模板"
+                    android:textColor="#808080"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/margin_size_8dp"
+                android:layout_marginRight="@dimen/margin_size_8dp"
+                android:background="@color/line_44"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:text="上传图片："
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:id="@+id/iv_thank_upload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_14dp"
+                    android:src="@drawable/shangchuan"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:text="发送内容："
+                    android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="@dimen/margin_size_14dp"
+                    android:background="@drawable/boder_thank"
+                    >
+
+                    <EditText
+                        android:id="@+id/et_thank_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_margin="@dimen/margin_size_14dp"
+                        android:background="@null"
+                        android:gravity="top"
+                        android:src="@drawable/shangchuan"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

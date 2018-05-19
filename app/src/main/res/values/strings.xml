@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">安永</string>
+    <string name="tv_change_pass">修改密码</string>
+    <string name="confirm_success">认证成功</string>
+    <string name="rationale_camera">此应用需要摄像头权限</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

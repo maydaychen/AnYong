@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.wshoto.user.anyong.ui.activity.ConfirmActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_confirm_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title">
+
+        <TextView
+            android:id="@+id/iv_comfirm_back"
+            style="@style/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/back"
+            android:drawablePadding="@dimen/margin_size_8dp"
+            android:text="返回"
+            android:textColor="@color/white" />
+
+        <TextView
+            style="@style/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="健康生活" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/healthy"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/h" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="今日步数"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_healthy_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_size_10dp"
+                    android:text="0"
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/font_size_20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_20dp"
+                    android:text="达到8000步，可获得积分"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_10sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_healthy_gather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/boder_healthy_666"
+            android:paddingBottom="@dimen/margin_size_8dp"
+            android:paddingLeft="@dimen/margin_size_20dp"
+            android:paddingRight="@dimen/margin_size_20dp"
+            android:paddingTop="@dimen/margin_size_8dp"
+            android:text="继续努力"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:padding="@dimen/margin_size_8dp"
+            android:text="每日健康任务"
+            android:textColor="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_10dp"
+            android:padding="@dimen/margin_size_8dp">
+
+            <TextView
+                android:id="@+id/tv_yanbaojaincao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_size_8dp"
+                android:text="眼保健操"
+                android:textColor="@color/font_colour_99" />
+
+            <TextView
+                android:id="@+id/tv_option_yanbao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/boder_healthy_grey"
+                android:clickable="false"
+                android:padding="@dimen/margin_size_8dp"
+                android:text="未在活动时间"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_8dp"
+                android:layout_toLeftOf="@id/tv_option_yanbao"
+                android:layout_toRightOf="@id/tv_yanbaojaincao"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="保护视力，缓解眼疲劳"
+
+                    android:textColor="@color/font_colour_99"
+                    android:textSize="@dimen/font_size_12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_size_8dp"
+                    android:text="活动时间：每日10点-11点"
+                    android:textColor="@color/font_colour_99"
+                    android:textSize="@dimen/font_size_12sp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_44" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_10dp"
+            android:padding="@dimen/margin_size_8dp">
+
+            <TextView
+                android:id="@+id/tv_jingzhui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_size_8dp"
+                android:text="颈椎操"
+                android:textColor="@color/font_colour_99" />
+
+            <TextView
+                android:id="@+id/tv_option_jingzhui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/boder_healthy_grey"
+                android:clickable="false"
+                android:padding="@dimen/margin_size_8dp"
+                android:text="未在活动时间"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_8dp"
+                android:layout_toLeftOf="@id/tv_option_jingzhui"
+                android:layout_toRightOf="@id/tv_jingzhui"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="预防颈椎病，年轻有活力。"
+
+                    android:textColor="@color/font_colour_99"
+                    android:textSize="@dimen/font_size_12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_size_8dp"
+                    android:text="活动时间：每日16点-17点"
+                    android:textColor="@color/font_colour_99"
+                    android:textSize="@dimen/font_size_12sp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_44" />
+    </LinearLayout>
+
+
+</LinearLayout>
