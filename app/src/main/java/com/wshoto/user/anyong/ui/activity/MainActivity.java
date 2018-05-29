@@ -58,6 +58,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 startActivity(new Intent(MainActivity.this, MessageCenterActivity.class));
                 break;
             case R.id.iv_main_guide:
+                startActivity(new Intent(MainActivity.this, GuideActivity.class));
                 break;
             case R.id.tv_main_point:
                 startActivity(new Intent(MainActivity.this, PointActivity.class));

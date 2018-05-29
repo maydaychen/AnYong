@@ -22,14 +22,14 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/back"
             android:drawablePadding="@dimen/margin_size_8dp"
-            android:text="返回"
+            android:text="@string/back"
             android:textColor="@color/white"/>
 
         <TextView
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ThankU"/>
+            android:text="@string/thanku"/>
     </RelativeLayout>
 
     <TextView
@@ -40,7 +40,7 @@
         android:background="@color/yellow"
         android:gravity="center"
         android:padding="@dimen/margin_size_8dp"
-        android:text="我也要发"
+        android:text="@string/tv_thank_send"
         android:textColor="#010101"/>
 
     <FrameLayout
