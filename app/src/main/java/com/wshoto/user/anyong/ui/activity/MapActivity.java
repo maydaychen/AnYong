@@ -84,7 +84,6 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
     public void initData() {
         locateOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-                //todo qiandao
                 showPopupWindow(jsonObject.getJSONObject("data").getString("number"),jsonObject.getJSONObject("data").getString("numberpercentage"));
             } else {
                 Toast.makeText(MapActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
