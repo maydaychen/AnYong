@@ -1,28 +1,30 @@
 package com.wshoto.user.anyong.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.wshoto.user.anyong.Bean.UserInfoBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
+import com.wshoto.user.anyong.http.HttpJsonMethod;
+import com.wshoto.user.anyong.http.ProgressSubscriber;
+import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
-import java.util.Locale;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingActivity extends InitActivity {
-
-
-    @BindView(R.id.rg_language)
-    RadioGroup rgLanguage;
+    private SubscriberOnNextListener<JSONObject> logoutOnNext;
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -33,62 +35,45 @@ public class SettingActivity extends InitActivity {
 
     @Override
     public void initData() {
-
+        logoutOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                SharedPreferencesUtils.clear(getApplicationContext());
+                Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            } else {
+                Toast.makeText(SettingActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
-    protected void selectLanguage(String language) {
-        //设置语言类型
-        Resources resources = getResources();
-        Configuration configuration = resources.getConfiguration();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        switch (language) {
-            case "en":
-                configuration.locale = Locale.ENGLISH;
-                break;
-            case "zh":
-                configuration.locale = Locale.SIMPLIFIED_CHINESE;
-                break;
-            default:
-                configuration.locale = Locale.getDefault();
-                break;
-        }
-        resources.updateConfiguration(configuration, displayMetrics);
-//
-//        //保存设置语言的类型
-        SharedPreferencesUtils.setParam(getApplicationContext(), "language", language);
-    }
-
-    @OnClick({R.id.iv_comfirm_back, R.id.button})
+    @OnClick({R.id.iv_comfirm_back, R.id.tv_logout, R.id.tv_language_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_comfirm_back:
                 finish();
                 break;
-            case R.id.button:
-                switch (rgLanguage.getCheckedRadioButtonId()) {
-                    case R.id.rb_chinese:
-                        selectLanguage("zh");
-                        SharedPreferencesUtils.setParam(getApplicationContext(), "language_auto", false);
-                        break;
-                    case R.id.rb_english:
-                        selectLanguage("en");
-                        SharedPreferencesUtils.setParam(getApplicationContext(), "language_auto", false);
-                        break;
-                    case R.id.rb_auto:
-                        SharedPreferencesUtils.setParam(getApplicationContext(), "language_auto", true);
-                        String country = Locale.getDefault().getCountry();
-
-                        if ("CN".equals(country)) {
-                            selectLanguage("zh");
-                        } else {
-                            selectLanguage("en");
-                        }
-                        break;
-                }
-                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-                startActivity(intent);
+            case R.id.tv_logout:
+                show();
                 break;
-        }
+            case R.id.tv_language_setting:
+                startActivity(new Intent(SettingActivity.this, LanguageActivity.class));
 
+        }
+    }
+
+    public void show() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+        builder.setMessage("确定要退出么？");
+        builder.setTitle(R.string.app_name);
+
+        builder.setPositiveButton("确认", (dialog, which) -> {
+            dialog.dismiss();
+            HttpJsonMethod.getInstance().logout(
+                    new ProgressSubscriber(logoutOnNext, SettingActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""));
+        });
+
+        builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
+
+        builder.create().show();
     }
 }

@@ -58,7 +58,7 @@
             android:id="@+id/tv_pop_percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="x%"
+            android:text="@string/percent"
             android:textColor="@color/yellow"
             android:textSize="@dimen/font_size_20sp" />
 

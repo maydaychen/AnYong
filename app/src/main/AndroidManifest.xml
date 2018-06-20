@@ -131,7 +131,8 @@
 
         <activity android:name=".ui.activity.SettingActivity" />
         <activity android:name=".ui.activity.NewFriendInfoActivity" />
-        <activity android:name=".ui.activity.FriendInfoActivity"></activity>
+        <activity android:name=".ui.activity.FriendInfoActivity" />
+        <activity android:name=".ui.activity.LanguageActivity"></activity>
     </application>
 
 </manifest>

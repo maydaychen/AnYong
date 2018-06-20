@@ -46,7 +46,7 @@ public interface BlueService {
 
     @POST("/index.php?r=api/signin/index")
     @FormUrlEncoded
-    rx.Observable<JSONObject> locate(@Field("session") String session, @Field("lal") String lal);
+    rx.Observable<JSONObject> locate(@Field("session") String session, @Field("place") String lal);
 
     @GET("/index.php?r=api/thank/thank-view")
     rx.Observable<JSONObject> thankList(@Query("session") String session);

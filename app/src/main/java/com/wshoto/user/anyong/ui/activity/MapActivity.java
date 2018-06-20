@@ -46,7 +46,7 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
     private BaiduMap mBaiduMap;
     private LocationClient mLocationClient;
     private boolean ifFrist = true;
-    private String lal = "";
+    private String city = "";
     private SubscriberOnNextListener<JSONObject> locateOnNext;
     @BindView(R.id.mv_map)
     MapView mvMap;
@@ -82,27 +82,14 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
 
     @Override
     public void initData() {
-        locateOnNext = new SubscriberOnNextListener<JSONObject>() {
-            @Override
-            public void onNext(JSONObject jsonObject) throws JSONException {
-                if (jsonObject.getInt("code") == 1) {
-                    //todo qiandao
-                    showPopupWindow(getApplicationContext());
-                } else {
-                    Toast.makeText(MapActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                }
+        locateOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                //todo qiandao
+                showPopupWindow(jsonObject.getJSONObject("data").getString("number"),jsonObject.getJSONObject("data").getString("numberpercentage"));
+            } else {
+                Toast.makeText(MapActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
             }
         };
-//        if (ifFrist) {
-//            LatLng ll = new LatLng(mLocationClient.getLastKnownLocation().getLatitude(),mLocationClient.getLastKnownLocation().getLongitude());
-//            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
-//            // 移动到某经纬度
-//            mBaiduMap.animateMapStatus(update);
-//            update = MapStatusUpdateFactory.zoomBy(2f);
-//            // 放大
-//            mBaiduMap.animateMapStatus(update);
-//            ifFrist = false;
-//        }
         initMap();
         mBaiduMap = mvMap.getMap();
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
@@ -158,7 +145,7 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
             LatLng ll = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
             MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
             mBaiduMap.animateMapStatus(u);
-            lal = ll.latitude + "," + ll.longitude;
+            city =bdLocation.getCity();
         }
     }
 
@@ -177,12 +164,12 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
             case R.id.iv_qiandao:
 
                 HttpJsonMethod.getInstance().locate(
-                        new ProgressSubscriber(locateOnNext, MapActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""), lal);
+                        new ProgressSubscriber(locateOnNext, MapActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""), city);
                 break;
         }
     }
 
-    private void showPopupWindow(Context context) {
+    private void showPopupWindow(String number,String numberPercent) {
         View contentView = LayoutInflater.from(this).inflate(
                 R.layout.popwindow_map, null);
 
@@ -193,7 +180,8 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
                 WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
                 true);
 
-
+        mTvDays.setText(number);
+        mTvPercent.setText(String.format(getResources().getString(R.string.percent),numberPercent));
         ColorDrawable dw = new ColorDrawable(0xcF000000);
         popupWindow.setBackgroundDrawable(dw);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
