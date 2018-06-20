@@ -21,7 +21,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_8dp"
-            android:text="取消"
+            android:text="@string/cancel"
             android:textColor="@color/yellow"/>
 
         <RelativeLayout
@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_size_8dp"
-        android:text="搜索列表"
+        android:text="@string/search_list"
         android:textColor="@color/white"/>
 
     <View

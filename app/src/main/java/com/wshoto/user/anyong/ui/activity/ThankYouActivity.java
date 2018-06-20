@@ -49,8 +49,6 @@ public class ThankYouActivity extends InitActivity {
     private void initDefaultFragment() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.id_thank_content, mFragmentOne);
-        fragmentTransaction.addToBackStack(null);
-
         fragmentTransaction.commit();
     }
 }

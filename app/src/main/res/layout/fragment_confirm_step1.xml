@@ -18,20 +18,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="在"
+            android:text="@string/at"
             android:textColor="@color/white"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="安永"
+            android:text="@string/app_name"
             android:textColor="@color/yellow"
             android:textSize="@dimen/font_size_20sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="这个大家庭"
+            android:text="@string/family"
             android:textColor="@color/white"/>
     </LinearLayout>
 
@@ -42,7 +42,7 @@
         android:layout_below="@id/step1_1"
         android:gravity="center"
         android:padding="@dimen/margin_size_8dp"
-        android:text="我们都有自己的工号和英文名"
+        android:text="@string/confirm_step1_title"
         android:textColor="@color/white"/>
 
     <LinearLayout
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_size_8dp"
-            android:text="工号"
+            android:text="@string/user_number"
             android:textColor="@color/white"/>
 
         <EditText
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_size_8dp"
-            android:text="英文名"
+            android:text="@string/english_name"
             android:textColor="@color/white"/>
 
         <EditText
@@ -115,7 +115,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:padding="@dimen/margin_size_8dp"
-        android:text="下一步"
+        android:text="@string/next"
         android:textColor="@color/yellow"/>
 
     <ImageView

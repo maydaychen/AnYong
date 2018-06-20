@@ -27,7 +27,7 @@
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="安永"/>
+            android:text="@string/app_name"/>
 
         <ImageView
             android:id="@+id/iv_main_email"
@@ -68,10 +68,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:padding="@dimen/margin_size_12dp"
-                    android:text="积分明细"
+                    android:text="@string/credit_detail"
                     android:textColor="@color/white"/>
 
-                <ImageView
+                <com.loopj.android.image.SmartImageView
                     android:id="@+id/iv_main_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,6 +102,7 @@
                         android:src="@drawable/jf"/>
 
                     <TextView
+                        android:id="@+id/tv_user_credit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/margin_size_20dp"
@@ -116,6 +117,7 @@
                         android:src="@drawable/dd"/>
 
                     <TextView
+                        android:id="@+id/tv_user_level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/margin_size_8dp"
@@ -153,7 +155,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="今日坐标"
+                            android:text="@string/main1"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 
@@ -197,7 +199,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="荣耀"
+                            android:text="@string/main3"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 
@@ -219,7 +221,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="我的半径"
+                            android:text="@string/main4"
                             android:textColor="@color/white"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -248,7 +250,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="健康生活"
+                            android:text="@string/healthy_life"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 
@@ -270,7 +272,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="刷刷存在感"
+                            android:text="@string/main6"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 
@@ -292,7 +294,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="不定期更新"
+                            android:text="@string/main7"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 
@@ -314,7 +316,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="年度存档"
+                            android:text="@string/main8"
                             android:textColor="@color/white"/>
                     </LinearLayout>
                 </LinearLayout>

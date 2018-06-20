@@ -1,12 +1,18 @@
 package com.wshoto.user.anyong.ui.widget;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.SharedPreferencesUtils;
+
+import java.util.Locale;
 
 /**
  * Created by user on 2018/4/26.
@@ -26,7 +32,40 @@ public abstract class InitActivity extends AppCompatActivity {
         }
         getSupportActionBar().hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        if ((boolean) SharedPreferencesUtils.getParam(this, "language_auto", true)) {
+            String country = Locale.getDefault().getCountry();
+            if ("CN".equals(country)) {
+                selectLanguage("zh");
+            } else {
+                selectLanguage("en");
+            }
+        }else {
+            selectLanguage((String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+        }
         initView(savedInstanceState);
         initData();
     }
+
+    protected void selectLanguage(String language) {
+        //设置语言类型
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        switch (language) {
+            case "en":
+                configuration.locale = Locale.ENGLISH;
+                break;
+            case "zh":
+                configuration.locale = Locale.SIMPLIFIED_CHINESE;
+                break;
+            default:
+                configuration.locale = Locale.getDefault();
+                break;
+        }
+        resources.updateConfiguration(configuration, displayMetrics);
+//
+//        //保存设置语言的类型
+        SharedPreferencesUtils.setParam(getApplicationContext(), "language", language);
+    }
+
 }

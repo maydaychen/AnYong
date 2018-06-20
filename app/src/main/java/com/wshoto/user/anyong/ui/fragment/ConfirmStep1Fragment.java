@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
 
@@ -58,9 +59,15 @@ public class ConfirmStep1Fragment extends Fragment {
 
     @OnClick(R.id.tv_step1_next)
     public void onViewClicked() {
-        mFragmentManager = getActivity().getSupportFragmentManager();
-        //注意v4包的配套使用
-        Fragment fragment = ConfirmStep2Fragment.newInstance(mEtStep1Number.getText().toString(), mEtStep1Name.getText().toString());
-        mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).commit();
+        String num = mEtStep1Number.getText().toString();
+        String name = mEtStep1Name.getText().toString();
+        if (!num.equals("") && !name.equals("")) {
+            mFragmentManager = getActivity().getSupportFragmentManager();
+            //注意v4包的配套使用
+            Fragment fragment = ConfirmStep2Fragment.newInstance(mEtStep1Number.getText().toString(), mEtStep1Name.getText().toString());
+            mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
+        } else {
+            Toast.makeText(getContext(), getText(R.string.step1_error), Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -53,13 +53,19 @@ public class HealthyLifeActivity extends InitActivity {
                     Toast.makeText(HealthyLifeActivity.this, "积分取得成功！", Toast.LENGTH_SHORT).show();
                     mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_grey));
                     mTvOptionYanbao.setText("已领取积分！");
+                    mTvOptionYanbao.setClickable(false);
                 });
                 mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
                 mTvOptionYanbao.setText("完成任务点我");
                 break;
             case 16:
                 mTvOptionJingzhui.setClickable(true);
-                mTvOptionJingzhui.setOnClickListener(v -> Toast.makeText(HealthyLifeActivity.this, "积分取得成功！", Toast.LENGTH_SHORT).show());
+                mTvOptionJingzhui.setOnClickListener(v -> {
+                    Toast.makeText(HealthyLifeActivity.this, "积分取得成功！", Toast.LENGTH_SHORT).show();
+                    mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_grey));
+                    mTvOptionJingzhui.setText("已领取积分！");
+                    mTvOptionJingzhui.setClickable(false);
+                });
                 mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
                 mTvOptionJingzhui.setText("完成任务点我");
                 break;

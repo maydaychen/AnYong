@@ -21,14 +21,14 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/back"
             android:drawablePadding="@dimen/margin_size_8dp"
-            android:text="返回"
+            android:text="@string/back"
             android:textColor="@color/white" />
 
         <TextView
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="健康生活" />
+            android:text="@string/healthy_life" />
     </RelativeLayout>
 
     <LinearLayout
@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="今日步数"
+                    android:text="@string/step_today"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_20dp"
-                    android:text="达到8000步，可获得积分"
+                    android:text="@string/step_hint"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_10sp" />
             </LinearLayout>
@@ -93,7 +93,7 @@
             android:paddingLeft="@dimen/margin_size_20dp"
             android:paddingRight="@dimen/margin_size_20dp"
             android:paddingTop="@dimen/margin_size_8dp"
-            android:text="继续努力"
+            android:text="@string/come_on"
             android:textColor="@color/white" />
 
         <TextView
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:padding="@dimen/margin_size_8dp"
-            android:text="每日健康任务"
+            android:text="@string/healthy_task_daily"
             android:textColor="@color/white" />
 
         <RelativeLayout
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_size_8dp"
-                android:text="眼保健操"
+                android:text="@string/task1"
                 android:textColor="@color/font_colour_99" />
 
             <TextView
@@ -127,7 +127,7 @@
                 android:background="@drawable/boder_healthy_grey"
                 android:clickable="false"
                 android:padding="@dimen/margin_size_8dp"
-                android:text="未在活动时间"
+                android:text="@string/task_time_not_reach"
                 android:textColor="@color/white" />
 
             <LinearLayout
@@ -142,7 +142,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="保护视力，缓解眼疲劳"
+                    android:text="@string/task1_desc"
 
                     android:textColor="@color/font_colour_99"
                     android:textSize="@dimen/font_size_12sp" />
@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/margin_size_8dp"
-                    android:text="活动时间：每日10点-11点"
+                    android:text="@string/task1_time"
                     android:textColor="@color/font_colour_99"
                     android:textSize="@dimen/font_size_12sp" />
 
@@ -176,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_size_8dp"
-                android:text="颈椎操"
+                android:text="@string/task2"
                 android:textColor="@color/font_colour_99" />
 
             <TextView
@@ -188,7 +188,7 @@
                 android:background="@drawable/boder_healthy_grey"
                 android:clickable="false"
                 android:padding="@dimen/margin_size_8dp"
-                android:text="未在活动时间"
+                android:text="@string/task_time_not_reach"
                 android:textColor="@color/white" />
 
             <LinearLayout
@@ -203,7 +203,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="预防颈椎病，年轻有活力。"
+                    android:text="@string/task2_desc"
 
                     android:textColor="@color/font_colour_99"
                     android:textSize="@dimen/font_size_12sp" />
@@ -212,7 +212,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/margin_size_8dp"
-                    android:text="活动时间：每日16点-17点"
+                    android:text="@string/task2_time"
                     android:textColor="@color/font_colour_99"
                     android:textSize="@dimen/font_size_12sp" />
 

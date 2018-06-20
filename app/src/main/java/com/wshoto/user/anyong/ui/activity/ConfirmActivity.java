@@ -41,9 +41,9 @@ public class ConfirmActivity extends InitActivity {
 
     private void initDefaultFragment() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.id_content, mFragmentOne);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(R.id.id_content, mFragmentOne).commit();
+//        fragmentTransaction.addToBackStack(null);
 
-        fragmentTransaction.commit();
+//        fragmentTransaction.commit();
     }
 }

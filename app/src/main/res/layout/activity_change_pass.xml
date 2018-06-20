@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/back"
             android:drawablePadding="@dimen/margin_size_8dp"
-            android:text="返回"
+            android:text="@string/back"
             android:textColor="@color/white"/>
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="请输入您绑定的手机号"
+            android:hint="@string/tv_change_pass_mobile"
             android:inputType="phone"
             android:maxLength="11"
             android:padding="@dimen/margin_size_8dp"
@@ -78,7 +78,7 @@
             android:layout_marginRight="@dimen/margin_size_12dp"
             android:background="@drawable/boder_yellow"
             android:padding="8dp"
-            android:text="获取验证码"
+            android:text="@string/tv_change_pass_sms_send"
             android:textColor="@color/yellow"/>
 
         <EditText
@@ -88,7 +88,7 @@
             android:layout_toLeftOf="@id/tv_get_ems"
             android:layout_toRightOf="@id/iv_ems"
             android:background="@null"
-            android:hint="请输入短信验证码"
+            android:hint="@string/tv_change_pass_sms"
             android:inputType="number"
             android:maxLength="6"
             android:padding="@dimen/margin_size_8dp"
@@ -113,7 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="请输入密码"
+            android:hint="@string/tv_change_pass1"
             android:inputType="textPassword"
             android:padding="@dimen/margin_size_8dp"
             android:singleLine="true"
@@ -137,7 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="请再次输入密码"
+            android:hint="@string/tv_change_pass2"
             android:inputType="textPassword"
             android:padding="@dimen/margin_size_8dp"
             android:singleLine="true"
@@ -152,5 +152,5 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:text="确定"/>
+        android:text="@string/confirm"/>
 </LinearLayout>

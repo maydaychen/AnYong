@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/back"
             android:drawablePadding="@dimen/margin_size_8dp"
-            android:text="返回"
+            android:text="@string/back"
             android:textColor="@color/white"/>
 
         <TextView
@@ -41,7 +41,7 @@
         android:background="@color/yellow"
         android:gravity="center"
         android:padding="@dimen/margin_size_8dp"
-        android:text="浏览"
+        android:text="@string/preview"
         android:textColor="#010101"/>
 
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="发送对象："
+                    android:text="@string/send_to"
                     android:textColor="@color/white"/>
 
                 <TextView
@@ -79,7 +79,7 @@
                     android:drawableRight="@drawable/jia"
                     android:padding="@dimen/margin_size_8dp"
                     android:paddingRight="@dimen/margin_size_8dp"
-                    android:text="使用数据库中英文名用于搜索"
+                    android:text="@string/thank_send_hint"
                     android:textColor="#808080"/>
             </RelativeLayout>
 
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="发送主题："
+                    android:text="@string/send_theme"
                     android:textColor="@color/white"/>
 
                 <TextView
@@ -112,7 +112,7 @@
                     android:drawableRight="@drawable/xia"
                     android:padding="@dimen/margin_size_8dp"
                     android:paddingRight="@dimen/margin_size_8dp"
-                    android:text="选择固定模板"
+                    android:text="@string/thank_model"
                     android:textColor="#808080"/>
             </RelativeLayout>
 
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="上传图片："
+                    android:text="@string/image_upload"
                     android:textColor="@color/white"/>
 
                 <ImageView
@@ -150,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="发送内容："
+                    android:text="@string/send_content"
                     android:textColor="@color/white"/>
 
                 <LinearLayout

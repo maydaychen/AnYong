@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="你好"
+            android:text="@string/hello"
             android:textColor="@color/white"/>
 
         <TextView
@@ -38,7 +38,7 @@
         android:layout_below="@id/step1_1"
         android:gravity="center"
         android:padding="@dimen/margin_size_8dp"
-        android:text="下面需要给您账号绑定手机"
+        android:text="@string/confirm_step_2_1"
         android:textColor="@color/white"/>
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_below="@id/step1_2"
         android:gravity="center"
         android:padding="@dimen/margin_size_8dp"
-        android:text="请输入您的手机号和验证码"
+        android:text="@string/confirm_step_2_2"
         android:textColor="@color/white"/>
 
     <LinearLayout
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_size_8dp"
-            android:text="手机号"
+            android:text="@string/mobile"
             android:textColor="@color/white"/>
 
         <EditText
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_8dp"
-            android:text="验证码"
+            android:text="@string/yanzhengma"
             android:textColor="@color/white"/>
 
         <TextView
@@ -107,11 +107,11 @@
             android:layout_marginRight="@dimen/margin_size_12dp"
             android:background="@drawable/boder_yellow"
             android:padding="8dp"
-            android:text="获取验证码"
+            android:text="@string/yanzhengma_get"
             android:textColor="@color/white"/>
 
         <EditText
-            android:id="@+id/et_step1_name"
+            android:id="@+id/et_step2_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/tv_get_ems"
@@ -139,7 +139,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:padding="@dimen/margin_size_8dp"
-        android:text="下一步"
+        android:text="@string/next"
         android:textColor="@color/yellow"/>
 
     <ImageView

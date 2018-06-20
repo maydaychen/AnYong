@@ -21,14 +21,14 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/back"
             android:drawablePadding="@dimen/margin_size_8dp"
-            android:text="返回"
+            android:text="@string/back"
             android:textColor="@color/white" />
 
         <TextView
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="活动日历" />
+            android:text="@string/calendar" />
     </RelativeLayout>
 
 

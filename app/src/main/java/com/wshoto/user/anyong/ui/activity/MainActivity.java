@@ -8,12 +8,25 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.loopj.android.image.SmartImageView;
+import com.wshoto.user.anyong.Bean.UserInfoBean;
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.SharedPreferencesUtils;
+import com.wshoto.user.anyong.http.HttpJsonMethod;
+import com.wshoto.user.anyong.http.ProgressSubscriber;
+import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -26,6 +39,18 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
     private static final int RC_CAMERA_PERM = 123;
     private static final int SHOW_SUBACTIVITY = 1;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+    private UserInfoBean userInfoBean;
+
+    @BindView(R.id.iv_main_logo)
+    SmartImageView ivMainLogo;
+    @BindView(R.id.tv_main_name)
+    TextView tvMainName;
+    @BindView(R.id.tv_user_credit)
+    TextView tvUserCredit;
+    @BindView(R.id.tv_user_level)
+    TextView tvUserLevel;
+    private SubscriberOnNextListener<JSONObject> infoOnNext;
+    private Gson mGson = new Gson();
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -35,8 +60,25 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
     }
 
     @Override
-    public void initData() {
+    protected void onResume() {
+        super.onResume();
+        HttpJsonMethod.getInstance().userInfo(
+                new ProgressSubscriber(infoOnNext, MainActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""));
+    }
 
+    @Override
+    public void initData() {
+        infoOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                userInfoBean = mGson.fromJson(jsonObject.toString(), UserInfoBean.class);
+                tvMainName.setText(userInfoBean.getData().getEnglish_name());
+                tvUserCredit.setText(userInfoBean.getData().getIntegral() + "");
+                tvUserLevel.setText(userInfoBean.getData().getNickname());
+                ivMainLogo.setImageUrl(userInfoBean.getData().getAvatar());
+            } else {
+                Toast.makeText(MainActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     @OnClick({R.id.iv_main_sao, R.id.iv_main_email, R.id.iv_main_logo, R.id.tv_main_point, R.id.iv_main_guide, R.id.ll_zuobiao, R.id.ll_part2, R.id.ll_part3, R.id.ll_part4, R.id.ll_part5, R.id.ll_part6, R.id.ll_part7, R.id.ll_part8})
@@ -74,6 +116,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 break;
             case R.id.ll_part4:
                 startActivity(new Intent(MainActivity.this, MyRadiiActivity.class));
+//                startActivity(new Intent(MainActivity.this, FriendInfoActivity.class));
                 break;
             case R.id.ll_part5:
                 startActivity(new Intent(MainActivity.this, HealthyLifeActivity.class));
@@ -88,7 +131,11 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 startActivity(new Intent(MainActivity.this, AnniversaryActivity.class));
                 break;
             case R.id.iv_main_logo:
-                startActivity(new Intent(MainActivity.this, PersonActivity.class));
+                Intent intent = new Intent(MainActivity.this, PersonActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("person",userInfoBean.getData());
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -133,5 +180,13 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
         if (null != data) {
             //todo 扫码获得信息后回调
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        finish();
+        Intent intent1 = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(intent1);
     }
 }

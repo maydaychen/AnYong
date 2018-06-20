@@ -3,6 +3,7 @@ package com.wshoto.user.anyong.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -10,9 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.Utils;
+import com.wshoto.user.anyong.http.HttpJsonMethod;
+import com.wshoto.user.anyong.http.ProgressSubscriber;
+import com.wshoto.user.anyong.http.SubscriberOnNextListener;
+import com.wshoto.user.anyong.ui.activity.ChangePassActivity;
 import com.wshoto.user.anyong.ui.activity.ConfirmSuccessActivity;
+import com.wshoto.user.anyong.ui.activity.LoginActivity;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,27 +43,21 @@ public class ConfirmStep2Fragment extends Fragment {
     EditText mEtStep1Number;
     @BindView(R.id.tv_get_ems)
     TextView mTvGetEms;
-    @BindView(R.id.et_step1_name)
+    @BindView(R.id.et_step2_name)
     EditText mEtStep1Name;
     Unbinder unbinder;
 
     private String mParam1;
     private String mParam2;
     private FragmentManager mFragmentManager;
-
+    private int recLen = 60;
+    private boolean flag = true;
+    private SubscriberOnNextListener<JSONObject> sendOnNext;
 
     public ConfirmStep2Fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ConfirmStep2Fragment.
-     */
     public static ConfirmStep2Fragment newInstance(String param1, String param2) {
         ConfirmStep2Fragment fragment = new ConfirmStep2Fragment();
         Bundle args = new Bundle();
@@ -70,6 +74,14 @@ public class ConfirmStep2Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        sendOnNext = resultBean -> {
+            if (resultBean.getInt("code") == 1) {
+                Toast.makeText(getContext(), "发送成功！", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), resultBean.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     @Override
@@ -92,12 +104,49 @@ public class ConfirmStep2Fragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_get_ems:
+                String tele = mEtStep1Number.getText().toString();
+                if (flag && Utils.isChinaPhoneLegal(tele)) {
+                    flag = false;
+                    mTvGetEms.setClickable(false);
+                    handler.post(runnable);
+
+                    HttpJsonMethod.getInstance().sendCode(
+                            new ProgressSubscriber(sendOnNext, getActivity()), tele ,"bind");
+                } else {
+                    Toast.makeText(getActivity(), "请填写手机号！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.tv_step1_next:
-                startActivity(new Intent(getActivity(), ConfirmSuccessActivity.class));
+                mFragmentManager = getActivity().getSupportFragmentManager();
+                //注意v4包的配套使用
+                Fragment fragment = ConfirmStep3Fragment.newInstance(mParam1, mParam2, mEtStep1Number.getText().toString(), mEtStep1Name.getText().toString());
+                mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
                 break;
             default:
                 break;
         }
+    }
+
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (recLen >= 1) {
+                recLen--;
+                mTvGetEms.setText(recLen + "");
+                handler.postDelayed(this, 1000);
+            } else {
+                flag = true;
+                recLen = 60;
+                mTvGetEms.setClickable(true);
+                mTvGetEms.setText("获取验证码");
+            }
+        }
+    };
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
     }
 }

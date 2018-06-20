@@ -48,7 +48,7 @@ viewKIND, either express or implied.
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_size_16dp"
-            android:text="打开手电"
+            android:text="@string/turn_on_flash"
             android:textColor="@color/white"/>
 
 

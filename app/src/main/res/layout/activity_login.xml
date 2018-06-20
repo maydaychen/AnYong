@@ -41,7 +41,6 @@
             android:drawablePadding="@dimen/margin_size_8dp"
             android:hint="@string/tv_login_username"
             android:inputType="textEmailAddress"
-            android:maxLength="11"
             android:padding="@dimen/margin_size_8dp"
             android:singleLine="true"
             android:textColor="@color/white"

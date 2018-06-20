@@ -13,25 +13,60 @@ import retrofit2.http.Query;
  * 邮箱：2091320109@qq.com
  */
 public interface BlueService {
-    @GET("/app/index.php?m=wshoto_shop_v3&i=5&do=mobile&c=entry&r=app.insurance.login&comefrom=wxapp&username=&password=")
-    rx.Observable<JSONObject> login(@Query("username") String username, @Query("password") String password);
-
-    @GET("/app/index.php?m=wshoto_shop_v3&i=5&do=mobile&c=entry&r=app.insurance.refresh&comefrom=wxapp&id=")
-    rx.Observable<JSONObject> userInfo(@Query("id") String id);
-
-    @GET("/app/index.php?m=wshoto_shop_v3&i=5&do=mobile&c=entry&r=app.insurance.couponlist&comefrom=wxapp")
-    rx.Observable<JSONObject> ticketList(@Query("id") String id);
-
-    @GET("/app/index.php?m=wshoto_shop_v3&i=5&do=mobile&c=entry&r=app.insurance.bindcoupon&comefrom=wxapp")
-    rx.Observable<JSONObject> applyTicket(@Query("uid") String uid, @Query("license_plate") String licensePlate,
-                                          @Query("card_detail") String cardDetail);
-
-    @POST("/app/index.php?m=wshoto_shop_v3&i=5&do=mobile&c=entry&r=app.insurance.insuranceOrders&comefrom=wxapp")
+    @POST("/index.php?r=api/account/login")
     @FormUrlEncoded
-    rx.Observable<JSONObject> orderList(@Field("store_id") String storeId);
+    rx.Observable<JSONObject> login(@Field("email") String email, @Field("password") String password);
 
-    @POST("/app/index.php?i=5&do=mobile&c=entry&r=app.insurance.updateInsuranceOrderStatus&comefrom=wxapp&m=wshoto_shop_v3")
+    @POST("/index.php?r=api/account/forget")
     @FormUrlEncoded
-    rx.Observable<JSONObject> changeOrder(@Field("store_id") String storeId, @Field("order_sn") String orderSn,
-                                          @Field("insurances_order") String insurances_order, @Field("status") String status, @Field("seller") String seller);
+    rx.Observable<JSONObject> forget(@Field("mobile") String mobile, @Field("Verification") String Verification,
+                                     @Field("password") String password, @Field("confirmpassword") String confirmpassword);
+
+    @POST("/index.php?r=api/account/sms")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> sendCode(@Field("mobile") String mobile,@Field(" play") String  play);
+
+    @POST("/index.php?r=api/account/register")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> userRisgist(@Field("job_no") String number, @Field("englishname") String name,
+                                          @Field("mobile") String mobile, @Field("verification") String verification,
+                                          @Field("password") String password, @Field("confirmpassword") String confirmpassword,
+                                          @Field("invitecode") String invitecode);
+
+    @POST("/index.php?r=api/user/user-info")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> userInfo(@Field("session") String session);
+
+    @POST("/index.php?r=api/user/integral")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> creditDetail(@Field("session") String session);
+
+    @GET("/index.php?r=api/user/message-notice")
+    rx.Observable<JSONObject> mesageList(@Query("session") String session);
+
+    @POST("/index.php?r=api/signin/index")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> locate(@Field("session") String session, @Field("lal") String lal);
+
+    @GET("/index.php?r=api/thank/thank-view")
+    rx.Observable<JSONObject> thankList(@Query("session") String session);
+
+    @GET("/index.php?r=api/thank/search")
+    rx.Observable<JSONObject> thankObjectList(@Query("session") String session, @Query("keywords") String keywords);
+
+    @GET("/index.php?r=api/user/radius")
+    rx.Observable<JSONObject> myRadiusList(@Query("session") String session);
+
+    @GET("/index.php?r=api/contact/friend-info")
+    rx.Observable<JSONObject> friendInfo(@Query("session") String session, @Query("id") String id);
+
+    @GET("/index.php?r=api/contact/new-friend")
+    rx.Observable<JSONObject> friendList(@Query("session") String session);
+
+    @GET("/index.php?r=api/contact/friend-info")
+    rx.Observable<JSONObject> newFriendOperate(@Query("session") String session, @Query("id") String id, @Query("play") String play);
+
+    @GET("/index.php?r=api/account/logout")
+    rx.Observable<JSONObject> logout(@Query("session") String session);
+
 }

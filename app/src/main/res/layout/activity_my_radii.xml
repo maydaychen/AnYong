@@ -21,14 +21,14 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/back"
             android:drawablePadding="@dimen/margin_size_8dp"
-            android:text="返回"
+            android:text="@string/back"
             android:textColor="@color/white" />
 
         <TextView
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的半径" />
+            android:text="@string/main4" />
     </RelativeLayout>
 
     <ScrollView
@@ -36,9 +36,9 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_my_radii_friend"
@@ -56,7 +56,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="好友"
+                    android:text="@string/friend"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -65,7 +65,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="积分"
+                    android:text="@string/credit"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -74,7 +74,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="安永排名"
+                    android:text="@string/credit_paiming"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -83,7 +83,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="赠送"
+                    android:text="@string/credit_give"
                     android:textColor="@color/white" />
             </LinearLayout>
 

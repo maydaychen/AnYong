@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
  */
 
 public class HttpJsonMethod {
-    public static final String BASE_URL = "https://ruixi.wshoto.com";
+    public static final String BASE_URL = "https://anyong.wshoto.com";
     private static final int DEFAULT_TIMEOUT = 5;
 
     private BlueService movieService;
@@ -67,8 +67,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void userInfo(Subscriber<JSONObject> subscriber, String userid) {
-        movieService.userInfo(userid)
+    public void userRisgist(Subscriber<JSONObject> subscriber, String number, String name, String mobile, String verification, String password, String confirmpassword, String invitecode) {
+        movieService.userRisgist(number , name, mobile, verification, password, confirmpassword, invitecode)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -76,8 +76,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void ticketList(Subscriber<JSONObject> subscriber) {
-        movieService.ticketList("1")
+    public void sendCode(Subscriber<JSONObject> subscriber, String mobile, String  play) {
+        movieService.sendCode(mobile, play)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -85,8 +85,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void applyTicket(Subscriber<JSONObject> subscriber, String uid, String license_plate, String card_detail) {
-        movieService.applyTicket(uid, license_plate, card_detail)
+    public void userInfo(Subscriber<JSONObject> subscriber, String session) {
+        movieService.userInfo(session)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -94,8 +94,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void orderList(Subscriber<JSONObject> subscriber, String storeId) {
-        movieService.orderList(storeId)
+    public void creditDetail(Subscriber<JSONObject> subscriber, String session) {
+        movieService.creditDetail(session)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -103,8 +103,81 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void changeOrder(Subscriber<JSONObject> subscriber, String storeId, String orderSn, String insurances_order, String seller) {
-        movieService.changeOrder(storeId, orderSn, insurances_order, "1", seller)
+    public void mesageList(Subscriber<JSONObject> subscriber, String session) {
+        movieService.mesageList(session)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    public void locate(Subscriber<JSONObject> subscriber, String session, String lal) {
+        movieService.locate(session, lal)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void thankList(Subscriber<JSONObject> subscriber, String session) {
+        movieService.thankList(session)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void thankObjectList(Subscriber<JSONObject> subscriber, String storeId, String keywords) {
+        movieService.thankObjectList(storeId, keywords)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void myRadiusList(Subscriber<JSONObject> subscriber, String session) {
+        movieService.myRadiusList(session)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void friendInfo(Subscriber<JSONObject> subscriber, String session, String id) {
+        movieService.friendInfo(session, id)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void friendList(Subscriber<JSONObject> subscriber, String session) {
+        movieService.friendList(session)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void newFriendOperate(Subscriber<JSONObject> subscriber, String session, String id, String play) {
+        movieService.newFriendOperate(session, id, play)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void logout(Subscriber<JSONObject> subscriber, String session) {
+        movieService.logout(session)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

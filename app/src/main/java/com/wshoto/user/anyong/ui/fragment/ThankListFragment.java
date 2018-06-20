@@ -7,8 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.SharedPreferencesUtils;
+import com.wshoto.user.anyong.http.HttpJsonMethod;
+import com.wshoto.user.anyong.http.ProgressSubscriber;
+import com.wshoto.user.anyong.http.SubscriberOnNextListener;
+import com.wshoto.user.anyong.ui.activity.MessageCenterActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +33,7 @@ public class ThankListFragment extends Fragment {
     @BindView(R.id.rv_thankyou)
     RecyclerView mRvThankyou;
     Unbinder unbinder;
+    private SubscriberOnNextListener<JSONObject> thankOnNext;
 
     public ThankListFragment() {
         // Required empty public constructor
@@ -39,7 +49,15 @@ public class ThankListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        thankOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                //todo 感谢信列表
+            } else {
+                Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+            }
+        };
+        HttpJsonMethod.getInstance().thankList(
+                new ProgressSubscriber(thankOnNext, getActivity()),(String) SharedPreferencesUtils.getParam(getActivity(), "session", ""));
     }
 
     @Override

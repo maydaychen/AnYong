@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -24,7 +25,14 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.SharedPreferencesUtils;
+import com.wshoto.user.anyong.http.HttpJsonMethod;
+import com.wshoto.user.anyong.http.ProgressSubscriber;
+import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +46,8 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
     private BaiduMap mBaiduMap;
     private LocationClient mLocationClient;
     private boolean ifFrist = true;
+    private String lal = "";
+    private SubscriberOnNextListener<JSONObject> locateOnNext;
     @BindView(R.id.mv_map)
     MapView mvMap;
     @BindView(R.id.tv_qiandao_location)
@@ -72,7 +82,17 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
 
     @Override
     public void initData() {
-
+        locateOnNext = new SubscriberOnNextListener<JSONObject>() {
+            @Override
+            public void onNext(JSONObject jsonObject) throws JSONException {
+                if (jsonObject.getInt("code") == 1) {
+                    //todo qiandao
+                    showPopupWindow(getApplicationContext());
+                } else {
+                    Toast.makeText(MapActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
 //        if (ifFrist) {
 //            LatLng ll = new LatLng(mLocationClient.getLastKnownLocation().getLatitude(),mLocationClient.getLastKnownLocation().getLongitude());
 //            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
@@ -138,6 +158,7 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
             LatLng ll = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
             MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
             mBaiduMap.animateMapStatus(u);
+            lal = ll.latitude + "," + ll.longitude;
         }
     }
 
@@ -154,7 +175,9 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
                 finish();
                 break;
             case R.id.iv_qiandao:
-                showPopupWindow(getApplicationContext());
+
+                HttpJsonMethod.getInstance().locate(
+                        new ProgressSubscriber(locateOnNext, MapActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""), lal);
                 break;
         }
     }

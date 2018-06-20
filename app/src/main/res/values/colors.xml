@@ -101,4 +101,6 @@
     <color name="order_e7">#e7e7e7</color>
     <color name="blue">#25afff</color>
     <color name="possible_result_points">#c0ffff00</color>
+    <color name="sub_background">#7f353535</color>
+    <color name="grey">#808080</color>
 </resources>

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_size_8dp"
-        android:text="签到成功"
+        android:text="@string/sign_success"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_18sp" />
 
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="这是您第"
+            android:text="@string/sign_1"
             android:textColor="@color/white" />
 
         <TextView
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="天签到"
+            android:text="@string/sign_2"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="超过了"
+            android:text="@string/over"
             android:textColor="@color/white" />
 
         <TextView
@@ -65,7 +65,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="的同事哦!!"
+            android:text="@string/over_2"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -79,7 +79,7 @@
         android:paddingLeft="@dimen/margin_size_30dp"
         android:paddingRight="@dimen/margin_size_30dp"
         android:paddingTop="@dimen/margin_size_8dp"
-        android:text="我知道了"
+        android:text="@string/get_it"
         android:textColor="#010101" />
 
 </LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/background"
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/iv_new_friend_logo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin_size_10dp"
+        android:src="@drawable/icon" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_new_friend_logo"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/new_firend_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_size_4dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_size_4dp"
+            android:text="请求添加好友"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_new_friend_status"
+        android:layout_width="80dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/yellow"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin_size_10dp"
+        android:padding="@dimen/margin_size_8dp"
+        android:text="已添加" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_size_10dp"
+        android:layout_marginRight="@dimen/margin_size_10dp"
+        android:background="@color/line_44" />
+</RelativeLayout>

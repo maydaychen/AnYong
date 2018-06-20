@@ -26,14 +26,14 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/back"
             android:drawablePadding="@dimen/margin_size_8dp"
-            android:text="返回"
+            android:text="@string/back"
             android:textColor="@color/white"/>
 
         <TextView
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="个人资料"/>
+            android:text="@string/person_info"/>
 
         <TextView
             android:id="@+id/tv_person_setting"
@@ -42,7 +42,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_8dp"
-            android:text="账号设置"
+            android:text="@string/setting"
             android:textColor="@color/white"/>
     </RelativeLayout>
 
@@ -56,14 +56,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.loopj.android.image.SmartImageView
+            android:id="@+id/iv_person_logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="90dp"
             android:src="@drawable/tx"/>
 
         <TextView
+            android:id="@+id/tv_person_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -88,11 +90,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="工号"
+                    android:text="@string/user_number"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_12sp"/>
 
                 <TextView
+                    android:id="@+id/tv_person_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
@@ -111,11 +114,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="部门"
+                    android:text="@string/user_locate"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_12sp"/>
 
                 <TextView
+                    android:id="@+id/tv_person_bumen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
@@ -134,11 +138,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="职位"
+                    android:text="@string/user_position"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_12sp"/>
 
                 <TextView
+                    android:id="@+id/tv_person_position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
@@ -161,10 +166,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
-            android:text="联系方式"
+            android:text="@string/telephone"
             android:textColor="@color/white"/>
 
         <TextView
+            android:id="@+id/tv_person_tele"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -197,10 +203,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
-            android:text="邮        箱"
+            android:text="@string/email"
             android:textColor="@color/white"/>
 
         <TextView
+            android:id="@+id/tv_person_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -232,10 +239,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
-            android:text="推  荐  码"
+            android:text="@string/recommend_number"
             android:textColor="@color/white"/>
 
         <TextView
+            android:id="@+id/tv_person_recommend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

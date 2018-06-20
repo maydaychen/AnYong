@@ -18,6 +18,7 @@
             android:id="@+id/btn_im_exp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="返回"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_size_20dp" />
