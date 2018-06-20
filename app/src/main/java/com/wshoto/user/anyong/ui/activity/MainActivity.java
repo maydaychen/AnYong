@@ -63,7 +63,8 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
     protected void onResume() {
         super.onResume();
         HttpJsonMethod.getInstance().userInfo(
-                new ProgressSubscriber(infoOnNext, MainActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                new ProgressSubscriber(infoOnNext, MainActivity.this),
+                (String) SharedPreferencesUtils.getParam(this, "session", ""));
     }
 
     @Override
@@ -112,7 +113,9 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 startActivity(new Intent(MainActivity.this, ThankYouActivity.class));
                 break;
             case R.id.ll_part3:
-                startActivity(new Intent(MainActivity.this, HonourActivity.class));
+                Intent honour = new Intent(MainActivity.this, HonourActivity.class);
+                honour.putExtra("id", userInfoBean.getData().getId());
+                startActivity(honour);
                 break;
             case R.id.ll_part4:
                 startActivity(new Intent(MainActivity.this, MyRadiiActivity.class));
@@ -125,15 +128,19 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 startActivity(new Intent(MainActivity.this, CalendarActivity.class));
                 break;
             case R.id.ll_part7:
-                startActivity(new Intent(MainActivity.this, BBSActivity.class));
+                Intent bbs = new Intent(MainActivity.this, BBSActivity.class);
+                bbs.putExtra("id", userInfoBean.getData().getId());
+                startActivity(bbs);
                 break;
             case R.id.ll_part8:
-                startActivity(new Intent(MainActivity.this, AnniversaryActivity.class));
+                Intent anni = new Intent(MainActivity.this, AnniversaryActivity.class);
+                anni.putExtra("id", userInfoBean.getData().getId());
+                startActivity(anni);
                 break;
             case R.id.iv_main_logo:
                 Intent intent = new Intent(MainActivity.this, PersonActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("person",userInfoBean.getData());
+                bundle.putSerializable("person", userInfoBean.getData());
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

@@ -24,7 +24,11 @@ public interface BlueService {
 
     @POST("/index.php?r=api/account/sms")
     @FormUrlEncoded
-    rx.Observable<JSONObject> sendCode(@Field("mobile") String mobile,@Field(" play") String  play);
+    rx.Observable<JSONObject> sendCode(@Field("mobile") String mobile, @Field(" play") String play);
+
+    @POST("/index.php?r=api/account/job-num")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> checknum(@Field("job_no") String job_no, @Field("first_nam") String  first_nam);
 
     @POST("/index.php?r=api/account/register")
     @FormUrlEncoded

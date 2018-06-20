@@ -10,6 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.http.HttpJsonMethod;
+import com.wshoto.user.anyong.http.ProgressSubscriber;
+import com.wshoto.user.anyong.http.SubscriberOnNextListener;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +30,7 @@ public class ConfirmStep1Fragment extends Fragment {
 
     private String mParam1;
     private FragmentManager mFragmentManager;
-
+    private SubscriberOnNextListener<JSONObject> checkOnNext;
     public ConfirmStep1Fragment() {
         // Required empty public constructor
     }
@@ -40,6 +45,16 @@ public class ConfirmStep1Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkOnNext = resultBean -> {
+            if (resultBean.getInt("code") == 1) {
+                mFragmentManager = getActivity().getSupportFragmentManager();
+                //注意v4包的配套使用
+                Fragment fragment = ConfirmStep2Fragment.newInstance(mEtStep1Number.getText().toString(), mEtStep1Name.getText().toString());
+                mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
+            } else {
+                Toast.makeText(getContext(), resultBean.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     @Override
@@ -62,10 +77,9 @@ public class ConfirmStep1Fragment extends Fragment {
         String num = mEtStep1Number.getText().toString();
         String name = mEtStep1Name.getText().toString();
         if (!num.equals("") && !name.equals("")) {
-            mFragmentManager = getActivity().getSupportFragmentManager();
-            //注意v4包的配套使用
-            Fragment fragment = ConfirmStep2Fragment.newInstance(mEtStep1Number.getText().toString(), mEtStep1Name.getText().toString());
-            mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
+            HttpJsonMethod.getInstance().checknum(
+                    new ProgressSubscriber(checkOnNext, getActivity()), num ,name);
+
         } else {
             Toast.makeText(getContext(), getText(R.string.step1_error), Toast.LENGTH_SHORT).show();
         }

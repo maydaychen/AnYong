@@ -68,7 +68,7 @@ public class HttpJsonMethod {
     }
 
     public void userRisgist(Subscriber<JSONObject> subscriber, String number, String name, String mobile, String verification, String password, String confirmpassword, String invitecode) {
-        movieService.userRisgist(number , name, mobile, verification, password, confirmpassword, invitecode)
+        movieService.userRisgist(number, name, mobile, verification, password, confirmpassword, invitecode)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -76,8 +76,17 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void sendCode(Subscriber<JSONObject> subscriber, String mobile, String  play) {
+    public void sendCode(Subscriber<JSONObject> subscriber, String mobile, String play) {
         movieService.sendCode(mobile, play)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void checknum(Subscriber<JSONObject> subscriber, String num, String name) {
+        movieService.checknum(num, name)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
