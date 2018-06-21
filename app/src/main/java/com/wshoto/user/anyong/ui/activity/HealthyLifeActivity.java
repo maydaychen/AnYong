@@ -6,16 +6,20 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.text.format.Time;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.wshoto.user.anyong.Bean.HealthyTaskBean;
 import com.wshoto.user.anyong.R;
-import com.wshoto.user.anyong.step.UpdateUiCallBack;
+import com.wshoto.user.anyong.http.HttpJsonMethod;
+import com.wshoto.user.anyong.http.ProgressSubscriber;
+import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.step.service.StepService;
-import com.wshoto.user.anyong.step.utils.SharedPreferencesUtils;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -33,6 +37,26 @@ public class HealthyLifeActivity extends InitActivity {
     TextView mTvOptionYanbao;
     @BindView(R.id.tv_option_jingzhui)
     TextView mTvOptionJingzhui;
+    private SubscriberOnNextListener<JSONObject> healthTaskOnNext;
+    private SubscriberOnNextListener<JSONObject> healthCommitOnNext;
+    private HealthyTaskBean mHealthyTaskBean;
+    private Gson mGson = new Gson();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        HttpJsonMethod.getInstance().healthTask(
+                new ProgressSubscriber(healthTaskOnNext, HealthyLifeActivity.this),
+                (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (isBind) {
+            this.unbindService(conn);
+        }
+    }
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -44,16 +68,43 @@ public class HealthyLifeActivity extends InitActivity {
     public void initData() {
         setupService();
 
+        healthTaskOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                mHealthyTaskBean = mGson.fromJson(jsonObject.toString(), HealthyTaskBean.class);
+                if (mHealthyTaskBean.getData().get(0).getIs_done() == 1) {
+                    mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_grey));
+                    mTvOptionYanbao.setText("已领取积分！");
+                    mTvOptionYanbao.setClickable(false);
+                }
+                if (mHealthyTaskBean.getData().get(1).getIs_done() == 1) {
+                    mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_grey));
+                    mTvOptionJingzhui.setText("已领取积分！");
+                    mTvOptionJingzhui.setClickable(false);
+                }
+            } else {
+                Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+            }
+        };
+        healthCommitOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                Toast.makeText(HealthyLifeActivity.this, "积分取得成功！", Toast.LENGTH_SHORT).show();
+                HttpJsonMethod.getInstance().healthTask(
+                        new ProgressSubscriber(healthTaskOnNext, HealthyLifeActivity.this),
+                        (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""));
+            } else {
+                Toast.makeText(HealthyLifeActivity.this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+            }
+        };
+
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         switch (hour) {
             case 10:
                 mTvOptionYanbao.setClickable(true);
                 mTvOptionYanbao.setOnClickListener(v -> {
-                    Toast.makeText(HealthyLifeActivity.this, "积分取得成功！", Toast.LENGTH_SHORT).show();
-                    mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_grey));
-                    mTvOptionYanbao.setText("已领取积分！");
-                    mTvOptionYanbao.setClickable(false);
+                    HttpJsonMethod.getInstance().healthCommit(
+                            new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
+                            (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""), "1");
                 });
                 mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
                 mTvOptionYanbao.setText("完成任务点我");
@@ -61,10 +112,9 @@ public class HealthyLifeActivity extends InitActivity {
             case 16:
                 mTvOptionJingzhui.setClickable(true);
                 mTvOptionJingzhui.setOnClickListener(v -> {
-                    Toast.makeText(HealthyLifeActivity.this, "积分取得成功！", Toast.LENGTH_SHORT).show();
-                    mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_grey));
-                    mTvOptionJingzhui.setText("已领取积分！");
-                    mTvOptionJingzhui.setClickable(false);
+                    HttpJsonMethod.getInstance().healthCommit(
+                            new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
+                            (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""), "2");
                 });
                 mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
                 mTvOptionJingzhui.setText("完成任务点我");
@@ -76,7 +126,6 @@ public class HealthyLifeActivity extends InitActivity {
     public void onViewClicked() {
         finish();
     }
-
 
     private boolean isBind = false;
 
@@ -122,11 +171,4 @@ public class HealthyLifeActivity extends InitActivity {
     };
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (isBind) {
-            this.unbindService(conn);
-        }
-    }
 }

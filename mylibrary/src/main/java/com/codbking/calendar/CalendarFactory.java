@@ -73,9 +73,9 @@ public class CalendarFactory {
 
         CalendarBean bean = new CalendarBean(year, month, day);
         bean.week = CalendarUtil.getDayOfWeek(year, month, day);
-        String[] chinaDate = ChinaDate.getChinaDate(year, month, day);
-        bean.chinaMonth = chinaDate[0];
-        bean.chinaDay = chinaDate[1];
+//        String[] chinaDate = ChinaDate.getChinaDate(year, month, day);
+//        bean.chinaMonth = chinaDate[0];
+//        bean.chinaDay = chinaDate[1];
 
         return bean;
     }

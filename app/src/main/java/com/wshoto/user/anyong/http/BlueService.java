@@ -19,16 +19,15 @@ public interface BlueService {
 
     @POST("/index.php?r=api/account/forget")
     @FormUrlEncoded
-    rx.Observable<JSONObject> forget(@Field("mobile") String mobile, @Field("Verification") String Verification,
+    rx.Observable<JSONObject> forget(@Field("mobile") String mobile, @Field("verification") String Verification, @Field("play") String play,
                                      @Field("password") String password, @Field("confirmpassword") String confirmpassword);
 
     @POST("/index.php?r=api/account/sms")
     @FormUrlEncoded
     rx.Observable<JSONObject> sendCode(@Field("mobile") String mobile, @Field(" play") String play);
 
-    @POST("/index.php?r=api/account/job-num")
-    @FormUrlEncoded
-    rx.Observable<JSONObject> checknum(@Field("job_no") String job_no, @Field("first_nam") String  first_nam);
+    @GET("/index.php?r=api/account/job-num")
+    rx.Observable<JSONObject> checknum(@Query("job_no") String job_no, @Query("first_name") String first_nam);
 
     @POST("/index.php?r=api/account/register")
     @FormUrlEncoded
@@ -45,18 +44,43 @@ public interface BlueService {
     @FormUrlEncoded
     rx.Observable<JSONObject> creditDetail(@Field("session") String session);
 
-    @GET("/index.php?r=api/user/message-notice")
-    rx.Observable<JSONObject> mesageList(@Query("session") String session);
+    @POST("/index.php?r=api/user/message")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> mesageList(@Field("session") String session);
 
     @POST("/index.php?r=api/signin/index")
     @FormUrlEncoded
     rx.Observable<JSONObject> locate(@Field("session") String session, @Field("place") String lal);
 
-    @GET("/index.php?r=api/thank/thank-view")
-    rx.Observable<JSONObject> thankList(@Query("session") String session);
+    @POST("/index.php?r=api/healthy-live/task-list")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> healthTask(@Field("session") String session);
 
-    @GET("/index.php?r=api/thank/search")
-    rx.Observable<JSONObject> thankObjectList(@Query("session") String session, @Query("keywords") String keywords);
+    @POST("/index.php?r=api/healthy-live/finish-task")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> healthCommit(@Field("session") String session, @Field("health_id") String health_id);
+
+    @POST("/index.php?r=api/thank/thank-view")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> thankList(@Field("session") String session);
+
+    @POST("/index.php?r=api/thank/search")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> thankObjectList(@Field("session") String session, @Field("keywords") String keywords);
+
+    @POST("/index.php?r=api/thank/send-thank")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> sendThank(@Field("receive") String receive, @Field("themeid") String themeid,
+                                        @Field("picture") String picture, @Field("session") String session,
+                                        @Field("content") String content);
+
+    @POST("/index.php?r=api/template/template-list")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> thankTheme(@Field("session") String session);
+
+    @POST("/index.php?r=api/activity/activity-list")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> calendar(@Field("session") String session);
 
     @GET("/index.php?r=api/user/radius")
     rx.Observable<JSONObject> myRadiusList(@Query("session") String session);

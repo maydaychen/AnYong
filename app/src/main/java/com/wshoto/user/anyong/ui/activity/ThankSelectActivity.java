@@ -1,14 +1,21 @@
 package com.wshoto.user.anyong.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jakewharton.rxbinding.widget.RxTextView;
+import com.wshoto.user.anyong.Bean.MessageCenterBean;
+import com.wshoto.user.anyong.Bean.ThankUserBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
+import com.wshoto.user.anyong.adapter.MessageCenterAdapter;
+import com.wshoto.user.anyong.adapter.ThankUserAdapter;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
@@ -19,6 +26,7 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.functions.Action1;
 
 public class ThankSelectActivity extends InitActivity {
 
@@ -27,7 +35,8 @@ public class ThankSelectActivity extends InitActivity {
     @BindView(R.id.et_thank_select)
     EditText mEtThankSelect;
     private SubscriberOnNextListener<JSONObject> searchOnNext;
-
+    private ThankUserBean mThankUserBean;
+    private Gson mGson = new Gson();
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -40,15 +49,25 @@ public class ThankSelectActivity extends InitActivity {
     public void initData() {
         searchOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-                //todo 好友搜索
-            } else {
-                Toast.makeText(ThankSelectActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                mThankUserBean = mGson.fromJson(jsonObject.toString(), ThankUserBean.class);
+                mRvThankSelect.setLayoutManager(new LinearLayoutManager(this));
+                ThankUserAdapter messageCenterAdapter = new ThankUserAdapter(getApplicationContext(), mThankUserBean.getData());
+                mRvThankSelect.setAdapter(messageCenterAdapter);
+                messageCenterAdapter.setOnItemClickListener((view, data) -> {
+                            Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("user", mThankUserBean.getData().get(data));
+                            intent.putExtras(bundle);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                );
             }
         };
-        RxTextView.textChanges(mEtThankSelect).subscribe(charSequence -> HttpJsonMethod.getInstance().thankObjectList(
-                new ProgressSubscriber(searchOnNext, ThankSelectActivity.this),
+        RxTextView.textChanges(mEtThankSelect).subscribe(charSequence -> HttpJsonMethod.getInstance().thankObjectList(new ProgressSubscriber(searchOnNext, ThankSelectActivity.this),
                 (String) SharedPreferencesUtils.getParam(ThankSelectActivity.this, "session", ""),
                 charSequence.toString()));
+
     }
 
     @OnClick({R.id.tv_select_back, R.id.iv_select_clear})

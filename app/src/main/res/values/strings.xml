@@ -107,7 +107,8 @@
     <string name="give_credit">赠予积分</string>
     <string name="accept_friend">同意添加</string>
     <string name="refuse_friend">忽略添加</string>
-    <string name="percent">%1$s%</string>
+    <string name="percent">%1$s %</string>
+    <string name="permition">此应用需要获取相机及相册权限</string>
 
 
 </resources>

@@ -67,6 +67,15 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
+    public void forget(Subscriber<JSONObject> subscriber, String mobile, String verification, String password, String confirmpassword) {
+        movieService.forget(mobile, verification, "fix", password, confirmpassword)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
     public void userRisgist(Subscriber<JSONObject> subscriber, String number, String name, String mobile, String verification, String password, String confirmpassword, String invitecode) {
         movieService.userRisgist(number, name, mobile, verification, password, confirmpassword, invitecode)
 //                .map(new HttpResultFunc<>())
@@ -131,6 +140,24 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
+    public void healthTask(Subscriber<JSONObject> subscriber, String session) {
+        movieService.healthTask(session)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void healthCommit(Subscriber<JSONObject> subscriber, String session, String health_id) {
+        movieService.healthCommit(session, health_id)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
     public void thankList(Subscriber<JSONObject> subscriber, String session) {
         movieService.thankList(session)
 //                .map(new HttpResultFunc<>())
@@ -149,7 +176,33 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void myRadiusList(Subscriber<JSONObject> subscriber, String session) {
+    public void sendThank(Subscriber<JSONObject> subscriber, String receive,String themeid,String picture, String session, String content) {
+        movieService.sendThank(receive, themeid, picture, session, content)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void thankTheme(Subscriber<JSONObject> subscriber, String session) {
+        movieService.thankTheme(session)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void calendar(Subscriber<JSONObject> subscriber, String session) {
+        movieService.calendar(session)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+   public void myRadiusList(Subscriber<JSONObject> subscriber, String session) {
         movieService.myRadiusList(session)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())

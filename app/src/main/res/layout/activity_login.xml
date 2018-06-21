@@ -70,7 +70,7 @@
             android:drawableLeft="@drawable/pass"
             android:drawablePadding="@dimen/margin_size_8dp"
             android:hint="@string/tv_login_pass"
-            android:inputType="number"
+            android:inputType="numberPassword"
             android:maxLength="6"
             android:padding="8dp"
             android:singleLine="true"

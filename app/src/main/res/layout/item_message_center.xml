@@ -1,54 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    android:background="@color/background">
 
-    <ImageView
-        android:src="@drawable/icon"
-        android:layout_centerVertical="true"
+    <com.loopj.android.image.SmartImageView
         android:id="@+id/iv_message_logo"
-        android:layout_margin="@dimen/margin_size_10dp"
         android:layout_width="48dp"
-        android:layout_height="48dp" />
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin_size_10dp"
+        android:src="@drawable/hzltx" />
 
     <RelativeLayout
-        android:id="@+id/rl_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/iv_message_logo"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_message_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/yellow"
-            android:textSize="@dimen/font_size_16sp" />
-
-        <TextView
-            android:id="@+id/tv_message_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/margin_size_8dp"
-            android:textColor="@color/orange"
-            android:textSize="@dimen/font_size_12sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/tv_message_time"
-            android:src="@drawable/icon" />
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_message_sub_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_message"
-        android:layout_toRightOf="@id/iv_message_logo" />
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_message_logo">
+
+        <RelativeLayout
+            android:id="@+id/rl_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_message_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_size_8dp"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <TextView
+                android:id="@+id/tv_message_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/margin_size_8dp"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/font_size_12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/tv_message_time"
+                android:padding="@dimen/margin_size_8dp"
+                android:src="@drawable/icon" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_message_sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_message"
+            android:padding="@dimen/margin_size_8dp"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
 
     <View
         android:layout_width="match_parent"

@@ -1,11 +1,15 @@
 package com.wshoto.user.anyong.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.wshoto.user.anyong.Bean.MessageCenterBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
+import com.wshoto.user.anyong.adapter.MessageCenterAdapter;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
@@ -23,6 +27,8 @@ public class MessageCenterActivity extends InitActivity {
     RecyclerView rvPoints;
 
     private SubscriberOnNextListener<JSONObject> messageOnNext;
+    private MessageCenterBean mMessageBean;
+    private Gson mGson = new Gson();
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -35,14 +41,17 @@ public class MessageCenterActivity extends InitActivity {
     public void initData() {
         messageOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-                //todo 消息中心
+                mMessageBean = mGson.fromJson(jsonObject.toString(), MessageCenterBean.class);
+                rvPoints.setLayoutManager(new LinearLayoutManager(this));
+                MessageCenterAdapter messageCenterAdapter = new MessageCenterAdapter(getApplicationContext(), mMessageBean.getMessage().getData());
+                rvPoints.setAdapter(messageCenterAdapter);
             } else {
                 Toast.makeText(MessageCenterActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
             }
         };
 
         HttpJsonMethod.getInstance().mesageList(
-                new ProgressSubscriber(messageOnNext, MessageCenterActivity.this),(String) SharedPreferencesUtils.getParam(this, "session", ""));
+                new ProgressSubscriber(messageOnNext, MessageCenterActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""));
     }
 
     @OnClick(R.id.iv_comfirm_back)

@@ -76,8 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_main_point"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/tx"/>
+                    android:layout_centerHorizontal="true"/>
 
                 <TextView
                     android:id="@+id/tv_main_name"
@@ -86,7 +85,6 @@
                     android:layout_below="@id/iv_main_logo"
                     android:layout_centerHorizontal="true"
                     android:padding="@dimen/margin_size_8dp"
-                    android:text="NICE"
                     android:textColor="@color/yellow"
                     android:textSize="18sp"/>
 
@@ -107,7 +105,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/margin_size_20dp"
                         android:padding="@dimen/margin_size_8dp"
-                        android:text="88"
                         android:textColor="@color/white"/>
 
                     <ImageView
@@ -121,7 +118,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/margin_size_8dp"
-                        android:text="得到"
                         android:textColor="@color/white"/>
                 </LinearLayout>
             </RelativeLayout>
