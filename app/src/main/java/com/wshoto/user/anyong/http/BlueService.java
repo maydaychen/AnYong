@@ -82,6 +82,26 @@ public interface BlueService {
     @FormUrlEncoded
     rx.Observable<JSONObject> calendar(@Field("session") String session);
 
+    @POST("/index.php?r=api/activity/activity-join")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> myCalendar(@Field("session") String session);
+
+    @POST("/index.php?r=api/activity/activity-time")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> timeCalendar(@Field("session") String session, @Field("time") String time);
+
+    @POST("/index.php?r=api/activity/activity-info")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> activityInfo(@Field("session") String session, @Field("id") String id);
+
+    @POST("/index.php?r=api/activity/join-activity")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> joinActivity(@Field("session") String session, @Field("id") String id);
+
+    @POST("/index.php?r=api/upload/img-upload")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> uploadImg(@Field("file") String file);
+
     @GET("/index.php?r=api/user/radius")
     rx.Observable<JSONObject> myRadiusList(@Query("session") String session);
 

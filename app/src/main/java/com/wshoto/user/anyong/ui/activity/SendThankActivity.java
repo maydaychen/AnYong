@@ -2,6 +2,7 @@ package com.wshoto.user.anyong.ui.activity;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -42,7 +43,9 @@ import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.Utils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
+import com.wshoto.user.anyong.http.ProgressErrorSubscriber;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
+import com.wshoto.user.anyong.http.SubscriberOnNextAndErrorListener;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
@@ -75,12 +78,15 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
     private static final int RC_LOCATION_CONTACTS_PERM = 124;
     final public static int REQUEST_WRITE = 222;
     private SubscriberOnNextListener<JSONObject> sendOnNext;
+    private SubscriberOnNextAndErrorListener<JSONObject> uploadOnNext;
     private ThankThemeBean mThankThemeBean;
+    private ProgressDialog updateDialog = null;
     private Gson mGson = new Gson();
     private Bitmap bmp;
     private File picFile;
     private String userid = "";
     private String themeid = "";
+    private String url = "";
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -94,9 +100,9 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
         SubscriberOnNextListener<JSONObject> themeOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 List<String> list = new ArrayList();
-                list.add("选择固定模板");
+                list.add(getText(R.string.temp_choose).toString());
                 mThankThemeBean = mGson.fromJson(jsonObject.toString(), ThankThemeBean.class);
-                for (ThankThemeBean.MessageBean.DataBean dataBean : mThankThemeBean.getMessage().getData()) {
+                for (ThankThemeBean.DataBean dataBean : mThankThemeBean.getData()) {
                     list.add(dataBean.getId());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
@@ -112,7 +118,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                         tv.setTextSize(14.0f);    //设置大小
                         tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);   //设置居中
                         if (position != 0) {
-                            themeid = mThankThemeBean.getMessage().getData().get(position - 1).getId();
+                            themeid = mThankThemeBean.getData().get(position - 1).getId();
                         }
                     }
 
@@ -120,6 +126,32 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
+            }
+        };
+        uploadOnNext = new SubscriberOnNextAndErrorListener<JSONObject>() {
+            @Override
+            public void onNext(JSONObject jsonObject) throws JSONException {
+                if (updateDialog != null) {
+                    updateDialog.dismiss();
+                    updateDialog = null;
+                }
+                if (jsonObject.getInt("code") == 1) {
+                    Toast.makeText(SendThankActivity.this, getText(R.string.upload_success), Toast.LENGTH_SHORT).show();
+                    url = jsonObject.getString("data");
+                }
+                deletePic();
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (updateDialog != null) {
+                    updateDialog.dismiss();
+                }
+                Toast.makeText(SendThankActivity.this, getText(R.string.upload_fail), Toast.LENGTH_SHORT).show();
+                Log.d("wjj", "err");
+                deletePic();
+                e.printStackTrace();
             }
         };
         sendOnNext = jsonObject -> {
@@ -268,6 +300,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                             bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
                                     bmp.getHeight(), matrix, true);
                             mIvThankUpload.setImageBitmap(bmp);
+                            upDataHeadImg();
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -285,11 +318,13 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                         bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
                                 bmp.getHeight(), matrix, true);
                         mIvThankUpload.setImageBitmap(bmp);
+                        upDataHeadImg();
                     }
                     break;
                 case 99:
                     ThankUserBean.DataBean addressBean = (ThankUserBean.DataBean) data.getSerializableExtra("user");
                     mTvThankSelect.setText(addressBean.getEnglish_name());
+                    userid = addressBean.getId();
                 default:
                     break;
             }
@@ -347,7 +382,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
         String sdStatus = Environment.getExternalStorageState();
         // 检测sd是否可用
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
-            Toast.makeText(SendThankActivity.this, "请检查SD卡是否可用", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SendThankActivity.this, getText(R.string.check_sd), Toast.LENGTH_SHORT).show();
             return;
         }
         File file = new File(Environment.getExternalStorageDirectory().toString());
@@ -366,14 +401,23 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
     }
 
     private void sendThank() {
-        if (userid.equals("") || themeid.equals("") || bmp == null|| mEtThankContent.getText().toString().equals("")) {
-            Toast.makeText(this, "请将信息填写完整！", Toast.LENGTH_SHORT).show();
+        if (userid.equals("") || themeid.equals("") || bmp == null || mEtThankContent.getText().toString().equals("")) {
+            Toast.makeText(this, getText(R.string.text_error), Toast.LENGTH_SHORT).show();
             return;
         }
-        List<String> list = new ArrayList<>();
-        list.add(Utils.bitmaptoString(bmp));
         HttpJsonMethod.getInstance().sendThank(
-                new ProgressSubscriber(sendOnNext, SendThankActivity.this), userid, themeid, list.toString(),
+                new ProgressSubscriber(sendOnNext, SendThankActivity.this), userid, themeid, url,
                 (String) SharedPreferencesUtils.getParam(this, "session", ""), mEtThankContent.getText().toString());
+    }
+
+    /**
+     * 上传用户头像
+     */
+    private void upDataHeadImg() {
+        if (updateDialog == null) {
+            updateDialog = ProgressDialog.show(SendThankActivity.this, getText(R.string.update_img), getText(R.string.update_img_ing), true, false);
+        }
+        HttpJsonMethod.getInstance().uploadImg(
+                new ProgressErrorSubscriber<>(uploadOnNext, SendThankActivity.this), Utils.bitmaptoString(bmp));
     }
 }

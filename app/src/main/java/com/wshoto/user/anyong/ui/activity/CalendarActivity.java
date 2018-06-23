@@ -47,6 +47,7 @@ public class CalendarActivity extends InitActivity {
     private SubscriberOnNextListener<JSONObject> infoOnNext;
     private CalendarEventBean mCalendarEventBean;
     private Gson mGson = new Gson();
+
     @Override
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_calendar);
@@ -72,12 +73,7 @@ public class CalendarActivity extends InitActivity {
             chinaText.setText(bean.chinaDay);
             return convertView;
         });
-//        mCalendarDateView.setAdapter(new CaledarAdapter() {
-//            @Override
-//            public View getView(View convertView, ViewGroup parentView, CalendarBean bean) {
-//                return null;
-//            }
-//        });
+
         mCalendarDateView.setOnItemClickListener((view, postion, bean) -> mTitle.setText(bean.year + "/" + bean.moth + "/" + bean.day));
         int[] data = CalendarUtil.getYMD(new Date());
         mTitle.setText(data[0] + "/" + data[1] + "/" + data[2]);
@@ -95,37 +91,14 @@ public class CalendarActivity extends InitActivity {
 
     @Override
     public void initData() {
-//        infoOnNext = jsonObject -> {
-//            if (jsonObject.getInt("code") == 1) {
-//                mCalendarEventBean = mGson.fromJson(jsonObject.toString(), CalendarEventBean.class);
-//
-//                mCalendarDateView.setAdapter((convertView, parentView, bean) -> {
-//                    if (convertView == null) {
-//                        convertView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.item_xiaomi, null);
-//                    }
-//                    TextView chinaText = convertView.findViewById(R.id.chinaText);
-//                    TextView text = convertView.findViewById(R.id.text);
-//                    text.setText("" + bean.day);
-//                    Toast.makeText(this, bean.toString(), Toast.LENGTH_SHORT).show();
-//                    Log.i("chenyi", "initData: "+bean.toString());
-//                    if (bean.toString().equals(mCalendarEventBean.getData().get(0).getTime())) {
-//
-//                    }
-//                    if (bean.mothFlag != 0) {
-//                        text.setTextColor(0xff808080);
-//                        chinaText.setTextColor(0xff808080);
-//                    } else {
-//                        text.setTextColor(0xffffffff);
-//                        chinaText.setTextColor(0xffffffff);
-//                    }
-//                    chinaText.setText(bean.chinaDay);
-//                    return convertView;
-//                });
-//
-//            } else {
-//                Toast.makeText(CalendarActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-//            }
-//        };
+        infoOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                mCalendarEventBean = mGson.fromJson(jsonObject.toString(), CalendarEventBean.class);
+
+            } else {
+                Toast.makeText(CalendarActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
 

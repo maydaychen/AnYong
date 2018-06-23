@@ -111,4 +111,14 @@
     <string name="permition">此应用需要获取相机及相册权限</string>
 
 
+    <string name="temp_choose">选择固定模板</string>
+
+    <string name="text_error">请将信息填写完整！</string>
+    <string name="update_img">上传图片！</string>
+    <string name="update_img_ing">图片正在上传中，请稍等...</string>
+    <string name="check_sd">请检查SD卡是否可用</string>
+    <string name="upload_fail">上传失败，请稍后再试</string>
+    <string name="upload_success">上传成功!</string>
+
+
 </resources>

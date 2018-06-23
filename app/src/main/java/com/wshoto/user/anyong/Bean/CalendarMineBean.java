@@ -2,11 +2,11 @@ package com.wshoto.user.anyong.Bean;
 
 import java.util.List;
 
-public class ThankThemeBean {
+public class CalendarMineBean {
     /**
      * code : 1
      * message : {"status":"success"}
-     * data : [{"id":"1","template_name":"测试","template_path":"http://www.baidu.com","created":"1970-01-01 08:00:00","is_available":"1"},{"id":"2","template_name":"测试","template_path":"http://www.baidu.com","created":"1970-01-01 08:00:00","is_available":"1"},{"id":"3","template_name":"测试","template_path":"http://www.baidu.com","created":"1970-01-01 08:00:00","is_available":"1"}]
+     * data : [{"id":"3","activity_id":"3","uid":"5","created":"1970-01-01 08:00:00","title":"测试","start_time":"2018-06-21 10:51:12"}]
      */
 
     private int code;
@@ -55,18 +55,20 @@ public class ThankThemeBean {
 
     public static class DataBean {
         /**
-         * id : 1
-         * template_name : 测试
-         * template_path : http://www.baidu.com
+         * id : 3
+         * activity_id : 3
+         * uid : 5
          * created : 1970-01-01 08:00:00
-         * is_available : 1
+         * title : 测试
+         * start_time : 2018-06-21 10:51:12
          */
 
         private String id;
-        private String template_name;
-        private String template_path;
+        private String activity_id;
+        private String uid;
         private String created;
-        private String is_available;
+        private String title;
+        private String start_time;
 
         public String getId() {
             return id;
@@ -76,20 +78,20 @@ public class ThankThemeBean {
             this.id = id;
         }
 
-        public String getTemplate_name() {
-            return template_name;
+        public String getActivity_id() {
+            return activity_id;
         }
 
-        public void setTemplate_name(String template_name) {
-            this.template_name = template_name;
+        public void setActivity_id(String activity_id) {
+            this.activity_id = activity_id;
         }
 
-        public String getTemplate_path() {
-            return template_path;
+        public String getUid() {
+            return uid;
         }
 
-        public void setTemplate_path(String template_path) {
-            this.template_path = template_path;
+        public void setUid(String uid) {
+            this.uid = uid;
         }
 
         public String getCreated() {
@@ -100,12 +102,20 @@ public class ThankThemeBean {
             this.created = created;
         }
 
-        public String getIs_available() {
-            return is_available;
+        public String getTitle() {
+            return title;
         }
 
-        public void setIs_available(String is_available) {
-            this.is_available = is_available;
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getStart_time() {
+            return start_time;
+        }
+
+        public void setStart_time(String start_time) {
+            this.start_time = start_time;
         }
     }
 }

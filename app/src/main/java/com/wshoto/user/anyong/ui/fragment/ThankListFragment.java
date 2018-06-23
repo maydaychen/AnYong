@@ -61,7 +61,7 @@ public class ThankListFragment extends Fragment {
             if (jsonObject.getInt("code") == 1) {
                 mThankBean = mGson.fromJson(jsonObject.toString(), ThankBean.class);
                 mRvThankyou.setLayoutManager(new LinearLayoutManager(getActivity()));
-                ThankUListAdapter messageCenterAdapter = new ThankUListAdapter(getActivity(), mThankBean.getMessage().getData());
+                ThankUListAdapter messageCenterAdapter = new ThankUListAdapter(getActivity(), mThankBean.getData());
                 mRvThankyou.setAdapter(messageCenterAdapter);
             } else {
                 Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

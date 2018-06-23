@@ -125,7 +125,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 startActivity(new Intent(MainActivity.this, HealthyLifeActivity.class));
                 break;
             case R.id.ll_part6:
-                startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+                startActivity(new Intent(MainActivity.this, DeleteActivity.class));
                 break;
             case R.id.ll_part7:
                 Intent bbs = new Intent(MainActivity.this, BBSActivity.class);

@@ -1,1 +1,1 @@
-include ':app', ':todaystepcounterlib', ':mylibrary'
+include ':app', ':todaystepcounterlib', ':mylibrary', 'calendar'

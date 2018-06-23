@@ -176,7 +176,7 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void sendThank(Subscriber<JSONObject> subscriber, String receive,String themeid,String picture, String session, String content) {
+    public void sendThank(Subscriber<JSONObject> subscriber, String receive, String themeid, String picture, String session, String content) {
         movieService.sendThank(receive, themeid, picture, session, content)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
@@ -202,7 +202,53 @@ public class HttpJsonMethod {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
-   public void myRadiusList(Subscriber<JSONObject> subscriber, String session) {
+
+    public void myCalendar(Subscriber<JSONObject> subscriber, String session) {
+        movieService.myCalendar(session)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void timeCalendar(Subscriber<JSONObject> subscriber, String session, String time) {
+        movieService.timeCalendar(session, time)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void activityInfo(Subscriber<JSONObject> subscriber, String session, String id) {
+        movieService.activityInfo(session, id)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void joinActivity(Subscriber<JSONObject> subscriber, String session, String id) {
+        movieService.joinActivity(session, id)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void uploadImg(Subscriber<JSONObject> subscriber, String file) {
+        movieService.uploadImg(file)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void myRadiusList(Subscriber<JSONObject> subscriber, String session) {
         movieService.myRadiusList(session)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
