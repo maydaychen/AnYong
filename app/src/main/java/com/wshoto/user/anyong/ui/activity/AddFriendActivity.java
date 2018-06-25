@@ -1,8 +1,10 @@
 package com.wshoto.user.anyong.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.loopj.android.image.SmartImageView;
@@ -20,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FriendInfoActivity extends InitActivity {
+public class AddFriendActivity extends InitActivity {
 
     @BindView(R.id.iv_new_friend_logo)
     SmartImageView ivNewFriendLogo;
@@ -41,14 +43,14 @@ public class FriendInfoActivity extends InitActivity {
     @BindView(R.id.tv_person_anyong_rank)
     TextView tvPersonAnyongRank;
     private SubscriberOnNextListener<JSONObject> friendInfoOnNext;
+    private SubscriberOnNextListener<JSONObject> addFriendOnNext;
     private FriendInfoBean friendInfoBean;
     private Gson mGson = new Gson();
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_friend_info);
+        setContentView(R.layout.activity_add_friend);
         ButterKnife.bind(this);
-
     }
 
     @Override
@@ -68,8 +70,16 @@ public class FriendInfoActivity extends InitActivity {
                 tvPersonAnyongRank.setText(dataBean.getLevel() + "");
             }
         };
+        addFriendOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                Toast.makeText(AddFriendActivity.this, "操作成功！", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(AddFriendActivity.this, MyRadiiActivity.class));
+            } else {
+                Toast.makeText(AddFriendActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+            }
+        };
         HttpJsonMethod.getInstance().friendInfo(
-                new ProgressSubscriber(friendInfoOnNext, FriendInfoActivity.this),
+                new ProgressSubscriber(friendInfoOnNext, AddFriendActivity.this),
                 (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("friend_id"));
 
     }
@@ -82,7 +92,9 @@ public class FriendInfoActivity extends InitActivity {
                 finish();
                 break;
             case R.id.tv_give_credit:
-
+                HttpJsonMethod.getInstance().addFriend(
+                        new ProgressSubscriber(addFriendOnNext, AddFriendActivity.this),
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("friend_id"));
                 break;
         }
     }

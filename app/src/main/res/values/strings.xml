@@ -5,7 +5,7 @@
     <string name="rationale_camera">此应用需要摄像头权限</string>
 
     <string name="login">登录</string>
-    <string name="tv_login_first">首次登陆？</string>
+    <string name="tv_login_first">首次登录？</string>
     <string name="tv_login_forget">忘记密码？</string>
     <string name="tv_login_username">邮箱账号</string>
     <string name="tv_login_pass">请输入密码</string>
@@ -56,6 +56,7 @@
     <string name="person_info">个人资料</string>
     <string name="setting">账号设置</string>
     <string name="user_number">工号</string>
+    <string name="user_number1">(%1$s)</string>
     <string name="user_position">职位</string>
     <string name="user_locate">部门</string>
     <string name="telephone">联系方式</string>
@@ -68,6 +69,7 @@
     <string name="image_upload">上传图片：</string>
     <string name="send_content">发送内容：</string>
     <string name="preview">浏览</string>
+    <string name="send">发送</string>
     <string name="search_list">搜索列表</string>
     <string name="cancel">取消</string>
     <string name="turn_on_flash">打开手电</string>
@@ -89,6 +91,8 @@
     <string name="sign_1">这是您第</string>
     <string name="sign_2">天签到</string>
     <string name="auto">自动</string>
+    <string name="camera">相机</string>
+    <string name="percent">%1$s %</string>
 
     <string name="wa">哇</string>
     <string name="good">很棒</string>
@@ -103,11 +107,12 @@
 
 
     <string name="new_friend_info_title">新好友资料</string>
+    <string name="new_friend_apply">请求添加好友</string>
+    <string name="new_friend_apply_success">已添加</string>
     <string name="friend_rank">好友排名</string>
     <string name="give_credit">赠予积分</string>
     <string name="accept_friend">同意添加</string>
     <string name="refuse_friend">忽略添加</string>
-    <string name="percent">%1$s %</string>
     <string name="permition">此应用需要获取相机及相册权限</string>
 
 
@@ -119,6 +124,10 @@
     <string name="check_sd">请检查SD卡是否可用</string>
     <string name="upload_fail">上传失败，请稍后再试</string>
     <string name="upload_success">上传成功!</string>
-
+    <string name="save">保存</string>
+    <string name="language_setting">语言设置</string>
+    <string name="pic">图库</string>
+    <string name="send_sussess">发送成功!</string>
+    <string name="check">查看</string>
 
 </resources>

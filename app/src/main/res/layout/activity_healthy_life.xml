@@ -31,201 +31,205 @@
             android:text="@string/healthy_life" />
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/healthy"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp">
+            android:layout_height="match_parent"
+            android:background="@drawable/healthy"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/h" />
+                android:layout_marginTop="40dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/step_today"
+                    android:layout_gravity="center"
+                    android:background="@drawable/h" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/step_today"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_healthy_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/margin_size_10dp"
+                        android:text="0"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/font_size_20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_20dp"
+                        android:text="@string/step_hint"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_10sp" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_healthy_gather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/boder_healthy_666"
+                android:paddingBottom="@dimen/margin_size_8dp"
+                android:paddingLeft="@dimen/margin_size_20dp"
+                android:paddingRight="@dimen/margin_size_20dp"
+                android:paddingTop="@dimen/margin_size_8dp"
+                android:text="@string/come_on"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:padding="@dimen/margin_size_8dp"
+                android:text="@string/healthy_task_daily"
+                android:textColor="@color/white" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_10dp"
+                android:padding="@dimen/margin_size_8dp">
+
+                <TextView
+                    android:id="@+id/tv_yanbaojaincao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:text="@string/task1"
+                    android:textColor="@color/font_colour_99" />
+
+                <TextView
+                    android:id="@+id/tv_option_yanbao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/boder_healthy_grey"
+                    android:clickable="false"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:text="@string/task_time_not_reach"
                     android:textColor="@color/white" />
 
-                <TextView
-                    android:id="@+id/tv_healthy_number"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/margin_size_10dp"
-                    android:text="0"
-                    android:textColor="@color/yellow"
-                    android:textSize="@dimen/font_size_20sp"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="@dimen/margin_size_8dp"
+                    android:layout_toLeftOf="@id/tv_option_yanbao"
+                    android:layout_toRightOf="@id/tv_yanbaojaincao"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/task1_desc"
+
+                        android:textColor="@color/font_colour_99"
+                        android:textSize="@dimen/font_size_12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/margin_size_8dp"
+                        android:text="@string/task1_time"
+                        android:textColor="@color/font_colour_99"
+                        android:textSize="@dimen/font_size_12sp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_44" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_10dp"
+                android:padding="@dimen/margin_size_8dp">
 
                 <TextView
+                    android:id="@+id/tv_jingzhui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_20dp"
-                    android:text="@string/step_hint"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_10sp" />
-            </LinearLayout>
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/tv_healthy_gather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/boder_healthy_666"
-            android:paddingBottom="@dimen/margin_size_8dp"
-            android:paddingLeft="@dimen/margin_size_20dp"
-            android:paddingRight="@dimen/margin_size_20dp"
-            android:paddingTop="@dimen/margin_size_8dp"
-            android:text="@string/come_on"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:padding="@dimen/margin_size_8dp"
-            android:text="@string/healthy_task_daily"
-            android:textColor="@color/white" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_size_10dp"
-            android:padding="@dimen/margin_size_8dp">
-
-            <TextView
-                android:id="@+id/tv_yanbaojaincao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_size_8dp"
-                android:text="@string/task1"
-                android:textColor="@color/font_colour_99" />
-
-            <TextView
-                android:id="@+id/tv_option_yanbao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/boder_healthy_grey"
-                android:clickable="false"
-                android:padding="@dimen/margin_size_8dp"
-                android:text="@string/task_time_not_reach"
-                android:textColor="@color/white" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_size_8dp"
-                android:layout_toLeftOf="@id/tv_option_yanbao"
-                android:layout_toRightOf="@id/tv_yanbaojaincao"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                    android:padding="@dimen/margin_size_8dp"
+                    android:text="@string/task2"
+                    android:textColor="@color/font_colour_99" />
 
                 <TextView
+                    android:id="@+id/tv_option_jingzhui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/task1_desc"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/boder_healthy_grey"
+                    android:clickable="false"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:text="@string/task_time_not_reach"
+                    android:textColor="@color/white" />
 
-                    android:textColor="@color/font_colour_99"
-                    android:textSize="@dimen/font_size_12sp" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/margin_size_8dp"
-                    android:text="@string/task1_time"
-                    android:textColor="@color/font_colour_99"
-                    android:textSize="@dimen/font_size_12sp" />
+                    android:layout_marginLeft="@dimen/margin_size_8dp"
+                    android:layout_toLeftOf="@id/tv_option_jingzhui"
+                    android:layout_toRightOf="@id/tv_jingzhui"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/task2_desc"
 
+                        android:textColor="@color/font_colour_99"
+                        android:textSize="@dimen/font_size_12sp" />
 
-        </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/margin_size_8dp"
+                        android:text="@string/task2_time"
+                        android:textColor="@color/font_colour_99"
+                        android:textSize="@dimen/font_size_12sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line_44" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_size_10dp"
-            android:padding="@dimen/margin_size_8dp">
-
-            <TextView
-                android:id="@+id/tv_jingzhui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_size_8dp"
-                android:text="@string/task2"
-                android:textColor="@color/font_colour_99" />
-
-            <TextView
-                android:id="@+id/tv_option_jingzhui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/boder_healthy_grey"
-                android:clickable="false"
-                android:padding="@dimen/margin_size_8dp"
-                android:text="@string/task_time_not_reach"
-                android:textColor="@color/white" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_size_8dp"
-                android:layout_toLeftOf="@id/tv_option_jingzhui"
-                android:layout_toRightOf="@id/tv_jingzhui"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/task2_desc"
-
-                    android:textColor="@color/font_colour_99"
-                    android:textSize="@dimen/font_size_12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/margin_size_8dp"
-                    android:text="@string/task2_time"
-                    android:textColor="@color/font_colour_99"
-                    android:textSize="@dimen/font_size_12sp" />
-
-            </LinearLayout>
+                </LinearLayout>
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line_44" />
-    </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_44" />
+        </LinearLayout>
 
-
+    </ScrollView>
 </LinearLayout>

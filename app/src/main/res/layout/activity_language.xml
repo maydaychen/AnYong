@@ -32,7 +32,7 @@
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="语言设置" />
+            android:text="@string/language_setting" />
 
         <TextView
             android:id="@+id/button"
@@ -41,7 +41,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_8dp"
-            android:text="保存"
+            android:text="@string/save"
             android:textColor="@color/white" />
 
     </RelativeLayout>

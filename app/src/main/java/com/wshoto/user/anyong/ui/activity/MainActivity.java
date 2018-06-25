@@ -1,6 +1,7 @@
 package com.wshoto.user.anyong.ui.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -8,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,8 +76,11 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 tvUserCredit.setText(userInfoBean.getData().getIntegral() + "");
                 tvUserLevel.setText(userInfoBean.getData().getNickname());
                 ivMainLogo.setImageUrl(userInfoBean.getData().getAvatar());
+            } else if (jsonObject.getJSONObject("message").getString("status").equals("session错误")) {
+                show();
             } else {
-                Toast.makeText(MainActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+
             }
         };
     }
@@ -195,5 +198,23 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
         finish();
         Intent intent1 = new Intent(MainActivity.this, MainActivity.class);
         startActivity(intent1);
+    }
+
+    public void show() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("您的账号已在别处登录，请重新登录！");
+        builder.setTitle(R.string.app_name);
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("确认", (dialog, which) -> {
+            dialog.dismiss();
+            SharedPreferencesUtils.clear(getApplicationContext());
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        });
+
+//        builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
+
+        builder.create().show();
     }
 }

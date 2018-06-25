@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,11 +28,25 @@
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/main7" />
+            android:text="ThankU" />
     </RelativeLayout>
 
-    <WebView
-        android:id="@+id/wv_bbs"
+    <TextView
+        android:id="@+id/tv_thanku_send"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:padding="@dimen/margin_size_8dp"
+        android:text="@string/send"
+        android:textColor="#010101" />
+
+    <WebView
+        android:id="@+id/wv_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tv_thanku_send"/>
+
+
+</RelativeLayout>

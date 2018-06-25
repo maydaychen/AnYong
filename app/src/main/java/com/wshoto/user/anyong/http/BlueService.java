@@ -70,9 +70,13 @@ public interface BlueService {
 
     @POST("/index.php?r=api/thank/send-thank")
     @FormUrlEncoded
-    rx.Observable<JSONObject> sendThank(@Field("receive") String receive, @Field("themeid") String themeid,
-                                        @Field("picture") String picture, @Field("session") String session,
-                                        @Field("content") String content);
+    rx.Observable<JSONObject> previewThank(@Field("receiver") String receive, @Field("template_id") String themeid,
+                                           @Field("thumb") String picture, @Field("session") String session,
+                                           @Field("content") String content);
+
+    @POST("/index.php?r=api/thank/submit-send")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> sendThank(@Field("id") String id, @Field("session") String session);
 
     @POST("/index.php?r=api/template/template-list")
     @FormUrlEncoded
@@ -102,17 +106,29 @@ public interface BlueService {
     @FormUrlEncoded
     rx.Observable<JSONObject> uploadImg(@Field("file") String file);
 
-    @GET("/index.php?r=api/user/radius")
-    rx.Observable<JSONObject> myRadiusList(@Query("session") String session);
+    @POST("/index.php?r=api/contact/friend-list")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> myRadiusList(@Field("session") String session);
 
-    @GET("/index.php?r=api/contact/friend-info")
-    rx.Observable<JSONObject> friendInfo(@Query("session") String session, @Query("id") String id);
+//    @POST("/index.php?r=api/user/radius")
+//    @FormUrlEncoded
+//    rx.Observable<JSONObject> myRadiusList(@Field("session") String session);
 
-    @GET("/index.php?r=api/contact/new-friend")
-    rx.Observable<JSONObject> friendList(@Query("session") String session);
+    @POST("/index.php?r=api/contact/friend-info")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> friendInfo(@Field("session") String session, @Field("id") String id);
 
-    @GET("/index.php?r=api/contact/friend-info")
-    rx.Observable<JSONObject> newFriendOperate(@Query("session") String session, @Query("id") String id, @Query("play") String play);
+    @POST("/index.php?r=api/contact/new-friend")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> newfriendList(@Field("session") String session);
+
+    @POST("/index.php?r=api/contact/submit-add")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> newFriendOperate(@Field("session") String session, @Field("id") String id, @Field("status") String status);
+
+    @POST("/index.php?r=api/contact/add-friend")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> addFriend(@Field("session") String session, @Field("id") String id);
 
     @GET("/index.php?r=api/account/logout")
     rx.Observable<JSONObject> logout(@Query("session") String session);

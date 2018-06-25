@@ -57,6 +57,7 @@
     <string name="setting">Account setting</string>
     <string name="user_number">GPN</string>
     <string name="user_position">Rank</string>
+    <string name="user_number1">(%1$s)</string>
     <string name="user_locate">Department</string>
     <string name="telephone">Contact Information</string>
     <string name="email">Email Address</string>
@@ -68,6 +69,7 @@
     <string name="image_upload">Upload picture：</string>
     <string name="send_content">Send：</string>
     <string name="preview">Preview</string>
+    <string name="send">Send</string>
     <string name="search_list">Searching List</string>
     <string name="cancel">Cancel</string>
     <string name="turn_on_flash">Light on</string>
@@ -89,26 +91,42 @@
     <string name="sign_1">Signed in for</string>
     <string name="sign_2">days</string>
     <string name="auto">auto</string>
-
-    <string name="wa">哇</string>
-    <string name="good">很棒</string>
-    <string name="confirm_step_3_1">现在给自己的账号设置下密码吧</string>
-    <string name="confirm_step_3_2">以后就可以用邮箱+密码的方式登录APP啦</string>
-    <string name="confirm_pass">输入密码</string>
-    <string name="comfirm_pass2">请再次输入密码</string>
-    <string name="confirm_step_4_1">是否有热心的同事推荐引导你用我们的APP呢</string>
-    <string name="confirm_step_4_2">输入他（她）的推荐码吧</string>
-    <string name="invite_code">邀请码</string>
-    <string name="step1_error">请将信息填写完整！</string>
-
-
-    <string name="new_friend_info_title">新好友资料</string>
-    <string name="friend_rank">好友排名</string>
-    <string name="give_credit">赠予积分</string>
-    <string name="accept_friend">同意添加</string>
-    <string name="refuse_friend">忽略添加</string>
+    <string name="camera">camera</string>
     <string name="percent">%1$s %</string>
-    <string name="permition">此应用需要获取相机及相册权限</string>
+
+    <string name="wa">Wa</string>
+    <string name="good">Very Good</string>
+    <string name="confirm_step_3_1">Now set a password for your account</string>
+    <string name="confirm_step_3_2">After that, you can log in to the APP using the email + password.</string>
+    <string name="confirm_pass">enter password</string>
+    <string name="comfirm_pass2">Please enter your password again</string>
+    <string name="confirm_step_4_1">Is there an enthusiastic colleague who recommends you to use our app?</string>
+    <string name="confirm_step_4_2">Enter his or her recommendation code</string>
+    <string name="invite_code">Invitation code</string>
+    <string name="step1_error">Please complete the information！</string>
 
 
+    <string name="new_friend_info_title">New friend information</string>
+    <string name="new_friend_apply">Request to add friends</string>
+    <string name="new_friend_apply_success">added</string>
+    <string name="friend_rank">Friends rank</string>
+    <string name="give_credit">Gift points</string>
+    <string name="accept_friend">Agree to add</string>
+    <string name="refuse_friend">Ignore add</string>
+    <string name="permition">This app requires camera and album permissions</string>
+
+
+    <string name="temp_choose">Select a fixed template</string>
+
+    <string name="text_error">Please complete the information！</string>
+    <string name="update_img">upload image！</string>
+    <string name="update_img_ing">Image is uploading, please wait...</string>
+    <string name="check_sd">Please check if SD card is available</string>
+    <string name="upload_fail">Upload failed, please try again later</string>
+    <string name="upload_success">Uploaded successfully!</string>
+    <string name="save">save</string>
+        <string name="language_setting">language settings</string>
+    <string name="pic">Gallery</string>
+    <string name="send_sussess">Send Sussessfully!</string>
+    <string name="check">check</string>
 </resources>

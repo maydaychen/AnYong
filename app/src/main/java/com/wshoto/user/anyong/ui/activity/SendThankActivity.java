@@ -35,10 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.wshoto.user.anyong.Bean.MessageCenterBean;
 import com.wshoto.user.anyong.Bean.ThankThemeBean;
 import com.wshoto.user.anyong.Bean.ThankUserBean;
-import com.wshoto.user.anyong.Bean.UserInfoBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.Utils;
@@ -155,9 +153,10 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
             }
         };
         sendOnNext = jsonObject -> {
-            deletePic();
             if (jsonObject.getInt("code") == 1) {
-
+                Intent intent = new Intent(SendThankActivity.this,ThankPreviewActivity.class );
+                intent.putExtra("id", jsonObject.getInt("data"));
+                startActivity(intent);
             } else {
                 Toast.makeText(SendThankActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
             }
@@ -405,7 +404,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
             Toast.makeText(this, getText(R.string.text_error), Toast.LENGTH_SHORT).show();
             return;
         }
-        HttpJsonMethod.getInstance().sendThank(
+        HttpJsonMethod.getInstance().previewThank(
                 new ProgressSubscriber(sendOnNext, SendThankActivity.this), userid, themeid, url,
                 (String) SharedPreferencesUtils.getParam(this, "session", ""), mEtThankContent.getText().toString());
     }

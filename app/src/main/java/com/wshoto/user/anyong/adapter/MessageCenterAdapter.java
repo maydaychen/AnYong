@@ -54,7 +54,11 @@ public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdap
     //获取数据的数量
     @Override
     public int getItemCount() {
-        return mData.size();
+        if (mData==null) {
+            return 0;
+        }else {
+            return mData.size();
+        }
     }
 
 

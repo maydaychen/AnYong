@@ -1,15 +1,19 @@
 package com.wshoto.user.anyong.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.wshoto.user.anyong.Bean.MyRadiiBean;
+import com.loopj.android.image.SmartImageView;
+import com.wshoto.user.anyong.Bean.MyRadiuBean;
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.ui.activity.FriendInfoActivity;
 
 import java.util.List;
 
@@ -23,16 +27,17 @@ import butterknife.ButterKnife;
 
 public class MyRadiiAdapter extends RecyclerView.Adapter<MyRadiiAdapter.ViewHolder> implements View.OnClickListener {
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
-    private List<MyRadiiBean> mData;
+    private List<MyRadiuBean.DataBean> mData;
+    private Context context1;
 
     //define interface
     public interface OnRecyclerViewItemClickListener {
         void onItemClick(View view, int data);
     }
 
-    public MyRadiiAdapter(Context context, List<MyRadiiBean> mData) {
+    public MyRadiiAdapter(Context context, List<MyRadiuBean.DataBean> mData) {
         this.mData = mData;
-        Context context1 = context;
+        this.context1 = context;
     }
 
     //创建新View，被LayoutManager所调用
@@ -55,9 +60,35 @@ public class MyRadiiAdapter extends RecyclerView.Adapter<MyRadiiAdapter.ViewHold
 //        viewHolder.mOrderAdd.setText("地址：" + mData.get(position).getAddress());
 //        viewHolder.mOrderOperate.setOnClickListener(view -> EventBus.getDefault().post(mData.get(position)));
 //        viewHolder.mOrderOperate.setVisibility("0".equals(mData.get(position).getIs_stamp()) ? View.VISIBLE : View.GONE);
-//        viewHolder.itemView.setTag(position);
+        switch (position) {
+            case 0:
+                viewHolder.mIvRadiiBrand.setImageResource(R.drawable.brand_1);
+                break;
+            case 1:
+                viewHolder.mIvRadiiBrand.setImageResource(R.drawable.brand_2);
+                break;
+            case 2:
+                viewHolder.mIvRadiiBrand.setImageResource(R.drawable.brand_3);
+                break;
+            default:
+                viewHolder.mIvRadiiBrand.setVisibility(View.GONE);
+                viewHolder.mTvRadiiBrand.setVisibility(View.VISIBLE);
+                viewHolder.mTvRadiiBrand.setText(position + 1 + "");
+                break;
+        }
+        viewHolder.mIvRadiiLogo.setImageUrl(mData.get(position).getAvatar());
+        viewHolder.mTvRadiiName.setText(mData.get(position).getEnglish_name());
+        viewHolder.mTvRadiiPoint.setText(mData.get(position).getIntegral() + "");
+        viewHolder.mTvRadiiDetail.setText(mData.get(position).getLevel() + "");
+        viewHolder.itemView.setTag(position);
         viewHolder.mIvRadiiGive.setOnClickListener(view -> {
 
+        });
+        viewHolder.mFriend.setOnClickListener(view -> {
+            Intent intent = new Intent(context1, FriendInfoActivity.class);
+            intent.putExtra("friend_id", mData.get(position).getId());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context1.startActivity(intent);
         });
     }
 
@@ -83,10 +114,12 @@ public class MyRadiiAdapter extends RecyclerView.Adapter<MyRadiiAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_radii_brand)
         ImageView mIvRadiiBrand;
+        @BindView(R.id.ll_item_friend)
+        LinearLayout mFriend;
         @BindView(R.id.tv_radii_brand)
         TextView mTvRadiiBrand;
         @BindView(R.id.iv_radii_logo)
-        ImageView mIvRadiiLogo;
+        SmartImageView mIvRadiiLogo;
         @BindView(R.id.tv_radii_name)
         TextView mTvRadiiName;
         @BindView(R.id.tv_radii_point)

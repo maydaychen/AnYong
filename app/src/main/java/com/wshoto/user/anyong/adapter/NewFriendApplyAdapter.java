@@ -6,12 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wshoto.user.anyong.Bean.MyRadiiBean;
+import com.loopj.android.image.SmartImageView;
+import com.wshoto.user.anyong.Bean.NewFriendListBean;
 import com.wshoto.user.anyong.R;
-import com.wshoto.user.anyong.ui.activity.NewFriendActivity;
 import com.wshoto.user.anyong.ui.activity.NewFriendInfoActivity;
 
 import java.util.List;
@@ -21,8 +20,9 @@ import butterknife.ButterKnife;
 
 public class NewFriendApplyAdapter extends RecyclerView.Adapter<NewFriendApplyAdapter.ViewHolder> implements View.OnClickListener {
 
+
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
-    private List<MyRadiiBean> mData;
+    private List<NewFriendListBean.DataBean> mData;
     private Context mContext;
 
     //define interface
@@ -30,7 +30,7 @@ public class NewFriendApplyAdapter extends RecyclerView.Adapter<NewFriendApplyAd
         void onItemClick(View view, int data);
     }
 
-    public NewFriendApplyAdapter(Context context, List<MyRadiiBean> mData) {
+    public NewFriendApplyAdapter(Context context, List<NewFriendListBean.DataBean> mData) {
         this.mData = mData;
         this.mContext = context;
     }
@@ -56,13 +56,22 @@ public class NewFriendApplyAdapter extends RecyclerView.Adapter<NewFriendApplyAd
 //        viewHolder.mOrderOperate.setOnClickListener(view -> EventBus.getDefault().post(mData.get(position)));
 //        viewHolder.mOrderOperate.setVisibility("0".equals(mData.get(position).getIs_stamp()) ? View.VISIBLE : View.GONE);
 //        viewHolder.itemView.setTag(position);
-        if (true) {
-            viewHolder.mTvNewFriend.setTextColor(mContext.getColor(R.color.white));
-            viewHolder.mTvNewFriend.setBackground(mContext.getDrawable(R.drawable.boder_new_friend_apply));
-            viewHolder.mTvNewFriend.setOnClickListener(view -> {
+        viewHolder.ivNewFriendLogo.setImageUrl(mData.get(position).getInfo().getAvatar());
+        viewHolder.newFirendName.setText(mData.get(position).getInfo().getEnglish_name());
+        if (mData.get(position).getStatus().equals("未通过")) {
+            viewHolder.tvNewFriendStatus.setText(mContext.getText(R.string.check));
+            viewHolder.tvNewFriendStatus.setTextColor(mContext.getResources().getColor(R.color.friend));
+            viewHolder.tvNewFriendStatus.setBackground(mContext.getResources().getDrawable(R.drawable.boder_new_friend_apply));
+            viewHolder.tvNewFriendStatus.setOnClickListener(view -> {
                 Intent intent = new Intent(mContext, NewFriendInfoActivity.class);
+                intent.putExtra("friend_id", mData.get(position).getInfo().getId());
+                intent.putExtra("apply_id", mData.get(position).getId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             });
+        } else {
+            viewHolder.tvNewFriendStatus.setText(mContext.getText(R.string.new_friend_apply_success));
+            viewHolder.tvNewFriendStatus.setTextColor(mContext.getResources().getColor(R.color.yellow));
         }
 
     }
@@ -88,11 +97,13 @@ public class NewFriendApplyAdapter extends RecyclerView.Adapter<NewFriendApplyAd
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_new_friend_logo)
-        ImageView ivNewFriendLogo;
+        SmartImageView ivNewFriendLogo;
         @BindView(R.id.new_firend_name)
         TextView newFirendName;
         @BindView(R.id.tv_new_friend_status)
-        TextView mTvNewFriend;
+        TextView tvNewFriendStatus;
+//        @BindView(R.id.bt_new_friend_check)
+//        Button btNewFriendCheck;
 
         ViewHolder(View view) {
             super(view);

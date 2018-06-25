@@ -102,5 +102,6 @@
     <color name="blue">#25afff</color>
     <color name="possible_result_points">#c0ffff00</color>
     <color name="sub_background">#7f353535</color>
+    <color name="friend">#353535</color>
     <color name="grey">#808080</color>
 </resources>

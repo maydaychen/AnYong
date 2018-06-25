@@ -176,8 +176,17 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void sendThank(Subscriber<JSONObject> subscriber, String receive, String themeid, String picture, String session, String content) {
-        movieService.sendThank(receive, themeid, picture, session, content)
+    public void previewThank(Subscriber<JSONObject> subscriber, String receive, String themeid, String picture, String session, String content) {
+        movieService.previewThank(receive, themeid, picture, session, content)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void sendThank(Subscriber<JSONObject> subscriber, String id, String session) {
+        movieService.sendThank(id, session)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -266,8 +275,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void friendList(Subscriber<JSONObject> subscriber, String session) {
-        movieService.friendList(session)
+    public void newfriendList(Subscriber<JSONObject> subscriber, String session) {
+        movieService.newfriendList(session)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -275,8 +284,17 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void newFriendOperate(Subscriber<JSONObject> subscriber, String session, String id, String play) {
-        movieService.newFriendOperate(session, id, play)
+    public void newFriendOperate(Subscriber<JSONObject> subscriber, String session, String id, String status) {
+        movieService.newFriendOperate(session, id, status)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void addFriend(Subscriber<JSONObject> subscriber, String session, String id) {
+        movieService.addFriend(session, id)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

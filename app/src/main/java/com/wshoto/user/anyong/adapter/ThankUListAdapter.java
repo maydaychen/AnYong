@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.loopj.android.image.SmartImageView;
 import com.wshoto.user.anyong.Bean.ThankBean;
 import com.wshoto.user.anyong.R;
 
@@ -47,7 +46,8 @@ public class ThankUListAdapter extends RecyclerView.Adapter<ThankUListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
 //        viewHolder.ivMessageLogo.setImageUrl( mData.get(position).get);
-
+        viewHolder.tvItemTitle.setText(mData.get(position).getTitle());
+        viewHolder.tvItemContent.setText(mData.get(position).getContent());
         viewHolder.itemView.setTag(position);
     }
 
@@ -73,6 +73,10 @@ public class ThankUListAdapter extends RecyclerView.Adapter<ThankUListAdapter.Vi
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_thank_logo)
         ImageView ivThankLogo;
+        @BindView(R.id.tv_item_title)
+        TextView tvItemTitle;
+        @BindView(R.id.tv_item_content)
+        TextView tvItemContent;
 
         ViewHolder(View view) {
             super(view);

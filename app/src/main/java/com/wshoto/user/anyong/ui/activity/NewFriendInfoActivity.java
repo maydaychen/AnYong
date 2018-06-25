@@ -2,10 +2,12 @@ package com.wshoto.user.anyong.ui.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.loopj.android.image.SmartImageView;
+import com.wshoto.user.anyong.Bean.FriendInfoBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
@@ -22,7 +24,7 @@ import butterknife.OnClick;
 public class NewFriendInfoActivity extends InitActivity {
 
     @BindView(R.id.iv_new_friend_logo)
-    ImageView ivNewFriendLogo;
+    SmartImageView ivNewFriendLogo;
     @BindView(R.id.tv_new_friend_name)
     TextView tvNewFriendName;
     @BindView(R.id.tv_new_friend_num)
@@ -39,6 +41,10 @@ public class NewFriendInfoActivity extends InitActivity {
     TextView tvPersonFriendRank;
 
     private SubscriberOnNextListener<JSONObject> infoOnNext;
+    private SubscriberOnNextListener<JSONObject> operateOnNext;
+    private FriendInfoBean friendInfoBean;
+    private Gson mGson = new Gson();
+
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -51,7 +57,22 @@ public class NewFriendInfoActivity extends InitActivity {
     public void initData() {
         infoOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-                //todo 新好友信息
+                friendInfoBean = mGson.fromJson(jsonObject.toString(), FriendInfoBean.class);
+                FriendInfoBean.DataBean dataBean = friendInfoBean.getData();
+                ivNewFriendLogo.setImageUrl(dataBean.getAvatar());
+                tvNewFriendName.setText(dataBean.getEnglish_name());
+                tvNewFriendNum.setText(String.format(getResources().getString(R.string.user_number1), dataBean.getJob_no()));
+                tvNewFriendTele.setText(dataBean.getMobile());
+                tvPersonBumen.setText(dataBean.getDepartment_id());
+                tvPersonZhiwei.setText(dataBean.getPosition());
+                tvPersonTele.setText(dataBean.getIntegral() + "");
+                tvPersonFriendRank.setText(dataBean.getFriendlevel() + "");
+            }
+        };
+        operateOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                Toast.makeText(NewFriendInfoActivity.this, "操作成功！", Toast.LENGTH_SHORT).show();
+                finish();
             } else {
                 Toast.makeText(NewFriendInfoActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
             }
@@ -59,7 +80,7 @@ public class NewFriendInfoActivity extends InitActivity {
 
         HttpJsonMethod.getInstance().friendInfo(
                 new ProgressSubscriber(infoOnNext, NewFriendInfoActivity.this),
-                (String) SharedPreferencesUtils.getParam(this, "session", ""),getIntent().getStringExtra("friend"));
+                (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("friend_id"));
     }
 
 
@@ -70,8 +91,14 @@ public class NewFriendInfoActivity extends InitActivity {
                 finish();
                 break;
             case R.id.tv_new_friend_accept:
+                HttpJsonMethod.getInstance().newFriendOperate(
+                        new ProgressSubscriber(operateOnNext, NewFriendInfoActivity.this),
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("apply_id"), "1");
                 break;
             case R.id.tv_new_friend_refuse:
+                HttpJsonMethod.getInstance().newFriendOperate(
+                        new ProgressSubscriber(operateOnNext, NewFriendInfoActivity.this),
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("apply_id"), "2");
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package com.wshoto.user.anyong.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,18 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.wshoto.user.anyong.Bean.HealthyTaskBean;
 import com.wshoto.user.anyong.Bean.ThankBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
-import com.wshoto.user.anyong.adapter.MessageCenterAdapter;
 import com.wshoto.user.anyong.adapter.ThankUListAdapter;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
-import com.wshoto.user.anyong.ui.activity.MessageCenterActivity;
+import com.wshoto.user.anyong.ui.activity.ThankViewActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -63,12 +61,17 @@ public class ThankListFragment extends Fragment {
                 mRvThankyou.setLayoutManager(new LinearLayoutManager(getActivity()));
                 ThankUListAdapter messageCenterAdapter = new ThankUListAdapter(getActivity(), mThankBean.getData());
                 mRvThankyou.setAdapter(messageCenterAdapter);
+                messageCenterAdapter.setOnItemClickListener((view, data) -> {
+                    Intent intent = new Intent(getActivity(), ThankViewActivity.class);
+                    intent.putExtra("id", mThankBean.getData().get(data).getId());
+                    startActivity(intent);
+                });
             } else {
                 Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
             }
         };
         HttpJsonMethod.getInstance().thankList(
-                new ProgressSubscriber(thankOnNext, getActivity()),(String) SharedPreferencesUtils.getParam(getActivity(), "session", ""));
+                new ProgressSubscriber(thankOnNext, getActivity()), (String) SharedPreferencesUtils.getParam(getActivity(), "session", ""));
     }
 
     @Override
