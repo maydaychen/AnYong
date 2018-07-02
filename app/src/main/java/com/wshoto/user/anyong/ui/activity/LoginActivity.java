@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,12 +13,10 @@ import android.widget.Toast;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
-import com.wshoto.user.anyong.http.HttpMethods;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -62,12 +59,17 @@ public class LoginActivity extends InitActivity {
 
         LoginOnNext = jsonObject -> {
             if (jsonObject.getInt("code")==1) {
-                SharedPreferencesUtils.setParam(getApplicationContext(), "session", jsonObject.getJSONObject("data").getString("session"));
-                SharedPreferencesUtils.setParam(getApplicationContext(), "username",  mEtLoginMail.getText().toString());
-                SharedPreferencesUtils.setParam(getApplicationContext(), "pass", mEtLoginPass.getText().toString());
-                SharedPreferencesUtils.setParam(getApplicationContext(), "autolog",true);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
+                    Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
+                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                }else {
+                    SharedPreferencesUtils.setParam(getApplicationContext(), "session", jsonObject.getJSONObject("data").getString("session"));
+                    SharedPreferencesUtils.setParam(getApplicationContext(), "username",  mEtLoginMail.getText().toString());
+                    SharedPreferencesUtils.setParam(getApplicationContext(), "pass", mEtLoginPass.getText().toString());
+                    SharedPreferencesUtils.setParam(getApplicationContext(), "autolog",true);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                }
             }else {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }

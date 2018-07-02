@@ -96,7 +96,6 @@
 
         <activity android:name=".ui.activity.BBSActivity" />
         <activity android:name=".ui.activity.AnniversaryActivity" />
-        <activity android:name=".ui.activity.CalendarActivity" />
         <activity android:name=".ui.activity.GuideActivity" />
 
         <service
@@ -139,7 +138,8 @@
         <activity android:name=".ui.activity.ThankPreviewActivity" />
         <activity android:name=".ui.activity.ThankViewActivity" />
         <activity android:name=".ui.activity.SearchNewFriendActivity" />
-        <activity android:name=".ui.activity.AddFriendActivity"></activity>
+        <activity android:name=".ui.activity.AddFriendActivity" />
+        <activity android:name=".ui.activity.MapTestActivity"></activity>
     </application>
 
 </manifest>

@@ -87,7 +87,7 @@
     <string name="sign_success">Sign in successfully</string>
     <string name="get_it">Confirmed</string>
     <string name="over">You are ahead of </string>
-    <string name="over_2">colleagues!!</string>
+    <string name="over_2">% colleagues!!</string>
     <string name="sign_1">Signed in for</string>
     <string name="sign_2">days</string>
     <string name="auto">auto</string>
@@ -107,6 +107,7 @@
 
 
     <string name="new_friend_info_title">New friend information</string>
+    <string name="friend_info_title">Friend information</string>
     <string name="new_friend_apply">Request to add friends</string>
     <string name="new_friend_apply_success">added</string>
     <string name="friend_rank">Friends rank</string>
@@ -127,6 +128,8 @@
     <string name="save">save</string>
         <string name="language_setting">language settings</string>
     <string name="pic">Gallery</string>
-    <string name="send_sussess">Send Sussessfully!</string>
+    <string name="send_sussess">Send Successfully!</string>
     <string name="check">check</string>
+    <string name="give_success">Give Successfully!</string>
+    <string name="point">point(s)</string>
 </resources>

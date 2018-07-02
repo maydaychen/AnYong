@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.wshoto.user.anyong.Bean.NewFriendListBean;
@@ -45,8 +44,6 @@ public class NewFriendActivity extends InitActivity {
                 rvNewFriends.setLayoutManager(new LinearLayoutManager(this));
                 NewFriendApplyAdapter messageCenterAdapter = new NewFriendApplyAdapter(NewFriendActivity.this, newFriendListBean.getData());
                 rvNewFriends.setAdapter(messageCenterAdapter);
-            } else {
-                Toast.makeText(NewFriendActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
             }
         };
     }

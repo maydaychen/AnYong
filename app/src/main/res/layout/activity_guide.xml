@@ -14,11 +14,13 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <Button
+        <TextView
             android:id="@+id/btn_im_exp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/back"
+            android:textColor="@color/yellow"
+            android:padding="@dimen/margin_size_8dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_size_20dp" />
@@ -33,8 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:padding="@dimen/margin_size_10dp"
             android:layout_marginBottom="25dp"
             android:gravity="center"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="horizontal"/>
     </RelativeLayout>
 </FrameLayout>

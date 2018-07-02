@@ -56,12 +56,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
+        <ImageView
+            android:id="@+id/iv_birthday"
+            android:src="@drawable/hg"
+            android:layout_marginTop="90dp"
+            android:visibility="invisible"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="-20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <com.loopj.android.image.SmartImageView
             android:id="@+id/iv_person_logo"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="90dp"
             android:src="@drawable/tx"/>
 
         <TextView

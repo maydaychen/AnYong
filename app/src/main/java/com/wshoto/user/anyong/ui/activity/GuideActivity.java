@@ -1,8 +1,8 @@
 package com.wshoto.user.anyong.ui.activity;
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -76,7 +76,8 @@ public class GuideActivity extends InitActivity {
 //        SharedUtil.setIsFirst(GuideActivity.this);
 //        // 跳转到LoginActivity
 //        openActivityFn(LoginActivity.class);
-        finish();
+        Intent intent = new Intent(GuideActivity.this, MainActivity.class);
+        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**

@@ -2,10 +2,14 @@ package com.wshoto.user.anyong.ui.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +24,7 @@ import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
+import com.wshoto.user.anyong.step.service.StepService;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
 import org.json.JSONObject;
@@ -51,11 +56,14 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
     TextView tvUserLevel;
     private SubscriberOnNextListener<JSONObject> infoOnNext;
     private Gson mGson = new Gson();
+    private boolean isBind = false;
 
     @Override
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        setupService();
 
     }
 
@@ -80,7 +88,6 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 show();
             } else {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
-
             }
         };
     }
@@ -110,7 +117,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 startActivity(new Intent(MainActivity.this, PointActivity.class));
                 break;
             case R.id.ll_zuobiao:
-                startActivity(new Intent(MainActivity.this, MapActivity.class));
+                startActivity(new Intent(MainActivity.this, MapTestActivity.class));
                 break;
             case R.id.ll_part2:
                 startActivity(new Intent(MainActivity.this, ThankYouActivity.class));
@@ -216,5 +223,56 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
 //        builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
 
         builder.create().show();
+    }
+
+    /**
+     * 开启计步服务
+     */
+    private void setupService() {
+        Intent intent = new Intent(this, StepService.class);
+        isBind = bindService(intent, conn, Context.BIND_AUTO_CREATE);
+        startService(intent);
+    }
+
+    /**
+     * 用于查询应用服务（application Service）的状态的一种interface，
+     * 更详细的信息可以参考Service 和 context.bindService()中的描述，
+     * 和许多来自系统的回调方式一样，ServiceConnection的方法都是进程的主线程中调用的。
+     */
+    ServiceConnection conn = new ServiceConnection() {
+        /**
+         * 在建立起于Service的连接时会调用该方法，目前Android是通过IBind机制实现与服务的连接。
+         * @param name 实际所连接到的Service组件名称
+         * @param service 服务的通信信道的IBind，可以通过Service访问对应服务
+         */
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            StepService stepService = ((StepService.StepBinder) service).getService();
+//            mTvHealthyNumber.setText(stepService.getStepCount() + "");
+            SharedPreferencesUtils.setParam(getApplicationContext(), "step", stepService.getStepCount() + "");
+
+            //设置步数监听回调
+            stepService.registerCallback(stepCount ->
+                    SharedPreferencesUtils.setParam(getApplicationContext(), "step", stepCount + ""));
+        }
+
+        /**
+         * 当与Service之间的连接丢失的时候会调用该方法，
+         * 这种情况经常发生在Service所在的进程崩溃或者被Kill的时候调用，
+         * 此方法不会移除与Service的连接，当服务重新启动的时候仍然会调用 onServiceConnected()。
+         * @param name 丢失连接的组件名称
+         */
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (isBind) {
+            this.unbindService(conn);
+        }
     }
 }

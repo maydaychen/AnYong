@@ -30,9 +30,10 @@
             android:visibility="gone"/>
 
         <com.loopj.android.image.SmartImageView
+            android:src="@drawable/hzltx"
             android:id="@+id/iv_radii_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/margin_size_28dp"
+            android:layout_height="@dimen/margin_size_28dp"/>
 
         <TextView
             android:id="@+id/tv_radii_name"

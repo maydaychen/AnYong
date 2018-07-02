@@ -133,4 +133,12 @@ public interface BlueService {
     @GET("/index.php?r=api/account/logout")
     rx.Observable<JSONObject> logout(@Query("session") String session);
 
+    @POST("/index.php?r=api/user/head-img")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> getAva(@Field("session") String session, @Field("img") String img);
+
+    @POST("/index.php?r=api/contact/give-integral")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> givePoint(@Field("session") String session, @Field("id") String id, @Field("number") String number);
+
 }

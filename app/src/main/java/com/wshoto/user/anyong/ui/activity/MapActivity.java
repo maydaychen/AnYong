@@ -1,15 +1,11 @@
 package com.wshoto.user.anyong.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.ArrayMap;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,11 +27,7 @@ import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,9 +76,9 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
     public void initData() {
         locateOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-                showPopupWindow(jsonObject.getJSONObject("data").getString("number"),jsonObject.getJSONObject("data").getString("numberpercentage"));
+                showPopupWindow(jsonObject.getJSONObject("data").getString("number"), jsonObject.getJSONObject("data").getString("numberpercentage"));
             } else {
-                Toast.makeText(MapActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
         initMap();
@@ -144,7 +136,7 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
             LatLng ll = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
             MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
             mBaiduMap.animateMapStatus(u);
-            city =bdLocation.getCity();
+            city = bdLocation.getCity();
         }
     }
 
@@ -161,14 +153,13 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
                 finish();
                 break;
             case R.id.iv_qiandao:
-
                 HttpJsonMethod.getInstance().locate(
                         new ProgressSubscriber(locateOnNext, MapActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""), city);
                 break;
         }
     }
 
-    private void showPopupWindow(String number,String numberPercent) {
+    private void showPopupWindow(String number, String numberPercent) {
         View contentView = LayoutInflater.from(this).inflate(
                 R.layout.popwindow_map, null);
 
@@ -178,9 +169,8 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
         final PopupWindow popupWindow = new PopupWindow(contentView,
                 WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
                 true);
-
         mTvDays.setText(number);
-        mTvPercent.setText(String.format(getResources().getString(R.string.percent),numberPercent));
+        mTvPercent.setText(Float.valueOf(numberPercent) * 100 + "");
         ColorDrawable dw = new ColorDrawable(0xcF000000);
         popupWindow.setBackgroundDrawable(dw);
         WindowManager.LayoutParams lp = getWindow().getAttributes();

@@ -75,7 +75,7 @@ public class AddFriendActivity extends InitActivity {
                 Toast.makeText(AddFriendActivity.this, "操作成功！", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(AddFriendActivity.this, MyRadiiActivity.class));
             } else {
-                Toast.makeText(AddFriendActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
         HttpJsonMethod.getInstance().friendInfo(

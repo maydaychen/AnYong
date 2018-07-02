@@ -87,7 +87,7 @@
     <string name="sign_success">签到成功</string>
     <string name="get_it">我知道了</string>
     <string name="over">超过了</string>
-    <string name="over_2">的同事哦!!</string>
+    <string name="over_2">%的同事哦!!</string>
     <string name="sign_1">这是您第</string>
     <string name="sign_2">天签到</string>
     <string name="auto">自动</string>
@@ -107,6 +107,7 @@
 
 
     <string name="new_friend_info_title">新好友资料</string>
+    <string name="friend_info_title">好友资料</string>
     <string name="new_friend_apply">请求添加好友</string>
     <string name="new_friend_apply_success">已添加</string>
     <string name="friend_rank">好友排名</string>
@@ -129,5 +130,6 @@
     <string name="pic">图库</string>
     <string name="send_sussess">发送成功!</string>
     <string name="check">查看</string>
-
+    <string name="give_success">赠送成功!</string>
+    <string name="point">积分</string>
 </resources>

@@ -74,7 +74,7 @@ public class NewFriendInfoActivity extends InitActivity {
                 Toast.makeText(NewFriendInfoActivity.this, "操作成功！", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                Toast.makeText(NewFriendInfoActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
 

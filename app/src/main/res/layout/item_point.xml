@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <TextView
+        android:id="@+id/tv_point_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/yellow"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/margin_size_8dp"
+        android:textSize="@dimen/font_size_12sp" />
+
+    <TextView
+        android:id="@+id/tv_point_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_size_10dp"
+        android:layout_toRightOf="@id/tv_point_time"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_16sp" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tv_point_source"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_16sp" />
+
+    <TextView
+        android:id="@+id/tv_point_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tv_type"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/font_size_16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tv_point_num"
+        android:text="@string/point"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_16sp" />
+
+
+</RelativeLayout>

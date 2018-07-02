@@ -2,19 +2,15 @@ package com.wshoto.user.anyong.ui.activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.ldf.calendar.Utils;
 import com.ldf.calendar.component.CalendarAttr;
 import com.ldf.calendar.component.CalendarViewAdapter;
 import com.ldf.calendar.interf.OnSelectDateListener;
@@ -25,20 +21,16 @@ import com.wshoto.user.anyong.Bean.CalendarDayEventBean;
 import com.wshoto.user.anyong.Bean.CalendarDetailBean;
 import com.wshoto.user.anyong.Bean.CalendarEventBean;
 import com.wshoto.user.anyong.Bean.CalendarMineBean;
-import com.wshoto.user.anyong.Bean.UserInfoBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.adapter.CalendarEventListAdapter;
 import com.wshoto.user.anyong.adapter.CalendarMineListAdapter;
-import com.wshoto.user.anyong.adapter.MessageCenterAdapter;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.CustomDayView;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
-import com.wshoto.user.anyong.ui.widget.ThemeDayView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -349,7 +341,7 @@ public class DeleteActivity extends InitActivity {
 //        builder.setPositiveButton("参加", (dialog, which) -> {
 //        });
 
-        builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton("返回", (dialog, which) -> dialog.dismiss());
 
         builder.create().show();
     }

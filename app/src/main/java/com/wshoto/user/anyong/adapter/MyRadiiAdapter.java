@@ -29,10 +29,15 @@ public class MyRadiiAdapter extends RecyclerView.Adapter<MyRadiiAdapter.ViewHold
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
     private List<MyRadiuBean.DataBean> mData;
     private Context context1;
+    private ModifyCountInterface modifyCountInterface;
 
     //define interface
     public interface OnRecyclerViewItemClickListener {
         void onItemClick(View view, int data);
+    }
+
+    public void setModifyCountInterface(ModifyCountInterface modifyCountInterface) {
+        this.modifyCountInterface = modifyCountInterface;
     }
 
     public MyRadiiAdapter(Context context, List<MyRadiuBean.DataBean> mData) {
@@ -82,7 +87,7 @@ public class MyRadiiAdapter extends RecyclerView.Adapter<MyRadiiAdapter.ViewHold
         viewHolder.mTvRadiiDetail.setText(mData.get(position).getLevel() + "");
         viewHolder.itemView.setTag(position);
         viewHolder.mIvRadiiGive.setOnClickListener(view -> {
-
+            modifyCountInterface.doDecrease(mData.get(position).getId());// 暴露删减接口
         });
         viewHolder.mFriend.setOnClickListener(view -> {
             Intent intent = new Intent(context1, FriendInfoActivity.class);
@@ -133,5 +138,16 @@ public class MyRadiiAdapter extends RecyclerView.Adapter<MyRadiiAdapter.ViewHold
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface ModifyCountInterface {
+
+        /**
+         * 删减操作
+         *
+         * @param id 组元素位置
+         */
+        void doDecrease(String id);
+
     }
 }

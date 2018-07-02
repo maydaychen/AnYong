@@ -75,6 +75,8 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
     final public static int REQUEST_CODE_ASK_CALL_PHONE = 123;
     private static final int RC_LOCATION_CONTACTS_PERM = 124;
     final public static int REQUEST_WRITE = 222;
+    @BindView(R.id.iv_thank_pic)
+    ImageView ivThankPic;
     private SubscriberOnNextListener<JSONObject> sendOnNext;
     private SubscriberOnNextAndErrorListener<JSONObject> uploadOnNext;
     private ThankThemeBean mThankThemeBean;
@@ -114,7 +116,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                         TextView tv = (TextView) view;
                         tv.setTextColor(getResources().getColor(R.color.yellow));    //设置颜色
                         tv.setTextSize(14.0f);    //设置大小
-                        tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);   //设置居中
+                        tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
                         if (position != 0) {
                             themeid = mThankThemeBean.getData().get(position - 1).getId();
                         }
@@ -154,11 +156,11 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
         };
         sendOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-                Intent intent = new Intent(SendThankActivity.this,ThankPreviewActivity.class );
+                Intent intent = new Intent(SendThankActivity.this, ThankPreviewActivity.class);
                 intent.putExtra("id", jsonObject.getInt("data"));
                 startActivity(intent);
             } else {
-                Toast.makeText(SendThankActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
         HttpJsonMethod.getInstance().thankTheme(
@@ -298,7 +300,8 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                             matrix.setScale(0.5f, 0.5f);
                             bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
                                     bmp.getHeight(), matrix, true);
-                            mIvThankUpload.setImageBitmap(bmp);
+                            ivThankPic.setVisibility(View.VISIBLE);
+                            ivThankPic.setImageBitmap(bmp);
                             upDataHeadImg();
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -316,7 +319,8 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                         matrix.setScale(0.5f, 0.5f);
                         bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
                                 bmp.getHeight(), matrix, true);
-                        mIvThankUpload.setImageBitmap(bmp);
+                        ivThankPic.setVisibility(View.VISIBLE);
+                        ivThankPic.setImageBitmap(bmp);
                         upDataHeadImg();
                     }
                     break;
@@ -419,4 +423,5 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
         HttpJsonMethod.getInstance().uploadImg(
                 new ProgressErrorSubscriber<>(uploadOnNext, SendThankActivity.this), Utils.bitmaptoString(bmp));
     }
+
 }
