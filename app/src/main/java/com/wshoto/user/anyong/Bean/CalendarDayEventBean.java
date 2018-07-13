@@ -75,8 +75,8 @@ public class CalendarDayEventBean {
         private String content;
         private String type;
         private String is_join;
-        private int created;
-        private int updated;
+        private String created;
+        private String updated;
         private String published;
         private String qrcode;
 
@@ -136,19 +136,19 @@ public class CalendarDayEventBean {
             this.is_join = is_join;
         }
 
-        public int getCreated() {
+        public String getCreated() {
             return created;
         }
 
-        public void setCreated(int created) {
+        public void setCreated(String created) {
             this.created = created;
         }
 
-        public int getUpdated() {
+        public String getUpdated() {
             return updated;
         }
 
-        public void setUpdated(int updated) {
+        public void setUpdated(String updated) {
             this.updated = updated;
         }
 

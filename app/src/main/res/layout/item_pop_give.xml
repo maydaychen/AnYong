@@ -19,6 +19,7 @@
         android:id="@+id/et_point_num"
         android:inputType="number"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

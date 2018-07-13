@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.loopj.android.image.SmartImageView;
 import com.wshoto.user.anyong.Bean.CalendarDayEventBean;
-import com.wshoto.user.anyong.Bean.MessageCenterBean;
 import com.wshoto.user.anyong.R;
 
 import java.util.List;
@@ -48,7 +46,7 @@ public class CalendarEventListAdapter extends RecyclerView.Adapter<CalendarEvent
     public void onBindViewHolder(CalendarEventListAdapter.ViewHolder viewHolder, int position) {
 //        viewHolder.ivMessageLogo.setImageUrl( mData.get(position).get);
         viewHolder.textView4.setText(mData.get(position).getStart_time());
-        viewHolder.textView5.setText(mData.get(position).getContent());
+        viewHolder.textView5.setText(mData.get(position).getTitle());
         viewHolder.itemView.setTag(position);
     }
 

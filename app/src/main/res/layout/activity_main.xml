@@ -75,6 +75,7 @@
                     android:id="@+id/iv_main_logo"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
+                    android:scaleType="centerCrop"
                     android:layout_below="@id/tv_main_point"
                     android:layout_centerHorizontal="true"/>
 

@@ -19,7 +19,7 @@ public interface BlueService {
 
     @POST("/index.php?r=api/account/forget")
     @FormUrlEncoded
-    rx.Observable<JSONObject> forget(@Field("mobile") String mobile, @Field("verification") String Verification, @Field("play") String play,
+    rx.Observable<JSONObject> forget(@Field("mobile") String mobile, @Field("Verification") String Verification, @Field("play") String play,
                                      @Field("password") String password, @Field("confirmpassword") String confirmpassword);
 
     @POST("/index.php?r=api/account/sms")
@@ -140,5 +140,13 @@ public interface BlueService {
     @POST("/index.php?r=api/contact/give-integral")
     @FormUrlEncoded
     rx.Observable<JSONObject> givePoint(@Field("session") String session, @Field("id") String id, @Field("number") String number);
+
+    @POST("/index.php?r=api/qr-code/scan")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> scan(@Field("session") String session, @Field("data") String data);
+
+    @POST("/index.php?r=api/healthy-live/put-num")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> footstep(@Field("session") String session);
 
 }

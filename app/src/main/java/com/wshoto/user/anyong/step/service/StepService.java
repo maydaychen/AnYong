@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.step.UpdateUiCallBack;
 import com.wshoto.user.anyong.step.accelerometer.StepCount;
 import com.wshoto.user.anyong.step.accelerometer.StepValuePassListener;
@@ -27,7 +28,6 @@ import com.wshoto.user.anyong.ui.activity.MainActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 
 public class StepService extends Service implements SensorEventListener {
@@ -146,6 +146,7 @@ public class StepService extends Service implements SensorEventListener {
         List<StepData> list = DbUtils.getQueryByWhere(StepData.class, "today", new String[]{CURRENT_DATE});
         if (list.size() == 0 || list.isEmpty()) {
             CURRENT_STEP = 0;
+            SharedPreferencesUtils.setParam(getApplicationContext(), "fresh", true);
         } else if (list.size() == 1) {
             Log.v(TAG, "StepData=" + list.get(0).toString());
             CURRENT_STEP = Integer.parseInt(list.get(0).getStep());

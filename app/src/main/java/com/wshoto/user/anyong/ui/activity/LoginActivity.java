@@ -41,6 +41,12 @@ public class LoginActivity extends InitActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         }
+        if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
+            SharedPreferencesUtils.setParam(getApplicationContext(), "first",false);
+            Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
+            startActivity(intent);
+//            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
@@ -59,17 +65,18 @@ public class LoginActivity extends InitActivity {
 
         LoginOnNext = jsonObject -> {
             if (jsonObject.getInt("code")==1) {
-                if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
-                    Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
-                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                }else {
+//                if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
+//                    SharedPreferencesUtils.setParam(getApplicationContext(), "first",false);
+//                    Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
+//                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+//                }else {
                     SharedPreferencesUtils.setParam(getApplicationContext(), "session", jsonObject.getJSONObject("data").getString("session"));
                     SharedPreferencesUtils.setParam(getApplicationContext(), "username",  mEtLoginMail.getText().toString());
                     SharedPreferencesUtils.setParam(getApplicationContext(), "pass", mEtLoginPass.getText().toString());
                     SharedPreferencesUtils.setParam(getApplicationContext(), "autolog",true);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                }
+//                }
             }else {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }

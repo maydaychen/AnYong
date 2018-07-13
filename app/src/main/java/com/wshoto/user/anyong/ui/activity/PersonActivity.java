@@ -394,7 +394,7 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (dt1.getTime() == dt2.getTime()) {
+        if (dt1.getMonth() == dt2.getMonth()&&dt1.getDay() == dt2.getDay()) {
             isBigger = true;
         } else if (dt1.getTime() <= dt2.getTime()) {
             isBigger = false;

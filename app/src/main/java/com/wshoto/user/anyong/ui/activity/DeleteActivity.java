@@ -2,6 +2,7 @@ package com.wshoto.user.anyong.ui.activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +19,6 @@ import com.ldf.calendar.model.CalendarDate;
 import com.ldf.calendar.view.Calendar;
 import com.ldf.calendar.view.MonthPager;
 import com.wshoto.user.anyong.Bean.CalendarDayEventBean;
-import com.wshoto.user.anyong.Bean.CalendarDetailBean;
 import com.wshoto.user.anyong.Bean.CalendarEventBean;
 import com.wshoto.user.anyong.Bean.CalendarMineBean;
 import com.wshoto.user.anyong.R;
@@ -52,8 +52,6 @@ public class DeleteActivity extends InitActivity {
     private SubscriberOnNextListener<JSONObject> listOnNext;
     private SubscriberOnNextListener<JSONObject> mylistOnNext;
     private SubscriberOnNextListener<JSONObject> timelistOnNext;
-    private SubscriberOnNextListener<JSONObject> joinOnNext;
-    private SubscriberOnNextListener<JSONObject> detailOnNext;
 
     private ArrayList<Calendar> currentCalendars = new ArrayList<>();
     private CalendarViewAdapter calendarAdapter;
@@ -88,8 +86,8 @@ public class DeleteActivity extends InitActivity {
         context = this;
         monthPager = findViewById(R.id.calendar_view);
 //        monthPager.setViewHeight(Utils.dpi2px(context, 270));
-        mTbMain.addTab(mTbMain.newTab().setText("本日活动"));
-        mTbMain.addTab(mTbMain.newTab().setText("我报名的活动"));
+        mTbMain.addTab(mTbMain.newTab().setText(getText(R.string.today)));
+        mTbMain.addTab(mTbMain.newTab().setText(getText(R.string.mine)));
     }
 
     @Override
@@ -110,25 +108,8 @@ public class DeleteActivity extends InitActivity {
                 Toast.makeText(DeleteActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
             }
         };
-        joinOnNext = jsonObject -> {
-            if (jsonObject.getInt("code") == 1) {
-                Toast.makeText(context, "参加成功!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(DeleteActivity.this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
-            }
-        };
-        detailOnNext = jsonObject -> {
-            if (jsonObject.getInt("code") == 1) {
-                CalendarDetailBean detailBean = mGson.fromJson(jsonObject.toString(), CalendarDetailBean.class);
-                CalendarDetailBean.DataBean dataBean = detailBean.getData();
-                String detail = "开始时间：" + dataBean.getStart_time() + "\n结束时间：" + dataBean.getEnd_time() + "\n内容：" + dataBean.getContent();
-                if (position == 1) {
-                    show1(dataBean.getTitle(), detail, dataBean.getId());
-                } else {
-                    show(dataBean.getTitle(), detail, dataBean.getId());
-                }
-            }
-        };
+
+
         mylistOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 mCalendarMineBean = mGson.fromJson(jsonObject.toString(), CalendarMineBean.class);
@@ -140,9 +121,16 @@ public class DeleteActivity extends InitActivity {
                 });
                 CalendarMineListAdapter messageCenterAdapter = new CalendarMineListAdapter(getApplicationContext(), mCalendarMineBean.getData());
                 rvCalendarActivity.setAdapter(messageCenterAdapter);
-                messageCenterAdapter.setOnItemClickListener((view, data) -> HttpJsonMethod.getInstance().activityInfo(
-                        new ProgressSubscriber(detailOnNext, DeleteActivity.this),
-                        (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), mCalendarDayEventBean.getData().get(data).getId()));
+                messageCenterAdapter.setOnItemClickListener((view, data) -> {
+                    Intent intent = new Intent(DeleteActivity.this, EventDetailActivity.class);
+                    intent.putExtra("mine", true);
+                    intent.putExtra("id", mCalendarMineBean.getData().get(data).getId());
+                    startActivity(intent);
+//                    HttpJsonMethod.getInstance().activityInfo(
+//                            new ProgressSubscriber(detailOnNext, DeleteActivity.this),
+//                            (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), mCalendarMineBean.getData().get(data).getId()))
+
+                });
             }
         };
         timelistOnNext = jsonObject -> {
@@ -156,9 +144,12 @@ public class DeleteActivity extends InitActivity {
                 });
                 CalendarEventListAdapter messageCenterAdapter = new CalendarEventListAdapter(getApplicationContext(), mCalendarDayEventBean.getData());
                 rvCalendarActivity.setAdapter(messageCenterAdapter);
-                messageCenterAdapter.setOnItemClickListener((view, data) -> HttpJsonMethod.getInstance().activityInfo(
-                        new ProgressSubscriber(detailOnNext, DeleteActivity.this),
-                        (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), mCalendarDayEventBean.getData().get(data).getId()));
+                messageCenterAdapter.setOnItemClickListener((view, data) -> {
+                    Intent intent = new Intent(DeleteActivity.this, EventDetailActivity.class);
+                    intent.putExtra("mine", false);
+                    intent.putExtra("id", mCalendarDayEventBean.getData().get(data).getId());
+                    startActivity(intent);
+                });
             }
         };
 
@@ -321,9 +312,7 @@ public class DeleteActivity extends InitActivity {
         builder.setTitle(title);
         builder.setMessage(detail);
         builder.setPositiveButton("参加", (dialog, which) -> {
-            HttpJsonMethod.getInstance().joinActivity(
-                    new ProgressSubscriber(joinOnNext, DeleteActivity.this),
-                    (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), id)
+
             ;
 
         });

@@ -366,7 +366,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         }
         if (result.getPoiList() != null && result.getPoiList().size() > 0) {
             datas.addAll(result.getPoiList());
-            city = result.getPoiList().get(0).city;
+            city = result.getPoiList().get(0).address;
         }
         locatorAdapter.notifyDataSetChanged();
         pb_location_load_bar.setVisibility(View.GONE);

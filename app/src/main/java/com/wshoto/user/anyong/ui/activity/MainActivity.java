@@ -55,6 +55,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
     @BindView(R.id.tv_user_level)
     TextView tvUserLevel;
     private SubscriberOnNextListener<JSONObject> infoOnNext;
+    private SubscriberOnNextListener<JSONObject> scanOnNext;
     private Gson mGson = new Gson();
     private boolean isBind = false;
 
@@ -88,6 +89,20 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 show();
             } else {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+            }
+        };
+        scanOnNext = jsonObject -> {
+            Toast.makeText(MainActivity.this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+            if (jsonObject.getJSONObject("data").getInt("is_report") == 1) {
+                Intent intent = new Intent(MainActivity.this, EventDetailActivity.class);
+                intent.putExtra("mine", true);
+                intent.putExtra("id", "" + jsonObject.getJSONObject("data").getInt("activity_id"));
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(MainActivity.this, EventDetailActivity.class);
+                intent.putExtra("mine", false);
+                intent.putExtra("id", "" + jsonObject.getJSONObject("data").getInt("activity_id"));
+                startActivity(intent);
             }
         };
     }
@@ -195,7 +210,12 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (null != data) {
-            //todo 扫码获得信息后回调
+//            String code = data.getStringExtra("code").substring(data.getStringExtra("code").indexOf("=") + 1);
+//            Toast.makeText(this, data.getStringExtra("code"), Toast.LENGTH_SHORT).show();
+            HttpJsonMethod.getInstance().scan(
+                    new ProgressSubscriber(scanOnNext, MainActivity.this),
+                    (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                    data.getStringExtra("code"));
         }
     }
 
@@ -216,6 +236,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
         builder.setPositiveButton("确认", (dialog, which) -> {
             dialog.dismiss();
             SharedPreferencesUtils.clear(getApplicationContext());
+            SharedPreferencesUtils.setParam(getApplicationContext(), "first", false);
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         });

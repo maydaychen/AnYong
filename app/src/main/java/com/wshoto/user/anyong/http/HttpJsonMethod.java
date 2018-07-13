@@ -321,7 +321,25 @@ public class HttpJsonMethod {
     }
 
     public void givePoint(Subscriber<JSONObject> subscriber, String session, String id, String num) {
-        movieService.givePoint(session, id,num)
+        movieService.givePoint(session, id, num)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void scan(Subscriber<JSONObject> subscriber, String session, String data) {
+        movieService.scan(session, data)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void footstep(Subscriber<JSONObject> subscriber, String session) {
+        movieService.footstep(session)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

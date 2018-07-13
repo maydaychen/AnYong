@@ -43,6 +43,7 @@ viewKIND, either express or implied.
 
         <TextView
             android:id="@+id/tv_flash"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

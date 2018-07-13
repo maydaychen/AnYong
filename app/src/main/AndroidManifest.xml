@@ -139,7 +139,8 @@
         <activity android:name=".ui.activity.ThankViewActivity" />
         <activity android:name=".ui.activity.SearchNewFriendActivity" />
         <activity android:name=".ui.activity.AddFriendActivity" />
-        <activity android:name=".ui.activity.MapTestActivity"></activity>
+        <activity android:name=".ui.activity.MapTestActivity" />
+        <activity android:name=".ui.activity.EventDetailActivity"></activity>
     </application>
 
 </manifest>

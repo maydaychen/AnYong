@@ -1,5 +1,7 @@
 package com.wshoto.user.anyong.Bean;
 
+import java.io.Serializable;
+
 public class CalendarDetailBean {
     /**
      * code : 1
@@ -51,7 +53,7 @@ public class CalendarDetailBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * id : 3
          * title : 测试
@@ -74,8 +76,8 @@ public class CalendarDetailBean {
         private String content;
         private String type;
         private String is_join;
-        private int created;
-        private int updated;
+        private String created;
+        private String updated;
         private String published;
         private String qrcode;
         private int is_today;
@@ -136,19 +138,19 @@ public class CalendarDetailBean {
             this.is_join = is_join;
         }
 
-        public int getCreated() {
+        public String getCreated() {
             return created;
         }
 
-        public void setCreated(int created) {
+        public void setCreated(String created) {
             this.created = created;
         }
 
-        public int getUpdated() {
+        public String getUpdated() {
             return updated;
         }
 
-        public void setUpdated(int updated) {
+        public void setUpdated(String updated) {
             this.updated = updated;
         }
 

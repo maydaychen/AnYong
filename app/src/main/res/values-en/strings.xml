@@ -14,6 +14,9 @@
     <string name="back">Back</string>
     <string name="nianduzhangdan">My Annual Summary</string>
     <string name="calendar">Calendar</string>
+    <string name="today">today</string>
+    <string name="mine">mine</string>
+    <string name="detail">detail</string>
     <string name="tv_change_pass_mobile">Please enter your mobile number</string>
     <string name="tv_change_pass_sms">Please enter verification code</string>
     <string name="tv_change_pass_sms_send">Get verification code</string>
@@ -132,4 +135,5 @@
     <string name="check">check</string>
     <string name="give_success">Give Successfully!</string>
     <string name="point">point(s)</string>
+    <string name="join_success">join successfully！</string>
 </resources>

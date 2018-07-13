@@ -1,14 +1,11 @@
 package com.wshoto.user.anyong.ui.activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.wshoto.user.anyong.Bean.UserInfoBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
@@ -16,10 +13,8 @@ import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -38,6 +33,7 @@ public class SettingActivity extends InitActivity {
         logoutOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 SharedPreferencesUtils.clear(getApplicationContext());
+                SharedPreferencesUtils.setParam(getApplicationContext(), "first",false);
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             } else {

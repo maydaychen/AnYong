@@ -18,12 +18,14 @@
             android:id="@+id/btn_im_exp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:textColor="@color/yellow"
-            android:padding="@dimen/margin_size_8dp"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/margin_size_20dp" />
+            android:layout_margin="@dimen/margin_size_8dp"
+            android:layout_marginBottom="@dimen/margin_size_20dp"
+            android:visibility="gone"
+            android:textSize="@dimen/font_size_20sp"
+            android:text="@string/back"
+            android:textColor="@color/yellow" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -35,9 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:padding="@dimen/margin_size_10dp"
             android:layout_marginBottom="25dp"
             android:gravity="center"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_size_10dp" />
     </RelativeLayout>
 </FrameLayout>
