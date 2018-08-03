@@ -69,7 +69,7 @@ public class EventDetailActivity extends InitActivity {
 
     @Override
     public void initData() {
-        if (getIntent().getBooleanExtra("mine", false)) {
+        if (!getIntent().getBooleanExtra("mine", false)) {
             tvJoin.setVisibility(View.VISIBLE);
         }
 

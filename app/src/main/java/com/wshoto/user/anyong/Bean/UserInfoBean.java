@@ -6,7 +6,7 @@ public class UserInfoBean {
     /**
      * code : 1
      * message : {"status":"success"}
-     * data : {"id":"5","username":"","avatar":"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2194440970,3478897226&fm=179&app=42&f=JPEG?w=121&h=140","english_name":"tom","job_no":"123455","email":"tom@wshoto.com","mobile":"13665137658","birthday":"2018-06-10","join_time":"0","position":"会计","department_id":"暂无部门","invitecode":"","integral":0,"nickname":"青铜用户"}
+     * data : {"integral":"500","id":"5","username":"","avatar":"","english_name":"tom","job_no":"123455","email":"tom@wshoto.com","mobile":"13665137658","birthday":"1991-05-03","join_time":"2000-01-01","position":"会计","department":"1","invitecode":"00000005","nickname":"钻石 "}
      */
 
     private int code;
@@ -55,22 +55,23 @@ public class UserInfoBean {
 
     public static class DataBean implements Serializable{
         /**
+         * integral : 500
          * id : 5
          * username :
-         * avatar : https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2194440970,3478897226&fm=179&app=42&f=JPEG?w=121&h=140
+         * avatar :
          * english_name : tom
          * job_no : 123455
          * email : tom@wshoto.com
          * mobile : 13665137658
-         * birthday : 2018-06-10
-         * join_time : 0
+         * birthday : 1991-05-03
+         * join_time : 2000-01-01
          * position : 会计
-         * department_id : 暂无部门
-         * invitecode :
-         * integral : 0
-         * nickname : 青铜用户
+         * department : 1
+         * invitecode : 00000005
+         * nickname : 钻石
          */
 
+        private String integral;
         private String id;
         private String username;
         private String avatar;
@@ -81,10 +82,17 @@ public class UserInfoBean {
         private String birthday;
         private String join_time;
         private String position;
-        private String department_id;
+        private String department;
         private String invitecode;
-        private int integral;
         private String nickname;
+
+        public String getIntegral() {
+            return integral;
+        }
+
+        public void setIntegral(String integral) {
+            this.integral = integral;
+        }
 
         public String getId() {
             return id;
@@ -166,12 +174,12 @@ public class UserInfoBean {
             this.position = position;
         }
 
-        public String getDepartment_id() {
-            return department_id;
+        public String getDepartment() {
+            return department;
         }
 
-        public void setDepartment_id(String department_id) {
-            this.department_id = department_id;
+        public void setDepartment(String department) {
+            this.department = department;
         }
 
         public String getInvitecode() {
@@ -180,14 +188,6 @@ public class UserInfoBean {
 
         public void setInvitecode(String invitecode) {
             this.invitecode = invitecode;
-        }
-
-        public int getIntegral() {
-            return integral;
-        }
-
-        public void setIntegral(int integral) {
-            this.integral = integral;
         }
 
         public String getNickname() {

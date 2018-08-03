@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
 
@@ -75,9 +76,17 @@ public class ConfirmStep3Fragment extends Fragment {
 
     @OnClick(R.id.tv_step1_next)
     public void onViewClicked() {
-        mFragmentManager = getActivity().getSupportFragmentManager();
-        //注意v4包的配套使用
-        Fragment fragment = ConfirmStep4Fragment.newInstance(mParam1, mParam2, mParam3, mParam4, etStep3Pass.getText().toString());
-        mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
+        String regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+
+        if (!etStep3Pass.getText().toString().equals(etStep3Pass2.getText().toString()) || etStep3Pass.getText().toString().equals("")) {
+            Toast.makeText(getActivity(), "请输入正确密码", Toast.LENGTH_SHORT).show();
+        } else if (etStep3Pass.getText().toString().matches(regex)) {
+            Toast.makeText(getActivity(), "密码须为8位以上，数字+字母+特殊符号", Toast.LENGTH_SHORT).show();
+        } else {
+            mFragmentManager = getActivity().getSupportFragmentManager();
+            //注意v4包的配套使用
+            Fragment fragment = ConfirmStep4Fragment.newInstance(mParam1, mParam2, mParam3, mParam4, etStep3Pass.getText().toString());
+            mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
+        }
     }
 }

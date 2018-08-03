@@ -29,7 +29,8 @@ public class HonourActivity extends InitActivity {
     public void initData() {
         mWvHonour.loadUrl("https://anyong.wshoto.com/html/honor.html?uid=" +
                 getIntent().getStringExtra("id") + "&session=" +
-                SharedPreferencesUtils.getParam(this, "session", ""));
+                SharedPreferencesUtils.getParam(this, "session", "")+
+                "&lang=" + SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     @OnClick(R.id.iv_comfirm_back)

@@ -30,7 +30,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.loopj.android.image.SmartImageView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.wshoto.user.anyong.Bean.UserInfoBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
@@ -41,6 +46,7 @@ import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextAndErrorListener;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
+import com.wshoto.user.anyong.ui.widget.RoundImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +67,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class PersonActivity extends InitActivity implements EasyPermissions.PermissionCallbacks {
     @BindView(R.id.iv_person_logo)
-    SmartImageView ivPersonLogo;
+    RoundImageView ivPersonLogo;
     @BindView(R.id.tv_person_name)
     TextView tvPersonName;
     @BindView(R.id.tv_person_number)
@@ -92,7 +98,9 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_person);
         ButterKnife.bind(this);
-
+        ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this).writeDebugLogs().build();
+        // 初始化
+        ImageLoader.getInstance().init(configuration);
     }
 
     @Override
@@ -101,10 +109,10 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
         if (isDate2Bigger(mDataBean.getBirthday())) {
             ivBirthday.setVisibility(View.VISIBLE);
         }
-        ivPersonLogo.setImageUrl(mDataBean.getAvatar());
+        loadImage(mDataBean.getAvatar());
         tvPersonName.setText(mDataBean.getUsername());
         tvPersonNumber.setText(mDataBean.getJob_no());
-        tvPersonBumen.setText(mDataBean.getDepartment_id());
+        tvPersonBumen.setText(mDataBean.getDepartment());
         tvPersonPosition.setText(mDataBean.getPosition());
         tvPersonTele.setText(mDataBean.getMobile());
         tvPersonEmail.setText(mDataBean.getEmail());
@@ -125,7 +133,7 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
                 }
                 if (jsonObject.getInt("code") == 1) {
                     String url = jsonObject.getString("data");
-                    ivPersonLogo.setImageUrl(url);
+                    loadImage(url);
                     HttpJsonMethod.getInstance().getAva(
                             new ProgressSubscriber<>(changeOnNext, PersonActivity.this),
                             (String) SharedPreferencesUtils.getParam(PersonActivity.this, "session", ""), url);
@@ -394,11 +402,51 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (dt1.getMonth() == dt2.getMonth()&&dt1.getDay() == dt2.getDay()) {
+        if (dt1.getMonth() == dt2.getMonth() && dt1.getDay() == dt2.getDay()) {
             isBigger = true;
-        } else if (dt1.getTime() <= dt2.getTime()) {
-            isBigger = false;
         }
         return isBigger;
+    }
+
+    private void loadImage(String url) {
+        // 图片路径
+        String uri = (url);
+        // 图片大小
+        ImageSize mImageSize = new ImageSize(300, 300);
+        // 图片的配置
+        DisplayImageOptions mOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true).cacheOnDisc(true)
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
+
+        ImageLoader.getInstance().loadImage(uri, mImageSize, mOptions,
+                new ImageLoadingListener() {
+
+                    @Override
+                    public void onLoadingStarted(String arg0, View arg1) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String arg0, View arg1,
+                                                FailReason arg2) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String arg0, View arg1,
+                                                  Bitmap arg2) {
+                        ivPersonLogo.setImageBitmap(arg2);
+
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String arg0, View arg1) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
     }
 }

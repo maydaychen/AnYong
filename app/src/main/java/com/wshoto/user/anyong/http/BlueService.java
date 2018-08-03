@@ -149,4 +149,8 @@ public interface BlueService {
     @FormUrlEncoded
     rx.Observable<JSONObject> footstep(@Field("session") String session);
 
+    @POST("/index.php?r=api/integral/newer-task")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> newer(@Field("job_no") String session);
+
 }

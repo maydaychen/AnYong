@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,13 +26,13 @@
             android:drawableLeft="@drawable/back"
             android:drawablePadding="@dimen/margin_size_8dp"
             android:text="@string/back"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <TextView
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/person_info"/>
+            android:text="@string/person_info" />
 
         <TextView
             android:id="@+id/tv_person_setting"
@@ -43,14 +42,14 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_8dp"
             android:text="@string/setting"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/cover"
+        android:background="@drawable/person"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -58,21 +57,21 @@
 
         <ImageView
             android:id="@+id/iv_birthday"
-            android:src="@drawable/hg"
-            android:layout_marginTop="90dp"
-            android:visibility="invisible"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="-20dp"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.loopj.android.image.SmartImageView
-            android:id="@+id/iv_person_logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/tx"/>
+            android:layout_marginBottom="-20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/hg"
+            android:visibility="invisible" />
+
+        <com.wshoto.user.anyong.ui.widget.RoundImageView
+            android:id="@+id/iv_person_logo"
+            android:layout_width="109dp"
+            android:layout_height="109dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/tx" />
 
         <TextView
             android:id="@+id/tv_person_name"
@@ -82,7 +81,7 @@
             android:layout_marginTop="@dimen/margin_size_18dp"
             android:text="张三"
             android:textColor="@color/yellow"
-            android:textSize="@dimen/font_size_18sp"/>
+            android:textSize="@dimen/font_size_18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,7 +101,7 @@
                     android:padding="@dimen/margin_size_8dp"
                     android:text="@string/user_number"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_12sp"/>
+                    android:textSize="@dimen/font_size_12sp" />
 
                 <TextView
                     android:id="@+id/tv_person_number"
@@ -110,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
                     android:text="1024"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,7 +125,7 @@
                     android:padding="@dimen/margin_size_8dp"
                     android:text="@string/user_locate"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_12sp"/>
+                    android:textSize="@dimen/font_size_12sp" />
 
                 <TextView
                     android:id="@+id/tv_person_bumen"
@@ -134,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
                     android:text="1024"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -150,7 +149,7 @@
                     android:padding="@dimen/margin_size_8dp"
                     android:text="@string/user_position"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_12sp"/>
+                    android:textSize="@dimen/font_size_12sp" />
 
                 <TextView
                     android:id="@+id/tv_person_position"
@@ -158,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_size_8dp"
                     android:text="1024"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -177,7 +176,7 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
             android:text="@string/telephone"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_person_tele"
@@ -188,7 +187,7 @@
             android:padding="@dimen/margin_size_16dp"
             android:text="13333333333"
             android:textColor="@color/yellow"
-            android:textSize="@dimen/font_size_16sp"/>
+            android:textSize="@dimen/font_size_16sp" />
     </RelativeLayout>
 
     <TextView
@@ -198,7 +197,7 @@
         android:background="@color/line_44"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"/>
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout3"
@@ -214,7 +213,7 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
             android:text="@string/email"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_person_email"
@@ -225,7 +224,7 @@
             android:padding="@dimen/margin_size_16dp"
             android:text="xxx@xxx.com"
             android:textColor="@color/yellow"
-            android:textSize="@dimen/font_size_16sp"/>
+            android:textSize="@dimen/font_size_16sp" />
     </RelativeLayout>
 
     <TextView
@@ -235,7 +234,7 @@
         android:background="@color/line_44"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"/>
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3" />
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -250,7 +249,7 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
             android:text="@string/recommend_number"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_person_recommend"
@@ -261,6 +260,6 @@
             android:padding="@dimen/margin_size_16dp"
             android:text="1234"
             android:textColor="@color/yellow"
-            android:textSize="@dimen/font_size_16sp"/>
+            android:textSize="@dimen/font_size_16sp" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

@@ -105,7 +105,7 @@
     <string name="confirm_step_3_2">以后就可以用邮箱+密码的方式登录APP啦</string>
     <string name="confirm_pass">输入密码</string>
     <string name="comfirm_pass2">请再次输入密码</string>
-    <string name="confirm_step_4_1">是否有热心的同事推荐引导你用我们的APP呢</string>
+    <string name="confirm_step_4_1">是否有热心的同事推荐你用EY Footprint呢？</string>
     <string name="confirm_step_4_2">输入他（她）的推荐码吧</string>
     <string name="invite_code">邀请码</string>
     <string name="step1_error">请将信息填写完整！</string>
@@ -138,4 +138,6 @@
     <string name="give_success">赠送成功!</string>
     <string name="point">积分</string>
     <string name="join_success">参加成功！</string>
+    <string name="friend_apply">安永请求添加</string>
+    <string name="logout_error">您的账号已在别处登录，请重新登录！</string>
 </resources>

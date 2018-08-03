@@ -229,11 +229,11 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
 
     public void show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("您的账号已在别处登录，请重新登录！");
+        builder.setMessage(getText(R.string.logout_error));
         builder.setTitle(R.string.app_name);
         builder.setCancelable(false);
 
-        builder.setPositiveButton("确认", (dialog, which) -> {
+        builder.setPositiveButton(getText(R.string.confirm), (dialog, which) -> {
             dialog.dismiss();
             SharedPreferencesUtils.clear(getApplicationContext());
             SharedPreferencesUtils.setParam(getApplicationContext(), "first", false);

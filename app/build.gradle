@@ -67,4 +67,5 @@ dependencies {
     implementation files('libs/lite-orm-1.7.0.jar')
     implementation files('libs/android-smart-image-view-1.0.0.jar')
     implementation project(':calendar')
+    implementation files('libs/universal-image-loader-1.9.5.jar')
 }

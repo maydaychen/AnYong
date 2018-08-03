@@ -54,7 +54,7 @@
 
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_size_8dp"
-                android:text="安永请求添加"
+                android:text="@string/friend_apply"
                 android:textColor="@color/yellow" />
         </LinearLayout>
         <!--<android.support.v7.widget.RecyclerView-->

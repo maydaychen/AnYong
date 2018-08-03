@@ -366,7 +366,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         }
         if (result.getPoiList() != null && result.getPoiList().size() > 0) {
             datas.addAll(result.getPoiList());
-            city = result.getPoiList().get(0).address;
+            city = result.getPoiList().get(0).city;
         }
         locatorAdapter.notifyDataSetChanged();
         pb_location_load_bar.setVisibility(View.GONE);
@@ -416,9 +416,13 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
                 finish();
                 break;
             case R.id.iv_qiandao:
-                HttpJsonMethod.getInstance().locate(
-                        new ProgressSubscriber(locateOnNext, MapTestActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""), city);
-                break;
+                if (city.equals("")) {
+                    Toast.makeText(mContext, "请选择所在地区！", Toast.LENGTH_SHORT).show();
+                }else {
+                    HttpJsonMethod.getInstance().locate(
+                            new ProgressSubscriber(locateOnNext, MapTestActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""), city);
+                }
+               break;
         }
     }
 

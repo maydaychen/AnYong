@@ -10,7 +10,7 @@
     <string name="tv_login_username">Your EY E-mail Account</string>
     <string name="tv_login_pass">Please enter your password</string>
     <string name="thanku">ThankU</string>
-    <string name="tv_thank_send">我也要发</string>
+    <string name="tv_thank_send">I want to send it too</string>
     <string name="back">Back</string>
     <string name="nianduzhangdan">My Annual Summary</string>
     <string name="calendar">Calendar</string>
@@ -29,7 +29,7 @@
     <string name="confirm3">Successfully Verified</string>
     <string name="healthy_life">Work Life Balance</string>
     <string name="step_today">Today\'s Steps</string>
-    <string name="step_hint">Reach 8000 steps! Get the point now!</string>
+    <string name="step_hint">Reach 8000 steps!\n Get the point now!</string>
     <string name="come_on">Keep going!</string>
     <string name="healthy_task_daily">Exercises time is coming!</string>
     <string name="task1">Eye exercise</string>
@@ -103,7 +103,7 @@
     <string name="confirm_step_3_2">After that, you can log in to the APP using the email + password.</string>
     <string name="confirm_pass">enter password</string>
     <string name="comfirm_pass2">Please enter your password again</string>
-    <string name="confirm_step_4_1">Is there an enthusiastic colleague who recommends you to use our app?</string>
+    <string name="confirm_step_4_1">Is there an enthusiastic colleague who recommends you to use EY Footprint?</string>
     <string name="confirm_step_4_2">Enter his or her recommendation code</string>
     <string name="invite_code">Invitation code</string>
     <string name="step1_error">Please complete the information！</string>
@@ -129,11 +129,13 @@
     <string name="upload_fail">Upload failed, please try again later</string>
     <string name="upload_success">Uploaded successfully!</string>
     <string name="save">save</string>
-        <string name="language_setting">language settings</string>
+    <string name="language_setting">language settings</string>
     <string name="pic">Gallery</string>
     <string name="send_sussess">Send Successfully!</string>
     <string name="check">check</string>
     <string name="give_success">Give Successfully!</string>
     <string name="point">point(s)</string>
     <string name="join_success">join successfully！</string>
+    <string name="friend_apply">EY request add</string>
+    <string name="logout_error">Your account has been logged elsewhere, please login again!</string>
 </resources>

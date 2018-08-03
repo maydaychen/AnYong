@@ -22,14 +22,15 @@ public class AnniversaryActivity extends InitActivity {
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_anniversary);
         ButterKnife.bind(this);
-init();
+        init();
     }
 
     @Override
     public void initData() {
         mWvAnni.loadUrl("https://anyong.wshoto.com/html/annual.html?uid=" +
                 getIntent().getStringExtra("id") + "&session=" +
-                SharedPreferencesUtils.getParam(this, "session", ""));
+                SharedPreferencesUtils.getParam(this, "session", "") +
+                "&lang=" + SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     @OnClick(R.id.iv_comfirm_back)
