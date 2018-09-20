@@ -71,7 +71,8 @@ public class ThankListFragment extends Fragment {
             }
         };
         HttpJsonMethod.getInstance().thankList(
-                new ProgressSubscriber(thankOnNext, getActivity()), (String) SharedPreferencesUtils.getParam(getActivity(), "session", ""));
+                new ProgressSubscriber(thankOnNext, getActivity()), (String) SharedPreferencesUtils.getParam(getActivity(), "session", ""),
+                (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"));
     }
 
     @Override

@@ -59,7 +59,8 @@ public class ThankPreviewActivity extends InitActivity {
                 HttpJsonMethod.getInstance().sendThank(
                         new ProgressSubscriber(sendOnNext, ThankPreviewActivity.this),
                         getIntent().getIntExtra("id", 0) + "",
-                        (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                        (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 break;
         }
     }

@@ -9,13 +9,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.Utils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -48,20 +48,17 @@ public class ChangePassActivity extends InitActivity {
     public void initData() {
         sendOnNext = resultBean -> {
             if (resultBean.getInt("code") == 1) {
-                Toast.makeText(ChangePassActivity.this, "发送成功！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangePassActivity.this, getText(R.string.send_sussess), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(ChangePassActivity.this, resultBean.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
-        changeOnNext = new SubscriberOnNextListener<JSONObject>() {
-            @Override
-            public void onNext(JSONObject jsonObject) throws JSONException {
-                if (jsonObject.getInt("code") == 1) {
-                    Toast.makeText(ChangePassActivity.this, "修改成功！", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ChangePassActivity.this,LoginActivity.class));
-                } else {
-                    Toast.makeText(ChangePassActivity.this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
-                }
+        changeOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                Toast.makeText(ChangePassActivity.this, getText(R.string.change_success), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ChangePassActivity.this,LoginActivity.class));
+            } else {
+                Toast.makeText(ChangePassActivity.this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
     }
@@ -79,16 +76,18 @@ public class ChangePassActivity extends InitActivity {
                     mTvGetEms.setClickable(false);
                     handler.post(runnable);
                     HttpJsonMethod.getInstance().sendCode(
-                            new ProgressSubscriber(sendOnNext, ChangePassActivity.this), tele ,"fix");
+                            new ProgressSubscriber(sendOnNext, ChangePassActivity.this), tele ,
+                            "fix",(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 } else {
-                    Toast.makeText(ChangePassActivity.this, "请填写手机号！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePassActivity.this, getText(R.string.mobile_hint), Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv_login:
                 HttpJsonMethod.getInstance().forget(
                         new ProgressSubscriber(changeOnNext, ChangePassActivity.this),
                         mEtLoginMail.getText().toString(), mEtLoginYanzheng.getText().toString(),
-                        mEtLoginPass.getText().toString(), mEtLoginPass2.getText().toString());
+                        mEtLoginPass.getText().toString(), mEtLoginPass2.getText().toString(),
+                        (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 break;
             default:
                 break;
@@ -107,7 +106,7 @@ public class ChangePassActivity extends InitActivity {
                 flag = true;
                 recLen = 60;
                 mTvGetEms.setClickable(true);
-                mTvGetEms.setText("获取验证码");
+                mTvGetEms.setText(getText(R.string.tv_change_pass_sms_send));
             }
         }
     };

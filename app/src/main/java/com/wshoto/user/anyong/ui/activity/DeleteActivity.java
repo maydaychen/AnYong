@@ -75,7 +75,8 @@ public class DeleteActivity extends InitActivity {
         super.onResume();
         HttpJsonMethod.getInstance().calendar(
                 new ProgressSubscriber(listOnNext, DeleteActivity.this),
-                (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     @Override
@@ -297,11 +298,13 @@ public class DeleteActivity extends InitActivity {
         if (position == 0) {
             HttpJsonMethod.getInstance().timeCalendar(
                     new ProgressSubscriber(timelistOnNext, DeleteActivity.this),
-                    (String) SharedPreferencesUtils.getParam(this, "session", ""), currentDate.toString());
+                    (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                    currentDate.toString(),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
         } else {
             HttpJsonMethod.getInstance().myCalendar(
                     new ProgressSubscriber(mylistOnNext, DeleteActivity.this),
-                    (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                    (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                    (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
         }
 
     }

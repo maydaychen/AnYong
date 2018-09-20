@@ -37,7 +37,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/yellow"
         android:gravity="center"
-        android:text="我要报名"
+        android:text="@string/join"
         android:visibility="gone" />
 
     <ScrollView

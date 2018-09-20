@@ -2,6 +2,7 @@ package com.wshoto.user.anyong.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,24 +46,44 @@ import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.map.LocationAdapter;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import kankan.wheel.widget.OnWheelChangedListener;
+import kankan.wheel.widget.WheelView;
+import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
-public class MapTestActivity extends InitActivity implements AdapterView.OnItemClickListener, OnGetGeoCoderResultListener, BaiduMap.OnMapStatusChangeListener, View.OnClickListener {
+public class MapTestActivity extends InitActivity implements AdapterView.OnItemClickListener,
+        OnGetGeoCoderResultListener, BaiduMap.OnMapStatusChangeListener, View.OnClickListener, OnWheelChangedListener {
+    @BindView(R.id.wheel_add_address)
+    RelativeLayout mAddAddress;
+    @BindView(R.id.lv_location_position)
+    ListView lv_location_position;
+    @BindView(R.id.pb_location_load_bar)
+    ProgressBar pb_location_load_bar;
+    @BindView(R.id.img_location_back_origin)
+    ImageView img_location_back_origin;
+    @BindView(R.id.bmapView)
+    MapView bmapView;
+    @BindView(R.id.id_province)
+    WheelView mProvince;
+    @BindView(R.id.id_city)
+    WheelView mCity;
+    @BindView(R.id.id_area)
+    WheelView mArea;
+
     private Context mContext;
-    /**
-     * 显示的地图
-     */
-    protected MapView bmapView;
-    /**
-     * 附近地点列表
-     */
-    private ListView lv_location_position;
     /**
      * 列表适配器
      */
@@ -84,7 +106,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
     private LocationClient mLocClient;
     private MyLocationListener myLocationListener = new MyLocationListener();
     // MapView 中央对于的屏幕坐标
-    private android.graphics.Point mCenterPoint = null;
+    private Point mCenterPoint = null;
     /**
      * 当前经纬度
      */
@@ -94,17 +116,9 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
      */
     private boolean isFirstLoc = true;
     /**
-     * 进度条
-     */
-    private ProgressBar pb_location_load_bar;
-    /**
      * 获取的位置
      */
     private String mLocationValue;
-    /**
-     * 按钮：回到原地
-     */
-    private ImageView img_location_back_origin;
     /**
      * 请求码
      */
@@ -112,6 +126,45 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
     private boolean isTouch = true;
     private SubscriberOnNextListener<JSONObject> locateOnNext;
     private String city = "";
+    private String lat = "";
+    private String lon = "";
+
+
+    /**
+     * 把全国的省市区的信息以json的格式保存，解析完成后赋值为null
+     */
+    private JSONObject mJsonObj;
+
+
+    /**
+     * 所有省
+     */
+    private String[] mProvinceDatas;
+    private String[] mProvinceIds;
+    /**
+     * key - 省 value - 市s
+     */
+    private Map<String, String[]> mCitisDatasMap = new HashMap<>();
+    private Map<String, String[]> mCitisDatasID = new HashMap<>();
+    /**
+     * key - 市 values - 区s
+     */
+    private Map<String, String[]> mAreaDatasMap = new HashMap<>();
+    private Map<String, String[]> mAreaDatasId = new HashMap<>();
+
+    /**
+     * 当前省的名称
+     */
+    private String mCurrentProviceName;
+    /**
+     * 当前市的名称
+     */
+    private String mCurrentCityName;
+    /**
+     * 当前区的名称
+     */
+    private String mCurrentAreaId;
+    private String mCurrentAreaName;
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -129,6 +182,23 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
+
+        initJsonData();
+        initDatas();
+
+        mProvince.setViewAdapter(new ArrayWheelAdapter<>(this, mProvinceDatas));
+        // 添加change事件
+        mProvince.addChangingListener(this);
+        // 添加change事件
+        mCity.addChangingListener(this);
+        // 添加change事件
+        mArea.addChangingListener(this);
+
+        mProvince.setVisibleItems(5);
+        mCity.setVisibleItems(5);
+        mArea.setVisibleItems(5);
+        updateCities();
+        updateAreas();
     }
 
     /**
@@ -136,10 +206,10 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
      */
     private void initUI() {
         mContext = this;
-        lv_location_position = (ListView) findViewById(R.id.lv_location_position);
-        pb_location_load_bar = (ProgressBar) findViewById(R.id.pb_location_load_bar);
-        img_location_back_origin = (ImageView) findViewById(R.id.img_location_back_origin);
-        bmapView = (MapView) findViewById(R.id.bmapView);
+        lv_location_position = findViewById(R.id.lv_location_position);
+        pb_location_load_bar = findViewById(R.id.pb_location_load_bar);
+        img_location_back_origin = findViewById(R.id.img_location_back_origin);
+        bmapView = findViewById(R.id.bmapView);
 
         // 地图初始化
         mBaiduMap = bmapView.getMap();
@@ -221,6 +291,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         }
     }
 
+
     /**
      * 定位SDK监听函数
      */
@@ -248,13 +319,13 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
             if (isFirstLoc) {
                 isFirstLoc = false;
                 // 实现动画跳转
-                MapStatusUpdate u = MapStatusUpdateFactory
-                        .newLatLng(currentLatLng);
+                MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(currentLatLng);
                 mBaiduMap.animateMapStatus(u);
 
-                mSearch.reverseGeoCode((new ReverseGeoCodeOption())
-                        .location(currentLatLng));
+                mSearch.reverseGeoCode((new ReverseGeoCodeOption()).location(currentLatLng));
                 city = location.getCity();
+                lat = location.getLatitude() + "";
+                lon = location.getLongitude() + "";
                 return;
             }
         }
@@ -367,6 +438,8 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         if (result.getPoiList() != null && result.getPoiList().size() > 0) {
             datas.addAll(result.getPoiList());
             city = result.getPoiList().get(0).city;
+            lat = result.getPoiList().get(0).location.latitude + "";
+            lon = result.getPoiList().get(0).location.longitude + "";
         }
         locatorAdapter.notifyDataSetChanged();
         pb_location_load_bar.setVisibility(View.GONE);
@@ -409,7 +482,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
 
     }
 
-    @OnClick({R.id.iv_comfirm_back, R.id.iv_qiandao})
+    @OnClick({R.id.iv_comfirm_back, R.id.iv_qiandao, R.id.tv_choose, R.id.tv_choose_cancel, R.id.tv_choose_confirm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_comfirm_back:
@@ -418,24 +491,37 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
             case R.id.iv_qiandao:
                 if (city.equals("")) {
                     Toast.makeText(mContext, "请选择所在地区！", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     HttpJsonMethod.getInstance().locate(
-                            new ProgressSubscriber(locateOnNext, MapTestActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""), city);
+                            new ProgressSubscriber(locateOnNext, MapTestActivity.this),
+                            (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                            city, (String) SharedPreferencesUtils.getParam(this, "language", "zh"), lat, lon);
                 }
-               break;
+                break;
+            case R.id.tv_choose:
+                mAddAddress.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_choose_cancel:
+                mAddAddress.setVisibility(View.GONE);
+                break;
+            case R.id.tv_choose_confirm:
+                mAddAddress.setVisibility(View.GONE);
+                HttpJsonMethod.getInstance().locate(
+                        new ProgressSubscriber(locateOnNext, MapTestActivity.this),
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                        mCurrentProviceName + mCurrentCityName, (String) SharedPreferencesUtils.getParam(this,
+                                "language", "zh"), "", "");
+                break;
         }
     }
 
     private void showPopupWindow(String number, String numberPercent) {
-        View contentView = LayoutInflater.from(this).inflate(
-                R.layout.popwindow_map, null);
-
+        View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow_map, null);
         final TextView mTvDays = contentView.findViewById(R.id.tv_pop_days);
         final TextView mTvPercent = contentView.findViewById(R.id.tv_pop_percent);
         final TextView mTvMap = contentView.findViewById(R.id.tv_pop_map);
         final PopupWindow popupWindow = new PopupWindow(contentView,
-                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
-                true);
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, true);
         mTvDays.setText(number);
         mTvPercent.setText(Float.valueOf(numberPercent) * 100 + "");
         ColorDrawable dw = new ColorDrawable(0xcF000000);
@@ -453,4 +539,181 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
                 Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 
     }
+
+    /**
+     * 根据当前的市，更新区WheelView的信息
+     */
+    private void updateAreas() {
+        int pCurrent = mCity.getCurrentItem();
+        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
+//        mCurrentCityId = mCitisDatasID.get(mCurrentProviceName)[pCurrent];
+        String[] areas = mAreaDatasMap.get(mCurrentCityName);
+        String[] areasId = mAreaDatasId.get(mCurrentCityName);
+        mCurrentAreaName = areas[0];
+        mCurrentAreaId = areasId[0];
+        if (areas == null) {
+            areas = new String[]{""};
+        }
+        mArea.setViewAdapter(new ArrayWheelAdapter<>(this, areas));
+        mArea.setCurrentItem(0);
+    }
+
+    /**
+     * 根据当前的省，更新市WheelView的信息
+     */
+    private void updateCities() {
+        int pCurrent = mProvince.getCurrentItem();
+        mCurrentProviceName = mProvinceDatas[pCurrent];
+//        mCurrentProviceId = mProvinceIds[pCurrent];
+        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
+        if (cities == null) {
+            cities = new String[]{""};
+        }
+        mCity.setViewAdapter(new ArrayWheelAdapter<>(this, cities));
+        mCity.setCurrentItem(0);
+        updateAreas();
+    }
+
+    /**
+     * 解析整个Json对象，完成后释放Json对象的内存
+     */
+    private void initDatas() {
+        try {
+            JSONArray jsonArray = mJsonObj.getJSONArray("citylist");
+            mProvinceDatas = new String[jsonArray.length()];
+            mProvinceIds = new String[jsonArray.length()];
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonP = jsonArray.getJSONObject(i);// 每个省的json对象
+                String province = jsonP.getString("name");// 省名字
+                String provinceId = jsonP.getString("regionid");//省ID
+
+                mProvinceDatas[i] = province;
+                mProvinceIds[i] = provinceId;
+
+                JSONArray jsonCs;
+                try {
+                    /**
+                     * Throws JSONException if the mapping doesn't exist or is
+                     * not a JSONArray.
+                     */
+                    jsonCs = jsonP.getJSONArray("children");
+                } catch (Exception e1) {
+                    continue;
+                }
+                String[] mCitiesDatas = new String[jsonCs.length()];
+                String[] mCitiesIds = new String[jsonCs.length()];
+                for (int j = 0; j < jsonCs.length(); j++) {
+                    JSONObject jsonCity = jsonCs.getJSONObject(j);
+                    String city = jsonCity.getString("name");// 市名字
+                    String cityId = jsonCity.getString("regionid");// 市id
+                    mCitiesDatas[j] = city;
+                    mCitiesIds[j] = cityId;
+                    JSONArray jsonAreas;
+                    try {
+                        /**
+                         * Throws JSONException if the mapping doesn't exist or
+                         * is not a JSONArray.
+                         */
+                        jsonAreas = jsonCity.getJSONArray("children");
+                    } catch (Exception e) {
+                        continue;
+                    }
+
+                    String[] mAreasDatas = new String[jsonAreas.length()];// 当前市的所有区
+                    String[] mAreasIds = new String[jsonAreas.length()];// 当前市的所有区
+                    for (int k = 0; k < jsonAreas.length(); k++) {
+                        String area = jsonAreas.getJSONObject(k).getString("name");// 区域的名称
+                        String areaId = jsonAreas.getJSONObject(k).getString("regionid");// 区域的id
+                        mAreasDatas[k] = area;
+                        mAreasIds[k] = areaId;
+                    }
+                    mAreaDatasMap.put(city, mAreasDatas);
+                    mAreaDatasId.put(city, mAreasIds);
+                }
+                mCitisDatasMap.put(province, mCitiesDatas);
+                mCitisDatasID.put(province, mCitiesIds);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mJsonObj = null;
+    }
+
+    /**
+     * 从assert文件夹中读取省市区的json文件，然后转化为json对象
+     */
+    private void initJsonData() {
+        try {
+            StringBuilder sb = new StringBuilder();
+            InputStream is = getAssets().open("city.json");
+            int len;
+            byte[] buf = new byte[1024];
+            while ((len = is.read(buf)) != -1) {
+                sb.append(new String(buf, 0, len, "UTF-8"));
+            }
+            is.close();
+            mJsonObj = new JSONObject(sb.toString());
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * change事件的处理
+     */
+    @Override
+    public void onChanged(WheelView wheel, int oldValue, int newValue) {
+        if (wheel == mProvince) {
+            updateCities();
+        } else if (wheel == mCity) {
+            updateAreas();
+        } else if (wheel == mArea) {
+            mCurrentAreaName = mAreaDatasMap.get(mCurrentCityName)[newValue];
+            mCurrentAreaId = mAreaDatasId.get(mCurrentCityName)[newValue];
+        }
+    }
+
+//    private void showPopupWindow() {
+//        View contentView = LayoutInflater.from(this).inflate(
+//                R.layout.pop_wheel, null);
+//        initJsonData();
+//        mProvince = contentView.findViewById(R.id.id_province);
+//        mCity = contentView.findViewById(R.id.id_city);
+//        mArea = contentView.findViewById(R.id.id_area);
+//
+//        initDatas();
+//        updateCities();
+//        updateAreas();
+//        mProvince.setViewAdapter(new ArrayWheelAdapter<>(this, mProvinceDatas));
+//        // 添加change事件
+//        mProvince.addChangingListener(this);
+//        // 添加change事件
+//        mCity.addChangingListener(this);
+//        // 添加change事件
+//        mArea.addChangingListener(this);
+//
+//        mProvince.setVisibleItems(5);
+//        mCity.setVisibleItems(5);
+//        mArea.setVisibleItems(5);
+//
+//
+//        final PopupWindow popupWindow = new PopupWindow(contentView,
+//                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT,
+//                true);
+//
+//        ColorDrawable dw = new ColorDrawable(0x00000000);
+//        popupWindow.setBackgroundDrawable(dw);
+//        WindowManager.LayoutParams lp = getWindow().getAttributes();
+//        lp.alpha = 0.4f;
+//        getWindow().setAttributes(lp);
+//        popupWindow.setOnDismissListener(() -> {
+//            WindowManager.LayoutParams lp1 = getWindow().getAttributes();
+//            lp1.alpha = 1f;
+//            getWindow().setAttributes(lp1);
+//        });
+//
+//        popupWindow.showAtLocation(MapTestActivity.this.findViewById(R.id.iv_qiandao),
+//                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//    }
 }

@@ -6,15 +6,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding.widget.RxTextView;
-import com.wshoto.user.anyong.Bean.MessageCenterBean;
 import com.wshoto.user.anyong.Bean.ThankUserBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
-import com.wshoto.user.anyong.adapter.MessageCenterAdapter;
 import com.wshoto.user.anyong.adapter.ThankUserAdapter;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
@@ -26,7 +23,6 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.functions.Action1;
 
 public class ThankSelectActivity extends InitActivity {
 
@@ -66,7 +62,7 @@ public class ThankSelectActivity extends InitActivity {
         };
         RxTextView.textChanges(mEtThankSelect).subscribe(charSequence -> HttpJsonMethod.getInstance().thankObjectList(new ProgressSubscriber(searchOnNext, ThankSelectActivity.this),
                 (String) SharedPreferencesUtils.getParam(ThankSelectActivity.this, "session", ""),
-                charSequence.toString()));
+                charSequence.toString(),(String) SharedPreferencesUtils.getParam(ThankSelectActivity.this, "language", "zh")));
 
     }
 

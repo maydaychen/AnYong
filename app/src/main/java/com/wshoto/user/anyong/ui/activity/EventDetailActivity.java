@@ -63,7 +63,7 @@ public class EventDetailActivity extends InitActivity {
         HttpJsonMethod.getInstance().activityInfo(
                 new ProgressSubscriber(detailOnNext, EventDetailActivity.this),
                 (String) SharedPreferencesUtils.getParam(EventDetailActivity.this, "session", ""),
-                getIntent().getStringExtra("id"));
+                getIntent().getStringExtra("id"),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
 
     }
 
@@ -85,7 +85,7 @@ public class EventDetailActivity extends InitActivity {
                 HttpJsonMethod.getInstance().joinActivity(
                         new ProgressSubscriber(joinOnNext, EventDetailActivity.this),
                         (String) SharedPreferencesUtils.getParam(EventDetailActivity.this, "session", ""),
-                        getIntent().getStringExtra("id"));
+                        getIntent().getStringExtra("id"),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 break;
         }
     }

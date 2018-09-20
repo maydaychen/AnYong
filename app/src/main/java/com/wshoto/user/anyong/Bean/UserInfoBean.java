@@ -3,10 +3,11 @@ package com.wshoto.user.anyong.Bean;
 import java.io.Serializable;
 
 public class UserInfoBean {
+
     /**
      * code : 1
      * message : {"status":"success"}
-     * data : {"integral":"500","id":"5","username":"","avatar":"","english_name":"tom","job_no":"123455","email":"tom@wshoto.com","mobile":"13665137658","birthday":"1991-05-03","join_time":"2000-01-01","position":"会计","department":"1","invitecode":"00000005","nickname":"钻石 "}
+     * data : {"integral":"620","id":"5","username":"","avatar":"https://anyong.wshoto.com/uploads/20180713165142.png","english_name":"tom","job_no":"123455","email":"tom@wshoto.com","mobile":"13665137658","birthday":"1991-05-03","join_time":"2000-01-01","position":"会计","department":"1","invitecode":"00000005","talent_ops":"","gds_pss":"","nickname":"飞仙"}
      */
 
     private int code;
@@ -53,12 +54,12 @@ public class UserInfoBean {
         }
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Serializable {
         /**
-         * integral : 500
+         * integral : 620
          * id : 5
          * username :
-         * avatar :
+         * avatar : https://anyong.wshoto.com/uploads/20180713165142.png
          * english_name : tom
          * job_no : 123455
          * email : tom@wshoto.com
@@ -68,7 +69,9 @@ public class UserInfoBean {
          * position : 会计
          * department : 1
          * invitecode : 00000005
-         * nickname : 钻石
+         * talent_ops :
+         * gds_pss :
+         * nickname : 飞仙
          */
 
         private String integral;
@@ -84,6 +87,8 @@ public class UserInfoBean {
         private String position;
         private String department;
         private String invitecode;
+        private String talent_ops;
+        private String gds_pss;
         private String nickname;
 
         public String getIntegral() {
@@ -188,6 +193,22 @@ public class UserInfoBean {
 
         public void setInvitecode(String invitecode) {
             this.invitecode = invitecode;
+        }
+
+        public String getTalent_ops() {
+            return talent_ops;
+        }
+
+        public void setTalent_ops(String talent_ops) {
+            this.talent_ops = talent_ops;
+        }
+
+        public String getGds_pss() {
+            return gds_pss;
+        }
+
+        public void setGds_pss(String gds_pss) {
+            this.gds_pss = gds_pss;
         }
 
         public String getNickname() {

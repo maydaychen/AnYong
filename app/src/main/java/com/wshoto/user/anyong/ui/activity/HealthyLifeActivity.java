@@ -42,7 +42,8 @@ public class HealthyLifeActivity extends InitActivity {
         super.onResume();
         HttpJsonMethod.getInstance().healthTask(
                 new ProgressSubscriber(healthTaskOnNext, HealthyLifeActivity.this),
-                (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""));
+                (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
 
@@ -63,12 +64,12 @@ public class HealthyLifeActivity extends InitActivity {
                 mHealthyTaskBean = mGson.fromJson(jsonObject.toString(), HealthyTaskBean.class);
                 if (mHealthyTaskBean.getData().get(0).getIs_done() == 1) {
                     mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_grey));
-                    mTvOptionYanbao.setText("已领取积分！");
+                    mTvOptionYanbao.setText(getText(R.string.point_success));
                     mTvOptionYanbao.setClickable(false);
                 }
                 if (mHealthyTaskBean.getData().get(1).getIs_done() == 1) {
                     mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_grey));
-                    mTvOptionJingzhui.setText("已领取积分！");
+                    mTvOptionJingzhui.setText(getText(R.string.point_success));
                     mTvOptionJingzhui.setClickable(false);
                 }
             } else {
@@ -77,10 +78,10 @@ public class HealthyLifeActivity extends InitActivity {
         };
         healthCommitOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-                Toast.makeText(HealthyLifeActivity.this, "积分取得成功！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HealthyLifeActivity.this, getText(R.string.point_successfully), Toast.LENGTH_SHORT).show();
                 HttpJsonMethod.getInstance().healthTask(
                         new ProgressSubscriber(healthTaskOnNext, HealthyLifeActivity.this),
-                        (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""));
+                        (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""), (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
             } else {
                 Toast.makeText(HealthyLifeActivity.this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
@@ -94,27 +95,27 @@ public class HealthyLifeActivity extends InitActivity {
                 mTvOptionYanbao.setOnClickListener(v -> {
                     HttpJsonMethod.getInstance().healthCommit(
                             new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
-                            (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""), "1");
+                            (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""), "1", (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 });
                 mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
-                mTvOptionYanbao.setText("完成任务点我");
+                mTvOptionYanbao.setText(getText(R.string.complete));
                 break;
             case 16:
                 mTvOptionJingzhui.setClickable(true);
                 mTvOptionJingzhui.setOnClickListener(v -> HttpJsonMethod.getInstance().healthCommit(
                         new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
-                        (String) SharedPreferencesUtils.getParam(this, "session", ""), "2"));
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""), "2", (String) SharedPreferencesUtils.getParam(this, "language", "zh")));
                 mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
-                mTvOptionJingzhui.setText("完成任务点我");
+                mTvOptionJingzhui.setText(getText(R.string.complete));
                 break;
         }
         if (Integer.valueOf((String) SharedPreferencesUtils.getParam(this, "step", "0")) >= 500) {
             if ((Boolean) SharedPreferencesUtils.getParam(this, "fresh", false)) {
                 HttpJsonMethod.getInstance().footstep(
                         new ProgressSubscriber(footsetpOnNext, HealthyLifeActivity.this),
-                        (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""));
+                        (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""), (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
             } else {
-                mTvHealthyGather.setText("今日已获取积分");
+                mTvHealthyGather.setText(getText(R.string.point_success));
             }
         }
     }

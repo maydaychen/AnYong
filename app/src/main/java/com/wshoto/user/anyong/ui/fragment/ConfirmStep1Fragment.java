@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
@@ -78,7 +79,8 @@ public class ConfirmStep1Fragment extends Fragment {
         String name = mEtStep1Name.getText().toString();
         if (!num.equals("") && !name.equals("")) {
             HttpJsonMethod.getInstance().checknum(
-                    new ProgressSubscriber(checkOnNext, getActivity()), num ,name);
+                    new ProgressSubscriber(checkOnNext, getActivity()), num ,name,
+                    (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"));
 
         } else {
             Toast.makeText(getContext(), getText(R.string.step1_error), Toast.LENGTH_SHORT).show();

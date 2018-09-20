@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">安永</string>
+    <string name="app_name">EY</string>
+    <string name="title">安永EY</string>
     <string name="tv_change_pass">修改密码</string>
     <string name="confirm_success">认证成功</string>
     <string name="rationale_camera">此应用需要摄像头权限</string>
+    <string name="rationale_location">此应用需要定位权限</string>
 
     <string name="login">登录</string>
     <string name="tv_login_first">首次登录？</string>
@@ -40,7 +42,7 @@
     <string name="task1_desc">保护视力，缓解眼疲劳</string>
     <string name="task1_time">活动时间：每日10点-11点</string>
     <string name="task2">颈椎操</string>
-    <string name="task2_desc">预防颈椎病，年轻有活力。</string>
+    <string name="task2_desc">预防颈椎病，年轻有活力</string>
     <string name="task2_time">活动时间：每日16点-17点</string>
     <string name="honour">荣·耀</string>
     <string name="credit_detail">积分明细</string>
@@ -107,7 +109,7 @@
     <string name="comfirm_pass2">请再次输入密码</string>
     <string name="confirm_step_4_1">是否有热心的同事推荐你用EY Footprint呢？</string>
     <string name="confirm_step_4_2">输入他（她）的推荐码吧</string>
-    <string name="invite_code">邀请码</string>
+    <string name="invite_code">邀请码(选天)</string>
     <string name="step1_error">请将信息填写完整！</string>
 
 
@@ -140,4 +142,23 @@
     <string name="join_success">参加成功！</string>
     <string name="friend_apply">安永请求添加</string>
     <string name="logout_error">您的账号已在别处登录，请重新登录！</string>
+    <string name="exit_hint">确定要退出么?</string>
+    <string name="logout">退出登录</string>
+    <string name="give_point">赠送好友积分</string>
+    <string name="point_hint">请输入想要赠送的积分</string>
+    <string name="obtain">获得</string>
+    <string name="lose">失去</string>
+    <string name="point_success">已领取积分!</string>
+    <string name="point_successfully">积分取得成功!</string>
+    <string name="complete">完成任务点我</string>
+    <string name="join">我要报名</string>
+    <string name="point_detail">%1$s%2$s%3$s积分</string>
+    <string name="choose_place">手动签到</string>
+    <string name="select_city">请选择城市</string>
+    <string name="mobile_hint">请填写手机号</string>
+    <string name="change_success">修改成功</string>
+    <string name="right_pass_hint">请输入正确密码</string>
+    <string name="right_pass_hint2">密码须为8位以上，数字+字母+特殊符号</string>
+    <string name="operate_successfully">操作成功</string>
+    <!--<string name="point_hint">请输入想要赠送的积分</string>-->
 </resources>

@@ -52,7 +52,9 @@ public class NewFriendActivity extends InitActivity {
     protected void onResume() {
         super.onResume();
         HttpJsonMethod.getInstance().newfriendList(
-                new ProgressSubscriber(listOnNext, NewFriendActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                new ProgressSubscriber(listOnNext, NewFriendActivity.this),
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
 
     }
 

@@ -55,7 +55,8 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
         super.onResume();
         HttpJsonMethod.getInstance().myRadiusList(
                 new ProgressSubscriber(listOnNext, MyRadiiActivity.this),
-                (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
 
     }
 
@@ -109,7 +110,7 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
             HttpJsonMethod.getInstance().givePoint(
                     new ProgressSubscriber(giveOnNext, MyRadiiActivity.this),
                     (String) SharedPreferencesUtils.getParam(this, "session", ""),
-                    id, pointNum.getText().toString());
+                    id, pointNum.getText().toString(),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
             popupWindow.dismiss();
         });
 

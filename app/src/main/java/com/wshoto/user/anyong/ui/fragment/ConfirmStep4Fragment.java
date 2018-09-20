@@ -11,12 +11,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.activity.ConfirmSuccessActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -95,6 +95,8 @@ public class ConfirmStep4Fragment extends Fragment {
     @OnClick(R.id.tv_step1_next)
     public void onViewClicked() {
         HttpJsonMethod.getInstance().userRisgist(
-                new ProgressSubscriber(confirmOnNext, getActivity()), mParam1, mParam2, mParam3, mParam4, mParam5, mParam5, etStep4Invite.getText().toString());
+                new ProgressSubscriber(confirmOnNext, getActivity()), mParam1, mParam2, mParam3,
+                mParam4, mParam5, mParam5, etStep4Invite.getText().toString(),
+                (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"));
     }
 }

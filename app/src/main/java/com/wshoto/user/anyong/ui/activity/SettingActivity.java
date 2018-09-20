@@ -32,8 +32,14 @@ public class SettingActivity extends InitActivity {
     public void initData() {
         logoutOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
+                boolean auto = (boolean) SharedPreferencesUtils.getParam(this, "language_auto", true);
+                String lang = (String) SharedPreferencesUtils.getParam(this, "language", "zh");
+                String device_token = (String) SharedPreferencesUtils.getParam(this, "device_token", "");
                 SharedPreferencesUtils.clear(getApplicationContext());
-                SharedPreferencesUtils.setParam(getApplicationContext(), "first",false);
+                SharedPreferencesUtils.setParam(getApplicationContext(), "first", false);
+                SharedPreferencesUtils.setParam(getApplicationContext(), "language_auto", auto);
+                SharedPreferencesUtils.setParam(getApplicationContext(), "language", lang);
+                SharedPreferencesUtils.setParam(getApplicationContext(), "device_token", device_token);
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             } else {
@@ -59,16 +65,18 @@ public class SettingActivity extends InitActivity {
 
     public void show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
-        builder.setMessage("确定要退出么？");
+        builder.setMessage(getText(R.string.exit_hint));
         builder.setTitle(R.string.app_name);
 
-        builder.setPositiveButton("确认", (dialog, which) -> {
+        builder.setPositiveButton(getText(R.string.confirm), (dialog, which) -> {
             dialog.dismiss();
             HttpJsonMethod.getInstance().logout(
-                    new ProgressSubscriber(logoutOnNext, SettingActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                    new ProgressSubscriber(logoutOnNext, SettingActivity.this),
+                    (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                    (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
         });
 
-        builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton(getText(R.string.cancel), (dialog, which) -> dialog.dismiss());
 
         builder.create().show();
     }

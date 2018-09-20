@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 
+import com.umeng.message.PushAgent;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 
@@ -42,6 +43,8 @@ public abstract class InitActivity extends AppCompatActivity {
         }else {
             selectLanguage((String) SharedPreferencesUtils.getParam(this, "language", "zh"));
         }
+        PushAgent pushAgent = PushAgent.getInstance(this);
+        pushAgent.onAppStart();
         initView(savedInstanceState);
         initData();
     }

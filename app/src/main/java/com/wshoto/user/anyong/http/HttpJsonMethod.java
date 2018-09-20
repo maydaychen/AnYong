@@ -58,8 +58,8 @@ public class HttpJsonMethod {
     }
 
 
-    public void login(Subscriber<JSONObject> subscriber, String username, String pass) {
-        movieService.login(username, pass)
+    public void login(Subscriber<JSONObject> subscriber, String username, String pass, String language, String device_token) {
+        movieService.login(username, pass, language, device_token)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -67,8 +67,9 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void forget(Subscriber<JSONObject> subscriber, String mobile, String verification, String password, String confirmpassword) {
-        movieService.forget(mobile, verification, "fix", password, confirmpassword)
+    public void forget(Subscriber<JSONObject> subscriber, String mobile, String verification,
+                       String password, String confirmpassword, String language) {
+        movieService.forget(mobile, verification, "fix", password, confirmpassword, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -76,8 +77,9 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void userRisgist(Subscriber<JSONObject> subscriber, String number, String name, String mobile, String verification, String password, String confirmpassword, String invitecode) {
-        movieService.userRisgist(number, name, mobile, verification, password, confirmpassword, invitecode)
+    public void userRisgist(Subscriber<JSONObject> subscriber, String number, String name, String mobile,
+                            String verification, String password, String confirmpassword, String invitecode, String language) {
+        movieService.userRisgist(number, name, mobile, verification, password, confirmpassword, invitecode, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -85,8 +87,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void sendCode(Subscriber<JSONObject> subscriber, String mobile, String play) {
-        movieService.sendCode(mobile, play)
+    public void sendCode(Subscriber<JSONObject> subscriber, String mobile, String play, String language) {
+        movieService.sendCode(mobile, play, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -94,8 +96,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void checknum(Subscriber<JSONObject> subscriber, String num, String name) {
-        movieService.checknum(num, name)
+    public void checknum(Subscriber<JSONObject> subscriber, String num, String name, String language) {
+        movieService.checknum(num, name, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -103,8 +105,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void userInfo(Subscriber<JSONObject> subscriber, String session) {
-        movieService.userInfo(session)
+    public void userInfo(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.userInfo(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -112,8 +114,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void creditDetail(Subscriber<JSONObject> subscriber, String session) {
-        movieService.creditDetail(session)
+    public void creditDetail(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.creditDetail(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -121,8 +123,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void mesageList(Subscriber<JSONObject> subscriber, String session) {
-        movieService.mesageList(session)
+    public void mesageList(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.mesageList(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -131,8 +133,8 @@ public class HttpJsonMethod {
     }
 
 
-    public void locate(Subscriber<JSONObject> subscriber, String session, String lal) {
-        movieService.locate(session, lal)
+    public void locate(Subscriber<JSONObject> subscriber, String session, String lal, String language, String latitude, String longitude) {
+        movieService.locate(session, lal, language,latitude,longitude)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -140,8 +142,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void healthTask(Subscriber<JSONObject> subscriber, String session) {
-        movieService.healthTask(session)
+    public void healthTask(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.healthTask(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -149,8 +151,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void healthCommit(Subscriber<JSONObject> subscriber, String session, String health_id) {
-        movieService.healthCommit(session, health_id)
+    public void healthCommit(Subscriber<JSONObject> subscriber, String session, String health_id, String language) {
+        movieService.healthCommit(session, health_id, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -158,8 +160,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void thankList(Subscriber<JSONObject> subscriber, String session) {
-        movieService.thankList(session)
+    public void thankList(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.thankList(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -167,8 +169,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void thankObjectList(Subscriber<JSONObject> subscriber, String storeId, String keywords) {
-        movieService.thankObjectList(storeId, keywords)
+    public void thankObjectList(Subscriber<JSONObject> subscriber, String storeId, String keywords, String language) {
+        movieService.thankObjectList(storeId, keywords, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -176,8 +178,9 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void previewThank(Subscriber<JSONObject> subscriber, String receive, String themeid, String picture, String session, String content) {
-        movieService.previewThank(receive, themeid, picture, session, content)
+    public void previewThank(Subscriber<JSONObject> subscriber, String receive, String themeid,
+                             String picture, String session, String content, String language) {
+        movieService.previewThank(receive, themeid, picture, session, content, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -185,8 +188,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void sendThank(Subscriber<JSONObject> subscriber, String id, String session) {
-        movieService.sendThank(id, session)
+    public void sendThank(Subscriber<JSONObject> subscriber, String id, String session, String language) {
+        movieService.sendThank(id, session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -194,8 +197,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void thankTheme(Subscriber<JSONObject> subscriber, String session) {
-        movieService.thankTheme(session)
+    public void thankTheme(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.thankTheme(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -203,8 +206,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void calendar(Subscriber<JSONObject> subscriber, String session) {
-        movieService.calendar(session)
+    public void calendar(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.calendar(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -212,8 +215,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void myCalendar(Subscriber<JSONObject> subscriber, String session) {
-        movieService.myCalendar(session)
+    public void myCalendar(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.myCalendar(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -221,8 +224,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void timeCalendar(Subscriber<JSONObject> subscriber, String session, String time) {
-        movieService.timeCalendar(session, time)
+    public void timeCalendar(Subscriber<JSONObject> subscriber, String session, String time, String language) {
+        movieService.timeCalendar(session, time, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -230,8 +233,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void activityInfo(Subscriber<JSONObject> subscriber, String session, String id) {
-        movieService.activityInfo(session, id)
+    public void activityInfo(Subscriber<JSONObject> subscriber, String session, String id, String language) {
+        movieService.activityInfo(session, id, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -239,8 +242,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void joinActivity(Subscriber<JSONObject> subscriber, String session, String id) {
-        movieService.joinActivity(session, id)
+    public void joinActivity(Subscriber<JSONObject> subscriber, String session, String id, String language) {
+        movieService.joinActivity(session, id, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -248,8 +251,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void uploadImg(Subscriber<JSONObject> subscriber, String file) {
-        movieService.uploadImg(file)
+    public void uploadImg(Subscriber<JSONObject> subscriber, String file, String language) {
+        movieService.uploadImg(file, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -257,8 +260,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void myRadiusList(Subscriber<JSONObject> subscriber, String session) {
-        movieService.myRadiusList(session)
+    public void myRadiusList(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.myRadiusList(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -266,8 +269,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void friendInfo(Subscriber<JSONObject> subscriber, String session, String id) {
-        movieService.friendInfo(session, id)
+    public void friendInfo(Subscriber<JSONObject> subscriber, String session, String id, String language) {
+        movieService.friendInfo(session, id, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -275,8 +278,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void newfriendList(Subscriber<JSONObject> subscriber, String session) {
-        movieService.newfriendList(session)
+    public void newfriendList(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.newfriendList(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -284,8 +287,9 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void newFriendOperate(Subscriber<JSONObject> subscriber, String session, String id, String status) {
-        movieService.newFriendOperate(session, id, status)
+    public void newFriendOperate(Subscriber<JSONObject> subscriber, String session, String id,
+                                 String status, String language) {
+        movieService.newFriendOperate(session, id, status, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -293,8 +297,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void addFriend(Subscriber<JSONObject> subscriber, String session, String id) {
-        movieService.addFriend(session, id)
+    public void addFriend(Subscriber<JSONObject> subscriber, String session, String id, String language) {
+        movieService.addFriend(session, id, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -302,8 +306,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void logout(Subscriber<JSONObject> subscriber, String session) {
-        movieService.logout(session)
+    public void logout(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.logout(session, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -311,8 +315,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void getAva(Subscriber<JSONObject> subscriber, String session, String ava) {
-        movieService.getAva(session, ava)
+    public void getAva(Subscriber<JSONObject> subscriber, String session, String ava, String language) {
+        movieService.getAva(session, ava, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -320,8 +324,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void givePoint(Subscriber<JSONObject> subscriber, String session, String id, String num) {
-        movieService.givePoint(session, id, num)
+    public void givePoint(Subscriber<JSONObject> subscriber, String session, String id, String num, String language) {
+        movieService.givePoint(session, id, num, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -329,8 +333,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void scan(Subscriber<JSONObject> subscriber, String session, String data) {
-        movieService.scan(session, data)
+    public void scan(Subscriber<JSONObject> subscriber, String session, String data, String language) {
+        movieService.scan(session, data, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -338,8 +342,17 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void footstep(Subscriber<JSONObject> subscriber, String session) {
-        movieService.footstep(session)
+    public void footstep(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.footstep(session, language)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void newer(Subscriber<JSONObject> subscriber, String job_no, String language) {
+        movieService.newer(job_no, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

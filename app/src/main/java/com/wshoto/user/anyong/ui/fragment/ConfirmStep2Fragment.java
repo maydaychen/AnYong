@@ -1,7 +1,6 @@
 package com.wshoto.user.anyong.ui.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -14,13 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.Utils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
-import com.wshoto.user.anyong.ui.activity.ChangePassActivity;
-import com.wshoto.user.anyong.ui.activity.ConfirmSuccessActivity;
-import com.wshoto.user.anyong.ui.activity.LoginActivity;
 
 import org.json.JSONObject;
 
@@ -77,7 +74,7 @@ public class ConfirmStep2Fragment extends Fragment {
 
         sendOnNext = resultBean -> {
             if (resultBean.getInt("code") == 1) {
-                Toast.makeText(getContext(), "发送成功！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getText(R.string.send_sussess), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), resultBean.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
@@ -109,16 +106,19 @@ public class ConfirmStep2Fragment extends Fragment {
                     flag = false;
                     mTvGetEms.setClickable(false);
                     handler.post(runnable);
-
                     HttpJsonMethod.getInstance().sendCode(
-                            new ProgressSubscriber(sendOnNext, getActivity()), tele ,"bind");
+                            new ProgressSubscriber(sendOnNext, getActivity()), tele ,"bind",
+                            (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"));
                 } else {
-                    Toast.makeText(getActivity(), "请填写手机号！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getText(R.string.mobile_hint), Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv_step1_next:
+                if (mEtStep1Number.getText().toString().equals("")||mEtStep1Name.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), getText(R.string.step1_error), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mFragmentManager = getActivity().getSupportFragmentManager();
-                //注意v4包的配套使用
                 Fragment fragment = ConfirmStep3Fragment.newInstance(mParam1, mParam2, mEtStep1Number.getText().toString(), mEtStep1Name.getText().toString());
                 mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
                 break;
@@ -139,7 +139,7 @@ public class ConfirmStep2Fragment extends Fragment {
                 flag = true;
                 recLen = 60;
                 mTvGetEms.setClickable(true);
-                mTvGetEms.setText("获取验证码");
+                mTvGetEms.setText(getText(R.string.tv_change_pass_sms_send));
             }
         }
     };

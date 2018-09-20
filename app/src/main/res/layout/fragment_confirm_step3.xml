@@ -15,11 +15,6 @@
         android:padding="@dimen/margin_size_8dp"
         android:textColor="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wa"
-            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/tv_step2_name"
@@ -27,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="@string/good"
             android:textColor="@color/yellow"
-            android:textSize="@dimen/font_size_20sp"/>
+            android:textSize="@dimen/font_size_20sp" />
 
     </LinearLayout>
 
@@ -39,7 +34,7 @@
         android:gravity="center"
         android:padding="@dimen/margin_size_8dp"
         android:text="@string/confirm_step_3_1"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/step1_3"
@@ -49,21 +44,21 @@
         android:gravity="center"
         android:padding="@dimen/margin_size_8dp"
         android:text="@string/confirm_step_3_2"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/ll_step1_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/step1_3"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_size_8dp"
             android:text="@string/confirm_pass"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_step3_number"
@@ -73,7 +68,7 @@
             android:inputType="textPassword"
             android:padding="8dp"
             android:singleLine="true"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <View
@@ -81,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/ll_step1_1"
-        android:background="@color/line_44"/>
+        android:background="@color/line_44" />
 
     <RelativeLayout
         android:id="@+id/ll_step1_2"
@@ -96,7 +91,7 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_8dp"
             android:text="@string/comfirm_pass2"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
 
         <EditText
@@ -105,19 +100,47 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/tv_step3_hint"
-            android:inputType="textPassword"
             android:background="@null"
+            android:inputType="textPassword"
             android:padding="8dp"
             android:singleLine="true"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </RelativeLayout>
-
     <View
         android:id="@+id/step1_line2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/ll_step1_2"
-        android:background="@color/line_44"/>
+        android:background="@color/line_44" />
+    <LinearLayout
+        android:id="@+id/ll_step1_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/step1_line2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_size_8dp"
+            android:text="@string/invite_code"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/et_step4_invite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/step1_line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_step1_3"
+        android:background="@color/line_44" />
 
     <TextView
         android:id="@+id/tv_step1_next"
@@ -127,12 +150,12 @@
         android:layout_alignParentRight="true"
         android:padding="@dimen/margin_size_20dp"
         android:text="@string/next"
-        android:textColor="@color/yellow"/>
+        android:textColor="@color/yellow" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/bj11"/>
+        android:src="@drawable/bj11" />
 
 </RelativeLayout>

@@ -80,7 +80,9 @@ public class NewFriendInfoActivity extends InitActivity {
 
         HttpJsonMethod.getInstance().friendInfo(
                 new ProgressSubscriber(infoOnNext, NewFriendInfoActivity.this),
-                (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("friend_id"));
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                getIntent().getStringExtra("friend_id"),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
 
@@ -93,12 +95,16 @@ public class NewFriendInfoActivity extends InitActivity {
             case R.id.tv_new_friend_accept:
                 HttpJsonMethod.getInstance().newFriendOperate(
                         new ProgressSubscriber(operateOnNext, NewFriendInfoActivity.this),
-                        (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("apply_id"), "1");
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                        getIntent().getStringExtra("apply_id"), "1",
+                        (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 break;
             case R.id.tv_new_friend_refuse:
                 HttpJsonMethod.getInstance().newFriendOperate(
                         new ProgressSubscriber(operateOnNext, NewFriendInfoActivity.this),
-                        (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("apply_id"), "2");
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                        getIntent().getStringExtra("apply_id"), "2",
+                        (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 break;
         }
     }

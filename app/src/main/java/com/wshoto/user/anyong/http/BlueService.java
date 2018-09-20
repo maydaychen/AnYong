@@ -15,100 +15,104 @@ import retrofit2.http.Query;
 public interface BlueService {
     @POST("/index.php?r=api/account/login")
     @FormUrlEncoded
-    rx.Observable<JSONObject> login(@Field("email") String email, @Field("password") String password);
+    rx.Observable<JSONObject> login(@Field("email") String email, @Field("password") String password,
+                                    @Field("language") String language, @Field("device_token") String device_token);
 
     @POST("/index.php?r=api/account/forget")
     @FormUrlEncoded
     rx.Observable<JSONObject> forget(@Field("mobile") String mobile, @Field("Verification") String Verification, @Field("play") String play,
-                                     @Field("password") String password, @Field("confirmpassword") String confirmpassword);
+                                     @Field("password") String password, @Field("confirmpassword") String confirmpassword, @Field("language") String language);
 
     @POST("/index.php?r=api/account/sms")
     @FormUrlEncoded
-    rx.Observable<JSONObject> sendCode(@Field("mobile") String mobile, @Field(" play") String play);
+    rx.Observable<JSONObject> sendCode(@Field("mobile") String mobile, @Field(" play") String play, @Field("language") String language);
 
     @GET("/index.php?r=api/account/job-num")
-    rx.Observable<JSONObject> checknum(@Query("job_no") String job_no, @Query("first_name") String first_nam);
+    rx.Observable<JSONObject> checknum(@Query("job_no") String job_no, @Query("first_name") String first_nam,
+                                       @Query("language") String language);
 
     @POST("/index.php?r=api/account/register")
     @FormUrlEncoded
     rx.Observable<JSONObject> userRisgist(@Field("job_no") String number, @Field("englishname") String name,
                                           @Field("mobile") String mobile, @Field("verification") String verification,
                                           @Field("password") String password, @Field("confirmpassword") String confirmpassword,
-                                          @Field("invitecode") String invitecode);
+                                          @Field("invitecode") String invitecode, @Field("language") String language);
 
     @POST("/index.php?r=api/user/user-info")
     @FormUrlEncoded
-    rx.Observable<JSONObject> userInfo(@Field("session") String session);
+    rx.Observable<JSONObject> userInfo(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/user/integral")
     @FormUrlEncoded
-    rx.Observable<JSONObject> creditDetail(@Field("session") String session);
+    rx.Observable<JSONObject> creditDetail(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/user/message")
     @FormUrlEncoded
-    rx.Observable<JSONObject> mesageList(@Field("session") String session);
+    rx.Observable<JSONObject> mesageList(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/signin/index")
     @FormUrlEncoded
-    rx.Observable<JSONObject> locate(@Field("session") String session, @Field("place") String lal);
+    rx.Observable<JSONObject> locate(@Field("session") String session, @Field("place") String lal,
+                                     @Field("language") String language, @Field("latitude") String latitude,
+                                     @Field("longitude") String longitude);
 
     @POST("/index.php?r=api/healthy-live/task-list")
     @FormUrlEncoded
-    rx.Observable<JSONObject> healthTask(@Field("session") String session);
+    rx.Observable<JSONObject> healthTask(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/healthy-live/finish-task")
     @FormUrlEncoded
-    rx.Observable<JSONObject> healthCommit(@Field("session") String session, @Field("health_id") String health_id);
+    rx.Observable<JSONObject> healthCommit(@Field("session") String session, @Field("health_id") String health_id, @Field("language") String language);
 
     @POST("/index.php?r=api/thank/thank-view")
     @FormUrlEncoded
-    rx.Observable<JSONObject> thankList(@Field("session") String session);
+    rx.Observable<JSONObject> thankList(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/thank/search")
     @FormUrlEncoded
-    rx.Observable<JSONObject> thankObjectList(@Field("session") String session, @Field("keywords") String keywords);
+    rx.Observable<JSONObject> thankObjectList(@Field("session") String session, @Field("keywords") String keywords, @Field("language") String language);
 
     @POST("/index.php?r=api/thank/send-thank")
     @FormUrlEncoded
     rx.Observable<JSONObject> previewThank(@Field("receiver") String receive, @Field("template_id") String themeid,
                                            @Field("thumb") String picture, @Field("session") String session,
-                                           @Field("content") String content);
+                                           @Field("content") String content, @Field("language") String language);
 
     @POST("/index.php?r=api/thank/submit-send")
     @FormUrlEncoded
-    rx.Observable<JSONObject> sendThank(@Field("id") String id, @Field("session") String session);
+    rx.Observable<JSONObject> sendThank(@Field("id") String id, @Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/template/template-list")
     @FormUrlEncoded
-    rx.Observable<JSONObject> thankTheme(@Field("session") String session);
+    rx.Observable<JSONObject> thankTheme(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/activity/activity-list")
     @FormUrlEncoded
-    rx.Observable<JSONObject> calendar(@Field("session") String session);
+    rx.Observable<JSONObject> calendar(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/activity/activity-join")
     @FormUrlEncoded
-    rx.Observable<JSONObject> myCalendar(@Field("session") String session);
+    rx.Observable<JSONObject> myCalendar(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/activity/activity-time")
     @FormUrlEncoded
-    rx.Observable<JSONObject> timeCalendar(@Field("session") String session, @Field("time") String time);
+    rx.Observable<JSONObject> timeCalendar(@Field("session") String session, @Field("time") String time, @Field("language") String language);
 
     @POST("/index.php?r=api/activity/activity-info")
     @FormUrlEncoded
-    rx.Observable<JSONObject> activityInfo(@Field("session") String session, @Field("id") String id);
+    rx.Observable<JSONObject> activityInfo(@Field("session") String session, @Field("id") String id, @Field("language") String language);
 
     @POST("/index.php?r=api/activity/join-activity")
     @FormUrlEncoded
-    rx.Observable<JSONObject> joinActivity(@Field("session") String session, @Field("id") String id);
+    rx.Observable<JSONObject> joinActivity(@Field("session") String session, @Field("id") String id, @Field("language") String language);
 
     @POST("/index.php?r=api/upload/img-upload")
     @FormUrlEncoded
-    rx.Observable<JSONObject> uploadImg(@Field("file") String file);
+    rx.Observable<JSONObject> uploadImg(@Field("file") String file, @Field("language") String language);
 
     @POST("/index.php?r=api/contact/friend-list")
     @FormUrlEncoded
-    rx.Observable<JSONObject> myRadiusList(@Field("session") String session);
+    rx.Observable<JSONObject> myRadiusList(@Field("session") String session, @Field("language") String language);
 
 //    @POST("/index.php?r=api/user/radius")
 //    @FormUrlEncoded
@@ -116,41 +120,44 @@ public interface BlueService {
 
     @POST("/index.php?r=api/contact/friend-info")
     @FormUrlEncoded
-    rx.Observable<JSONObject> friendInfo(@Field("session") String session, @Field("id") String id);
+    rx.Observable<JSONObject> friendInfo(@Field("session") String session, @Field("id") String id, @Field("language") String language);
 
     @POST("/index.php?r=api/contact/new-friend")
     @FormUrlEncoded
-    rx.Observable<JSONObject> newfriendList(@Field("session") String session);
+    rx.Observable<JSONObject> newfriendList(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/contact/submit-add")
     @FormUrlEncoded
-    rx.Observable<JSONObject> newFriendOperate(@Field("session") String session, @Field("id") String id, @Field("status") String status);
+    rx.Observable<JSONObject> newFriendOperate(@Field("session") String session, @Field("id") String id,
+                                               @Field("status") String status, @Field("language") String language);
 
     @POST("/index.php?r=api/contact/add-friend")
     @FormUrlEncoded
-    rx.Observable<JSONObject> addFriend(@Field("session") String session, @Field("id") String id);
+    rx.Observable<JSONObject> addFriend(@Field("session") String session, @Field("id") String id,
+                                        @Field("language") String language);
 
     @GET("/index.php?r=api/account/logout")
-    rx.Observable<JSONObject> logout(@Query("session") String session);
+    rx.Observable<JSONObject> logout(@Query("session") String session, @Query("language") String language);
 
     @POST("/index.php?r=api/user/head-img")
     @FormUrlEncoded
-    rx.Observable<JSONObject> getAva(@Field("session") String session, @Field("img") String img);
+    rx.Observable<JSONObject> getAva(@Field("session") String session, @Field("img") String img, @Field("language") String language);
 
     @POST("/index.php?r=api/contact/give-integral")
     @FormUrlEncoded
-    rx.Observable<JSONObject> givePoint(@Field("session") String session, @Field("id") String id, @Field("number") String number);
+    rx.Observable<JSONObject> givePoint(@Field("session") String session, @Field("id") String id,
+                                        @Field("number") String number, @Field("language") String language);
 
     @POST("/index.php?r=api/qr-code/scan")
     @FormUrlEncoded
-    rx.Observable<JSONObject> scan(@Field("session") String session, @Field("data") String data);
+    rx.Observable<JSONObject> scan(@Field("session") String session, @Field("data") String data, @Field("language") String language);
 
     @POST("/index.php?r=api/healthy-live/put-num")
     @FormUrlEncoded
-    rx.Observable<JSONObject> footstep(@Field("session") String session);
+    rx.Observable<JSONObject> footstep(@Field("session") String session, @Field("language") String language);
 
     @POST("/index.php?r=api/integral/newer-task")
     @FormUrlEncoded
-    rx.Observable<JSONObject> newer(@Field("job_no") String session);
+    rx.Observable<JSONObject> newer(@Field("job_no") String job_no, @Field("language") String language);
 
 }

@@ -47,7 +47,9 @@ public class PointActivity extends InitActivity {
             }
         };
         HttpJsonMethod.getInstance().creditDetail(
-                new ProgressSubscriber(pointOnNext, PointActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                new ProgressSubscriber(pointOnNext, PointActivity.this),
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     @OnClick({R.id.iv_comfirm_back, R.id.iv_point_help})

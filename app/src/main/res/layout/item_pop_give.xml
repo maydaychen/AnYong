@@ -9,21 +9,21 @@
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:padding="@dimen/margin_size_8dp"
-        android:text="赠送好友积分"
+        android:text="@string/give_point"
+        android:textColor="@color/white"
         android:textSize="@dimen/font_size_18sp" />
 
     <EditText
         android:id="@+id/et_point_num"
-        android:inputType="number"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:hint="请输入想要赠送的积分" />
+        android:hint="@string/point_hint"
+        android:inputType="number"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
     <LinearLayout
         android:id="@+id/ll_submit"
@@ -38,8 +38,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/margin_size_8dp"
-            android:textColor="@color/white"
-            android:text="确定" />
+            android:text="@string/confirm"
+            android:textColor="@color/white" />
 
         <View
             android:layout_width="1dp"
@@ -48,13 +48,13 @@
 
         <TextView
             android:id="@+id/tv_pop_back"
-            android:textColor="@color/white"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/margin_size_8dp"
-            android:text="返回" />
+            android:text="@string/cancel"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <View

@@ -165,7 +165,8 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
         };
         HttpJsonMethod.getInstance().thankTheme(
                 new ProgressSubscriber(themeOnNext, SendThankActivity.this),
-                (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     @OnClick({R.id.iv_comfirm_back, R.id.tv_thanku_send, R.id.iv_thank_upload, R.id.tv_thank_select})
@@ -410,7 +411,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
         }
         HttpJsonMethod.getInstance().previewThank(
                 new ProgressSubscriber(sendOnNext, SendThankActivity.this), userid, themeid, url,
-                (String) SharedPreferencesUtils.getParam(this, "session", ""), mEtThankContent.getText().toString());
+                (String) SharedPreferencesUtils.getParam(this, "session", ""), mEtThankContent.getText().toString(),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     /**
@@ -421,7 +422,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
             updateDialog = ProgressDialog.show(SendThankActivity.this, getText(R.string.update_img), getText(R.string.update_img_ing), true, false);
         }
         HttpJsonMethod.getInstance().uploadImg(
-                new ProgressErrorSubscriber<>(uploadOnNext, SendThankActivity.this), Utils.bitmaptoString(bmp));
+                new ProgressErrorSubscriber<>(uploadOnNext, SendThankActivity.this), Utils.bitmaptoString(bmp),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
 }

@@ -57,7 +57,7 @@ public class SearchNewFriendActivity extends InitActivity {
         };
         RxTextView.textChanges(mEtThankSelect).subscribe(charSequence -> HttpJsonMethod.getInstance().thankObjectList(new ProgressSubscriber(searchOnNext, SearchNewFriendActivity.this),
                 (String) SharedPreferencesUtils.getParam(SearchNewFriendActivity.this, "session", ""),
-                charSequence.toString()));
+                charSequence.toString(),(String) SharedPreferencesUtils.getParam(this, "language", "zh")));
 
     }
 

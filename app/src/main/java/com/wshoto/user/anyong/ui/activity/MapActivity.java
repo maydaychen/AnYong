@@ -21,9 +21,6 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.wshoto.user.anyong.R;
-import com.wshoto.user.anyong.SharedPreferencesUtils;
-import com.wshoto.user.anyong.http.HttpJsonMethod;
-import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
@@ -153,8 +150,10 @@ public class MapActivity extends InitActivity implements BaiduMap.OnMapLoadedCal
                 finish();
                 break;
             case R.id.iv_qiandao:
-                HttpJsonMethod.getInstance().locate(
-                        new ProgressSubscriber(locateOnNext, MapActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""), city);
+//                HttpJsonMethod.getInstance().locate(
+//                        new ProgressSubscriber(locateOnNext, MapActivity.this),
+//                        (String) SharedPreferencesUtils.getParam(this, "session", ""),
+//                        city,(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 break;
         }
     }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.umeng.message.PushAgent;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
@@ -33,6 +34,7 @@ public class LoginActivity extends InitActivity {
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
 
+
     @Override
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_login);
@@ -42,7 +44,7 @@ public class LoginActivity extends InitActivity {
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
-            SharedPreferencesUtils.setParam(getApplicationContext(), "first",false);
+            SharedPreferencesUtils.setParam(getApplicationContext(), "first", false);
             Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
             startActivity(intent);
 //            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -54,30 +56,31 @@ public class LoginActivity extends InitActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         getSupportActionBar().hide();
-        mEtLoginMail.setText( (String) SharedPreferencesUtils.getParam(this, "username", ""));
-        mEtLoginPass.setText( (String) SharedPreferencesUtils.getParam(this, "pass", ""));
+        mEtLoginMail.setText((String) SharedPreferencesUtils.getParam(this, "username", ""));
+        mEtLoginPass.setText((String) SharedPreferencesUtils.getParam(this, "pass", ""));
     }
 
     @Override
     public void initData() {
+        PushAgent pushAgent = PushAgent.getInstance(this);
+        pushAgent.onAppStart();
         mPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
-
         LoginOnNext = jsonObject -> {
-            if (jsonObject.getInt("code")==1) {
+            if (jsonObject.getInt("code") == 1) {
 //                if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
 //                    SharedPreferencesUtils.setParam(getApplicationContext(), "first",false);
 //                    Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
 //                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 //                }else {
-                    SharedPreferencesUtils.setParam(getApplicationContext(), "session", jsonObject.getJSONObject("data").getString("session"));
-                    SharedPreferencesUtils.setParam(getApplicationContext(), "username",  mEtLoginMail.getText().toString());
-                    SharedPreferencesUtils.setParam(getApplicationContext(), "pass", mEtLoginPass.getText().toString());
-                    SharedPreferencesUtils.setParam(getApplicationContext(), "autolog",true);
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                SharedPreferencesUtils.setParam(getApplicationContext(), "session", jsonObject.getJSONObject("data").getString("session"));
+                SharedPreferencesUtils.setParam(getApplicationContext(), "username", mEtLoginMail.getText().toString());
+                SharedPreferencesUtils.setParam(getApplicationContext(), "pass", mEtLoginPass.getText().toString());
+                SharedPreferencesUtils.setParam(getApplicationContext(), "autolog", true);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 //                }
-            }else {
+            } else {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
@@ -96,12 +99,14 @@ public class LoginActivity extends InitActivity {
             case R.id.tv_login:
                 String name = mEtLoginMail.getText().toString();
                 String passs = mEtLoginPass.getText().toString();
-                if (name.equals("")||passs.equals("")) {
-                    Toast.makeText(this, "请将信息填写完整！", Toast.LENGTH_SHORT).show();
+                if (name.equals("") || passs.equals("")) {
+                    Toast.makeText(this, getText(R.string.step1_error), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 HttpJsonMethod.getInstance().login(
-                        new ProgressSubscriber(LoginOnNext, LoginActivity.this), name, passs);
+                        new ProgressSubscriber(LoginOnNext, LoginActivity.this), name, passs,
+                        (String) SharedPreferencesUtils.getParam(this, "language", "zh"),
+                        (String) SharedPreferencesUtils.getParam(this, "device_token", ""));
 
                 break;
             default:

@@ -72,7 +72,7 @@ public class AddFriendActivity extends InitActivity {
         };
         addFriendOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-                Toast.makeText(AddFriendActivity.this, "操作成功！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddFriendActivity.this, getText(R.string.operate_successfully), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(AddFriendActivity.this, MyRadiiActivity.class));
             } else {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
@@ -80,7 +80,8 @@ public class AddFriendActivity extends InitActivity {
         };
         HttpJsonMethod.getInstance().friendInfo(
                 new ProgressSubscriber(friendInfoOnNext, AddFriendActivity.this),
-                (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("friend_id"));
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                getIntent().getStringExtra("friend_id"),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
 
     }
 
@@ -94,7 +95,8 @@ public class AddFriendActivity extends InitActivity {
             case R.id.tv_give_credit:
                 HttpJsonMethod.getInstance().addFriend(
                         new ProgressSubscriber(addFriendOnNext, AddFriendActivity.this),
-                        (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("friend_id"));
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                        getIntent().getStringExtra("friend_id"),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 break;
         }
     }

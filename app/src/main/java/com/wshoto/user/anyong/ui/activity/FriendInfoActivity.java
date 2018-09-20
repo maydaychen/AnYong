@@ -87,7 +87,8 @@ public class FriendInfoActivity extends InitActivity {
         };
         HttpJsonMethod.getInstance().friendInfo(
                 new ProgressSubscriber(friendInfoOnNext, FriendInfoActivity.this),
-                (String) SharedPreferencesUtils.getParam(this, "session", ""), getIntent().getStringExtra("friend_id"));
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                getIntent().getStringExtra("friend_id"),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
 
     }
 
@@ -120,7 +121,8 @@ public class FriendInfoActivity extends InitActivity {
             HttpJsonMethod.getInstance().givePoint(
                     new ProgressSubscriber(giveOnNext, FriendInfoActivity.this),
                     (String) SharedPreferencesUtils.getParam(this, "session", ""),
-                    getIntent().getStringExtra("friend_id"),pointNum.getText().toString());
+                    getIntent().getStringExtra("friend_id"),pointNum.getText().toString(),
+                    (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
             popupWindow.dismiss();
         });
 

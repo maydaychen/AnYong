@@ -84,6 +84,10 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
     TextView tvPersonRecommend;
     @BindView(R.id.iv_birthday)
     ImageView ivBirthday;
+    @BindView(R.id.tv_person_ops)
+    TextView tvPersonOps;
+    @BindView(R.id.tv_person_gds)
+    TextView tvPersonGds;
     private UserInfoBean.DataBean mDataBean;
     private SubscriberOnNextAndErrorListener<JSONObject> uploadOnNext;
     private SubscriberOnNextListener<JSONObject> changeOnNext;
@@ -109,7 +113,12 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
         if (isDate2Bigger(mDataBean.getBirthday())) {
             ivBirthday.setVisibility(View.VISIBLE);
         }
-        loadImage(mDataBean.getAvatar());
+//        loadImage(mDataBean.getAvatar());
+        if (mDataBean.getAvatar().equals("")) {
+            ivPersonLogo.setImageDrawable(getResources().getDrawable(R.drawable.tx));
+        } else {
+            loadImage(mDataBean.getAvatar());
+        }
         tvPersonName.setText(mDataBean.getUsername());
         tvPersonNumber.setText(mDataBean.getJob_no());
         tvPersonBumen.setText(mDataBean.getDepartment());
@@ -117,6 +126,8 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
         tvPersonTele.setText(mDataBean.getMobile());
         tvPersonEmail.setText(mDataBean.getEmail());
         tvPersonRecommend.setText(mDataBean.getInvitecode());
+        tvPersonOps.setText(mDataBean.getTalent_ops());
+        tvPersonGds.setText(mDataBean.getGds_pss());
         changeOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 Toast.makeText(PersonActivity.this, getText(R.string.upload_success), Toast.LENGTH_SHORT).show();
@@ -136,7 +147,8 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
                     loadImage(url);
                     HttpJsonMethod.getInstance().getAva(
                             new ProgressSubscriber<>(changeOnNext, PersonActivity.this),
-                            (String) SharedPreferencesUtils.getParam(PersonActivity.this, "session", ""), url);
+                            (String) SharedPreferencesUtils.getParam(PersonActivity.this, "session", ""),
+                            url, (String) SharedPreferencesUtils.getParam(PersonActivity.this, "language", "zh"));
                 }
                 deletePic();
 
@@ -207,7 +219,6 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         // EasyPermissions handles the request result.
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
@@ -387,7 +398,8 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
             updateDialog = ProgressDialog.show(PersonActivity.this, getText(R.string.update_img), getText(R.string.update_img_ing), true, false);
         }
         HttpJsonMethod.getInstance().uploadImg(
-                new ProgressErrorSubscriber<>(uploadOnNext, PersonActivity.this), Utils.bitmaptoString(bmp));
+                new ProgressErrorSubscriber<>(uploadOnNext, PersonActivity.this), Utils.bitmaptoString(bmp),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     public boolean isDate2Bigger(String str1) {
@@ -402,7 +414,7 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (dt1.getMonth() == dt2.getMonth() && dt1.getDay() == dt2.getDay()) {
+        if (dt1.getMonth() == dt2.getMonth() && dt1.getDate() == dt2.getDate()) {
             isBigger = true;
         }
         return isBigger;
@@ -449,4 +461,6 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
                 });
 
     }
+
+
 }

@@ -83,6 +83,41 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
         <activity android:name=".ui.activity.ThankSelectActivity" />
         <activity android:name=".ui.activity.MapActivity" />
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!-- <intent-filter> -->
+            <!-- <data android:scheme="tencent1106510230"/> -->
+
+
+            <!-- <action android:name="android.intent.action.VIEW"/> -->
+
+
+            <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
+            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+            <!-- </intent-filter> -->
+
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 集成line客户端登录授权，需要添如下格式的过滤器 -->
+            <intent-filter>
+                <data android:scheme="line.1477692153" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name="com.baidu.location.f"
@@ -140,6 +175,19 @@
         <activity android:name=".ui.activity.AddFriendActivity" />
         <activity android:name=".ui.activity.MapTestActivity" />
         <activity android:name=".ui.activity.EventDetailActivity"></activity>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5b6d4812b27b0a3d44000039"></meta-data>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="d1c5076ee45f9f51fd15f8c58ea5103c"></meta-data>
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="27b49acf4ee20" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="e0be5c356e95eaf96f76592c023e799f" />
     </application>
 
 </manifest>

@@ -48,7 +48,9 @@ public class MessageCenterActivity extends InitActivity {
         };
 
         HttpJsonMethod.getInstance().mesageList(
-                new ProgressSubscriber(messageOnNext, MessageCenterActivity.this), (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                new ProgressSubscriber(messageOnNext, MessageCenterActivity.this),
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     @OnClick(R.id.iv_comfirm_back)

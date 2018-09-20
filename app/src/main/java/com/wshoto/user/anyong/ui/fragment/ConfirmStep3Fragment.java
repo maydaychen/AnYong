@@ -1,8 +1,8 @@
 package com.wshoto.user.anyong.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +10,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
+import com.wshoto.user.anyong.SharedPreferencesUtils;
+import com.wshoto.user.anyong.http.HttpJsonMethod;
+import com.wshoto.user.anyong.http.ProgressSubscriber;
+import com.wshoto.user.anyong.http.SubscriberOnNextListener;
+import com.wshoto.user.anyong.ui.activity.ConfirmSuccessActivity;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,11 +28,13 @@ public class ConfirmStep3Fragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
     private static final String ARG_PARAM4 = "param4";
+    private SubscriberOnNextListener<JSONObject> confirmOnNext;
     @BindView(R.id.et_step3_number)
     EditText etStep3Pass;
     @BindView(R.id.et_step3_name)
     EditText etStep3Pass2;
-    private FragmentManager mFragmentManager;
+    @BindView(R.id.et_step4_invite)
+    EditText etStep3code;
     private Unbinder unbinder;
 
     private String mParam1;
@@ -65,6 +74,13 @@ public class ConfirmStep3Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_confirm_step3, container, false);
         unbinder = ButterKnife.bind(this, view);
+        confirmOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                startActivity(new Intent(getActivity(), ConfirmSuccessActivity.class));
+            } else {
+                Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+            }
+        };
         return view;
     }
 
@@ -79,14 +95,18 @@ public class ConfirmStep3Fragment extends Fragment {
         String regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
 
         if (!etStep3Pass.getText().toString().equals(etStep3Pass2.getText().toString()) || etStep3Pass.getText().toString().equals("")) {
-            Toast.makeText(getActivity(), "请输入正确密码", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getText(R.string.right_pass_hint), Toast.LENGTH_SHORT).show();
         } else if (etStep3Pass.getText().toString().matches(regex)) {
-            Toast.makeText(getActivity(), "密码须为8位以上，数字+字母+特殊符号", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getText(R.string.right_pass_hint2), Toast.LENGTH_SHORT).show();
         } else {
-            mFragmentManager = getActivity().getSupportFragmentManager();
-            //注意v4包的配套使用
-            Fragment fragment = ConfirmStep4Fragment.newInstance(mParam1, mParam2, mParam3, mParam4, etStep3Pass.getText().toString());
-            mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
+//            mFragmentManager = getActivity().getSupportFragmentManager();
+//            //注意v4包的配套使用
+//            Fragment fragment = ConfirmStep4Fragment.newInstance(mParam1, mParam2, mParam3, mParam4, etStep3Pass.getText().toString());
+//            mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
+            HttpJsonMethod.getInstance().userRisgist(
+                    new ProgressSubscriber(confirmOnNext, getActivity()), mParam1, mParam2, mParam3,
+                    mParam4, etStep3Pass.getText().toString(), etStep3Pass.getText().toString(), etStep3code.getText().toString(),
+                    (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"));
         }
     }
 }

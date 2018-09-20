@@ -1,7 +1,6 @@
 package com.wshoto.user.anyong.http;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -32,13 +31,6 @@ public class ProgressErrorSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onError(Throwable e) {
-        if (e.getMessage().equals("Failed to connect to /101.231.124.9:56678")) {
-            Toast.makeText(context, "网络连接错误，请稍后重试…", Toast.LENGTH_SHORT).show();
-        } else if (e.getMessage().equals("failed to connect to /101.231.124.9 (port 56678) after 5000ms")) {
-            Toast.makeText(context, "网络连接超时，请稍后重试…", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
         mSubscriberOnNextAndErrorListener.onError(e);
     }
 

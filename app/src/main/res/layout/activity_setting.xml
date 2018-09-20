@@ -32,7 +32,7 @@
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="账号设置" />
+            android:text="@string/setting" />
 
     </RelativeLayout>
 
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_size_8dp"
-        android:text="语言设置"
+        android:text="@string/language_setting"
         android:textColor="@color/white" />
 
     <TextView
@@ -55,6 +55,6 @@
         android:id="@+id/tv_logout"
         style="@style/button_login"
         android:layout_marginTop="40dp"
-        android:text="退出登录" />
+        android:text="@string/logout" />
 
 </LinearLayout>

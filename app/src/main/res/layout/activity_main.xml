@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,13 +20,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/sao"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <TextView
             style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"/>
+            android:text="@string/title" />
 
         <ImageView
             android:id="@+id/iv_main_email"
@@ -36,7 +35,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_8dp"
-            android:src="@drawable/email"/>
+            android:src="@drawable/email" />
 
         <ImageView
             android:id="@+id/iv_main_guide"
@@ -45,7 +44,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/iv_main_email"
             android:padding="@dimen/margin_size_8dp"
-            android:src="@drawable/mainmessage"/>
+            android:src="@drawable/mainmessage" />
     </RelativeLayout>
 
     <ScrollView
@@ -53,9 +52,9 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:background="@drawable/theme"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/theme"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -69,25 +68,50 @@
                     android:layout_alignParentRight="true"
                     android:padding="@dimen/margin_size_12dp"
                     android:text="@string/credit_detail"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
-                <com.loopj.android.image.SmartImageView
-                    android:id="@+id/iv_main_logo"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:scaleType="centerCrop"
-                    android:layout_below="@id/tv_main_point"
-                    android:layout_centerHorizontal="true"/>
+                <LinearLayout
+                    android:id="@+id/ll_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_birthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/iv_main_logo"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginBottom="-14dp"
+                        android:visibility="invisible"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="-20dp"
+                        android:src="@drawable/hg" />
+
+                    <com.wshoto.user.anyong.ui.widget.RoundImageView
+                        android:id="@+id/iv_main_logo"
+                        android:layout_width="109dp"
+                        android:layout_height="109dp"
+                        android:layout_below="@id/tv_main_point"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tx" />
+
+
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/tv_main_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/iv_main_logo"
+                    android:layout_below="@id/ll_logo"
                     android:layout_centerHorizontal="true"
                     android:padding="@dimen/margin_size_8dp"
                     android:textColor="@color/yellow"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -98,7 +122,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/jf"/>
+                        android:src="@drawable/jf" />
 
                     <TextView
                         android:id="@+id/tv_user_credit"
@@ -106,20 +130,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/margin_size_20dp"
                         android:padding="@dimen/margin_size_8dp"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_size_10dp"
-                        android:src="@drawable/dd"/>
+                        android:src="@drawable/dd" />
 
                     <TextView
                         android:id="@+id/tv_user_level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/margin_size_8dp"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -146,14 +170,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/jrzb"/>
+                            android:src="@drawable/jrzb" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
                             android:text="@string/main1"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -168,14 +192,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/thank"/>
+                            android:src="@drawable/thank" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
                             android:text="24*7"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -190,14 +214,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ry"/>
+                            android:src="@drawable/ry" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
                             android:text="@string/main3"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -212,14 +236,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/wdbj"/>
+                            android:src="@drawable/wdbj" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
                             android:text="@string/main4"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -241,14 +265,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/jksh"/>
+                            android:src="@drawable/jksh" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
                             android:text="@string/healthy_life"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -263,14 +287,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/czg"/>
+                            android:src="@drawable/czg" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
                             android:text="@string/main6"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -285,14 +309,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/gx"/>
+                            android:src="@drawable/gx" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
                             android:text="@string/main7"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -307,14 +331,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ndda"/>
+                            android:src="@drawable/ndda" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/margin_size_8dp"
                             android:text="@string/main8"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

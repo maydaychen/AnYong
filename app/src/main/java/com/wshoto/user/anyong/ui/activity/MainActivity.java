@@ -7,17 +7,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.loopj.android.image.SmartImageView;
+import com.jakewharton.rxbinding.view.RxView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.wshoto.user.anyong.Bean.UserInfoBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
@@ -26,10 +37,18 @@ import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.step.service.StepService;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
+import com.wshoto.user.anyong.ui.widget.RoundImageView;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,26 +57,37 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
 
 public class MainActivity extends InitActivity implements EasyPermissions.PermissionCallbacks {
     private static final int RC_CAMERA_PERM = 123;
+    private static final int RC_MAP_CONTACTS_PERM = 125;
+
     private static final int SHOW_SUBACTIVITY = 1;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_LOCATE = 2;
     private UserInfoBean userInfoBean;
 
     @BindView(R.id.iv_main_logo)
-    SmartImageView ivMainLogo;
+    RoundImageView ivMainLogo;
     @BindView(R.id.tv_main_name)
     TextView tvMainName;
     @BindView(R.id.tv_user_credit)
     TextView tvUserCredit;
     @BindView(R.id.tv_user_level)
     TextView tvUserLevel;
+    @BindView(R.id.iv_birthday)
+    ImageView birthday;
+    @BindView(R.id.ll_zuobiao)
+    LinearLayout mLlMap;
     private SubscriberOnNextListener<JSONObject> infoOnNext;
+    private SubscriberOnNextListener<JSONObject> newerOnNext;
     private SubscriberOnNextListener<JSONObject> scanOnNext;
     private Gson mGson = new Gson();
     private boolean isBind = false;
+    private String fileName = Environment.getExternalStorageDirectory() + "/anyong.png";
+    private static final int RC_STORAGE_CONTACTS_PERM = 125;
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -73,19 +103,38 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
         super.onResume();
         HttpJsonMethod.getInstance().userInfo(
                 new ProgressSubscriber(infoOnNext, MainActivity.this),
-                (String) SharedPreferencesUtils.getParam(this, "session", ""));
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     @Override
     public void initData() {
+        saveImg();
+        ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this).writeDebugLogs().build();
+        // 初始化
+        ImageLoader.getInstance().init(configuration);
+        newerOnNext = jsonObject -> {
+        };
         infoOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 userInfoBean = mGson.fromJson(jsonObject.toString(), UserInfoBean.class);
                 tvMainName.setText(userInfoBean.getData().getEnglish_name());
                 tvUserCredit.setText(userInfoBean.getData().getIntegral() + "");
                 tvUserLevel.setText(userInfoBean.getData().getNickname());
-                ivMainLogo.setImageUrl(userInfoBean.getData().getAvatar());
+                if (userInfoBean.getData().getAvatar().equals("")) {
+                    ivMainLogo.setImageDrawable(getResources().getDrawable(R.drawable.tx));
+                } else {
+                    loadImage(userInfoBean.getData().getAvatar());
+                }
+                if (isDate2Bigger(userInfoBean.getData().getBirthday())) {
+                    birthday.setVisibility(View.VISIBLE);
+                }
+                HttpJsonMethod.getInstance().newer(
+                        new ProgressSubscriber(newerOnNext, MainActivity.this), userInfoBean.getData().getJob_no(),
+                        (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
             } else if (jsonObject.getJSONObject("message").getString("status").equals("session错误")) {
+                show();
+            } else if (jsonObject.getJSONObject("message").getString("status").equals("session error!")) {
                 show();
             } else {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
@@ -105,16 +154,31 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 startActivity(intent);
             }
         };
+        RxView.clicks(mLlMap)
+                .throttleFirst(3, TimeUnit.SECONDS)
+                .subscribe((o -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            requestPermissions(new String[]{ACCESS_FINE_LOCATION}, RC_MAP_CONTACTS_PERM);
+                        } else {
+                            gomap();
+                        }
+                    } else {
+                        gomap();
+                    }
+                }));
+
     }
 
-    @OnClick({R.id.iv_main_sao, R.id.iv_main_email, R.id.iv_main_logo, R.id.tv_main_point, R.id.iv_main_guide, R.id.ll_zuobiao, R.id.ll_part2, R.id.ll_part3, R.id.ll_part4, R.id.ll_part5, R.id.ll_part6, R.id.ll_part7, R.id.ll_part8})
+    @OnClick({R.id.iv_main_sao, R.id.iv_main_email, R.id.iv_main_logo, R.id.tv_main_point, R.id.iv_main_guide,
+            R.id.ll_part2, R.id.ll_part3, R.id.ll_part4, R.id.ll_part5, R.id.ll_part6,
+            R.id.ll_part7, R.id.ll_part8, R.id.tv_user_credit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_main_sao:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{CAMERA},
-                                MY_PERMISSIONS_REQUEST_CALL_PHONE);
+                        requestPermissions(new String[]{CAMERA}, RC_CAMERA_PERM);
                     } else {
                         init();
                     }
@@ -130,9 +194,6 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 break;
             case R.id.tv_main_point:
                 startActivity(new Intent(MainActivity.this, PointActivity.class));
-                break;
-            case R.id.ll_zuobiao:
-                startActivity(new Intent(MainActivity.this, MapTestActivity.class));
                 break;
             case R.id.ll_part2:
                 startActivity(new Intent(MainActivity.this, ThankYouActivity.class));
@@ -169,6 +230,9 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
+            case R.id.tv_user_credit:
+                startActivity(new Intent(MainActivity.this, PointActivity.class));
+                break;
             default:
                 break;
         }
@@ -184,6 +248,19 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
         }
     }
 
+    @AfterPermissionGranted(RC_MAP_CONTACTS_PERM)
+    public void gomap() {
+        String[] perms = {ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            Intent intent = new Intent(this, MapTestActivity.class);
+            startActivityForResult(intent, SHOW_SUBACTIVITY);
+        } else {
+            // Ask for both permissions
+            EasyPermissions.requestPermissions(this, getString(R.string.rationale_location),
+                    RC_MAP_CONTACTS_PERM, perms);
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -196,6 +273,13 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
         if (requestCode == RC_CAMERA_PERM) {
             Intent intent = new Intent(this, CaptureActivity.class);
             startActivityForResult(intent, SHOW_SUBACTIVITY);
+        }
+        if (requestCode == RC_MAP_CONTACTS_PERM) {
+            Intent intent = new Intent(this, MapTestActivity.class);
+            startActivity(intent);
+        }
+        if (requestCode == RC_STORAGE_CONTACTS_PERM) {
+            saveImg();
         }
     }
 
@@ -215,7 +299,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
             HttpJsonMethod.getInstance().scan(
                     new ProgressSubscriber(scanOnNext, MainActivity.this),
                     (String) SharedPreferencesUtils.getParam(this, "session", ""),
-                    data.getStringExtra("code"));
+                    data.getStringExtra("code"), (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
         }
     }
 
@@ -235,8 +319,14 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
 
         builder.setPositiveButton(getText(R.string.confirm), (dialog, which) -> {
             dialog.dismiss();
+            boolean auto = (boolean) SharedPreferencesUtils.getParam(this, "language_auto", true);
+            String lang = (String) SharedPreferencesUtils.getParam(this, "language", "zh");
+            String device_token = (String) SharedPreferencesUtils.getParam(this, "device_token", "");
             SharedPreferencesUtils.clear(getApplicationContext());
             SharedPreferencesUtils.setParam(getApplicationContext(), "first", false);
+            SharedPreferencesUtils.setParam(getApplicationContext(), "language_auto", auto);
+            SharedPreferencesUtils.setParam(getApplicationContext(), "language", lang);
+            SharedPreferencesUtils.setParam(getApplicationContext(), "device_token", device_token);
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         });
@@ -294,6 +384,90 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
         super.onDestroy();
         if (isBind) {
             this.unbindService(conn);
+        }
+    }
+
+    public boolean isDate2Bigger(String str1) {
+        boolean isBigger = false;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dt1 = null;
+        String current = sdf.format(new Date(System.currentTimeMillis()));
+        Date dt2 = null;
+        try {
+            dt1 = sdf.parse(str1);
+            dt2 = sdf.parse(current);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (dt1.getMonth() == dt2.getMonth() && dt1.getDate() == dt2.getDate()) {
+            isBigger = true;
+        }
+        return isBigger;
+    }
+
+    private void loadImage(String url) {
+        // 图片路径
+        String uri = (url);
+        // 图片大小
+        ImageSize mImageSize = new ImageSize(300, 300);
+        // 图片的配置
+        DisplayImageOptions mOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true).cacheOnDisc(true)
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
+
+        ImageLoader.getInstance().loadImage(uri, mImageSize, mOptions,
+                new ImageLoadingListener() {
+
+                    @Override
+                    public void onLoadingStarted(String arg0, View arg1) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String arg0, View arg1,
+                                                FailReason arg2) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String arg0, View arg1,
+                                                  Bitmap arg2) {
+                        ivMainLogo.setImageBitmap(arg2);
+
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String arg0, View arg1) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+    }
+
+    @AfterPermissionGranted(RC_STORAGE_CONTACTS_PERM)
+    public void saveImg() {
+        String[] perms = {Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            // Have permissions, do the thing!
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+            File file = new File(fileName);
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                    FileOutputStream fos = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, fos);
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // Ask for both permissions
+            EasyPermissions.requestPermissions(this, getString(R.string.rationale_location),
+                    RC_STORAGE_CONTACTS_PERM, perms);
         }
     }
 }

@@ -1,0 +1,30 @@
+{
+    "version": "1.0.0",
+    "warning": "请不要修改这个文件中的内容",
+    "project": {
+        "projectId": 103896
+    },
+    "application": {
+        "appId": 103472,
+        "packageId": "com.wshoto.user.anyong"
+    },
+    "services": {
+        "analytics": {
+            "appKey": "Aqcloud103472"
+        },
+        "messaging": {
+            "appId": "2100306318",
+            "appKey": "AZX9QH9H725J"
+        },
+        "crash": {
+            "appId": "ae87130139"
+        },
+        "payment": {
+            "offerId": "TC103472"
+        },
+        "storage": {
+            "bucket": "tac-ey-st-1256848733",
+            "region": "ap-shanghai"
+        }
+    }
+}

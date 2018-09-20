@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.loopj.android.image.SmartImageView;
-import com.wshoto.user.anyong.Bean.MessageCenterBean;
 import com.wshoto.user.anyong.Bean.ThankUserBean;
 import com.wshoto.user.anyong.R;
 
@@ -48,6 +47,7 @@ public class ThankUserAdapter extends RecyclerView.Adapter<ThankUserAdapter.View
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
 //        viewHolder.ivMessageLogo.setImageUrl( mData.get(position).get);
         viewHolder.textView3.setText(mData.get(position).getEnglish_name());
+        viewHolder.logo.setImageUrl(mData.get(position).getAvatar());
         viewHolder.itemView.setTag(position);
     }
 
@@ -73,6 +73,8 @@ public class ThankUserAdapter extends RecyclerView.Adapter<ThankUserAdapter.View
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.textView3)
         TextView textView3;
+        @BindView(R.id.logo)
+        SmartImageView logo;
 
         ViewHolder(View view) {
             super(view);

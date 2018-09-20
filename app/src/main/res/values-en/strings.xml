@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">EY</string>
+    <string name="title">安永EY</string>
     <string name="tv_change_pass">Change Password</string>
     <string name="confirm_success">Authentication success</string>
     <string name="rationale_camera">Allow the application to access camera?</string>
+    <string name="rationale_location">Allow the application to access location?</string>
 
     <string name="login">Login</string>
     <string name="tv_login_first">Registration？</string>
@@ -14,9 +16,11 @@
     <string name="back">Back</string>
     <string name="nianduzhangdan">My Annual Summary</string>
     <string name="calendar">Calendar</string>
-    <string name="today">today</string>
-    <string name="mine">mine</string>
+    <string name="today">Today</string>
+    <string name="mine">My Calendar</string>
     <string name="detail">detail</string>
+    <string name="start_time">start time：%1$s</string>
+    <string name="end_time">end time：%1$s</string>
     <string name="tv_change_pass_mobile">Please enter your mobile number</string>
     <string name="tv_change_pass_sms">Please enter verification code</string>
     <string name="tv_change_pass_sms_send">Get verification code</string>
@@ -31,14 +35,14 @@
     <string name="step_today">Today\'s Steps</string>
     <string name="step_hint">Reach 8000 steps!\n Get the point now!</string>
     <string name="come_on">Keep going!</string>
-    <string name="healthy_task_daily">Exercises time is coming!</string>
+    <string name="healthy_task_daily">Exercises time is coming</string>
     <string name="task1">Eye exercise</string>
     <string name="task_time_not_reach">It\'s not exericse time yet!</string>
     <string name="task_time_reach">Completed the task</string>
     <string name="task1_desc">Relax your eyes</string>
     <string name="task1_time">Activity time: 10:00 ~ 11:00 every day</string>
-    <string name="task2">Do some stretching!</string>
-    <string name="task2_desc">It\'s time to move your neck and shoulder!</string>
+    <string name="task2">Do some stretching</string>
+    <string name="task2_desc">It\'s time to move your neck and shoulder</string>
     <string name="task2_time">Activity time: 16:00 ~ 17:00 every day</string>
     <string name="honour">My EY Honor</string>
     <string name="credit_detail">Point Details</string>
@@ -57,7 +61,7 @@
     <string name="new_friend">New Friend</string>
     <string name="new_friend_info">GPN/Skype Name/Mobile Number</string>
     <string name="person_info">Personal information</string>
-    <string name="setting">Account setting</string>
+    <string name="setting">Setting</string>
     <string name="user_number">GPN</string>
     <string name="user_position">Rank</string>
     <string name="user_number1">(%1$s)</string>
@@ -101,11 +105,11 @@
     <string name="good">Very Good</string>
     <string name="confirm_step_3_1">Now set a password for your account</string>
     <string name="confirm_step_3_2">After that, you can log in to the APP using the email + password.</string>
-    <string name="confirm_pass">enter password</string>
+    <string name="confirm_pass">Enter password</string>
     <string name="comfirm_pass2">Please enter your password again</string>
     <string name="confirm_step_4_1">Is there an enthusiastic colleague who recommends you to use EY Footprint?</string>
     <string name="confirm_step_4_2">Enter his or her recommendation code</string>
-    <string name="invite_code">Invitation code</string>
+    <string name="invite_code">Invitation code(Optional)</string>
     <string name="step1_error">Please complete the information！</string>
 
 
@@ -117,6 +121,7 @@
     <string name="give_credit">Gift points</string>
     <string name="accept_friend">Agree to add</string>
     <string name="refuse_friend">Ignore add</string>
+    <string name="join">I want to sign up</string>
     <string name="permition">This app requires camera and album permissions</string>
 
 
@@ -129,7 +134,7 @@
     <string name="upload_fail">Upload failed, please try again later</string>
     <string name="upload_success">Uploaded successfully!</string>
     <string name="save">save</string>
-    <string name="language_setting">language settings</string>
+    <string name="language_setting">Language Settings</string>
     <string name="pic">Gallery</string>
     <string name="send_sussess">Send Successfully!</string>
     <string name="check">check</string>
@@ -138,4 +143,23 @@
     <string name="join_success">join successfully！</string>
     <string name="friend_apply">EY request add</string>
     <string name="logout_error">Your account has been logged elsewhere, please login again!</string>
+    <string name="exit_hint">Are you sure you want to exit?</string>
+    <string name="logout">log out</string>
+    <string name="give_point">Give friends points</string>
+    <string name="obtain"> obtain</string>
+    <string name="lose"> lose</string>
+    <string name="point_hint">Please enter the points you want to give.</string>
+    <string name="point_success">Received points!</string>
+    <string name="point_successfully">The points have been obtained successfully!</string>
+    <string name="complete">complete the mission</string>
+
+    <string name="point_detail">%1$s%2$s%3$spoint(s)</string>
+    <string name="choose_place">Manual check in</string>
+    <string name="select_city">City</string>
+    <string name="mobile_hint">Please fill in your phone number</string>
+    <string name="change_success">Successfully modified</string>
+    <string name="right_pass_hint">Please enter the correct password</string>
+    <string name="right_pass_hint2">Password must be 8 or more, number + letter + special symbol</string>
+    <string name="operate_successfully">Operate successfully</string>
+
 </resources>
