@@ -82,7 +82,8 @@ public class FriendInfoActivity extends InitActivity {
                 Toast.makeText(FriendInfoActivity.this, getText(R.string.give_success), Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                Toast.makeText(FriendInfoActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(FriendInfoActivity.this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+
             }
         };
         HttpJsonMethod.getInstance().friendInfo(

@@ -154,6 +154,7 @@
     <string name="join">我要报名</string>
     <string name="point_detail">%1$s%2$s%3$s积分</string>
     <string name="choose_place">手动签到</string>
+    <string name="location">选择城市</string>
     <string name="select_city">请选择城市</string>
     <string name="mobile_hint">请填写手机号</string>
     <string name="change_success">修改成功</string>

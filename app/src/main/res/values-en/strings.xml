@@ -155,6 +155,7 @@
 
     <string name="point_detail">%1$s%2$s%3$spoint(s)</string>
     <string name="choose_place">Manual check in</string>
+    <string name="location">Select City</string>
     <string name="select_city">City</string>
     <string name="mobile_hint">Please fill in your phone number</string>
     <string name="change_success">Successfully modified</string>

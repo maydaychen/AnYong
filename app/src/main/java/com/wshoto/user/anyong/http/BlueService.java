@@ -88,7 +88,7 @@ public interface BlueService {
 
     @POST("/index.php?r=api/activity/activity-list")
     @FormUrlEncoded
-    rx.Observable<JSONObject> calendar(@Field("session") String session, @Field("language") String language);
+    rx.Observable<JSONObject> calendar(@Field("session") String session, @Field("province") String province, @Field("city") String city, @Field("language") String language);
 
     @POST("/index.php?r=api/activity/activity-join")
     @FormUrlEncoded
@@ -96,7 +96,7 @@ public interface BlueService {
 
     @POST("/index.php?r=api/activity/activity-time")
     @FormUrlEncoded
-    rx.Observable<JSONObject> timeCalendar(@Field("session") String session, @Field("time") String time, @Field("language") String language);
+    rx.Observable<JSONObject> timeCalendar(@Field("session") String session, @Field("time") String time, @Field("province") String province, @Field("city") String city, @Field("language") String language);
 
     @POST("/index.php?r=api/activity/activity-info")
     @FormUrlEncoded

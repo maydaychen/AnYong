@@ -134,7 +134,7 @@ public class HttpJsonMethod {
 
 
     public void locate(Subscriber<JSONObject> subscriber, String session, String lal, String language, String latitude, String longitude) {
-        movieService.locate(session, lal, language,latitude,longitude)
+        movieService.locate(session, lal, language, latitude, longitude)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -206,8 +206,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void calendar(Subscriber<JSONObject> subscriber, String session, String language) {
-        movieService.calendar(session, language)
+    public void calendar(Subscriber<JSONObject> subscriber, String session, String province, String city, String language) {
+        movieService.calendar(session, province, city, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -224,8 +224,8 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
-    public void timeCalendar(Subscriber<JSONObject> subscriber, String session, String time, String language) {
-        movieService.timeCalendar(session, time, language)
+    public void timeCalendar(Subscriber<JSONObject> subscriber, String session, String time, String province, String city, String language) {
+        movieService.timeCalendar(session, time, province, city, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

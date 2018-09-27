@@ -66,8 +66,7 @@ import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
 public class MapTestActivity extends InitActivity implements AdapterView.OnItemClickListener,
         OnGetGeoCoderResultListener, BaiduMap.OnMapStatusChangeListener, View.OnClickListener, OnWheelChangedListener {
-    @BindView(R.id.wheel_add_address)
-    RelativeLayout mAddAddress;
+
     @BindView(R.id.lv_location_position)
     ListView lv_location_position;
     @BindView(R.id.pb_location_load_bar)
@@ -76,6 +75,8 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
     ImageView img_location_back_origin;
     @BindView(R.id.bmapView)
     MapView bmapView;
+    @BindView(R.id.wheel_add_address)
+    RelativeLayout mAddAddress;
     @BindView(R.id.id_province)
     WheelView mProvince;
     @BindView(R.id.id_city)

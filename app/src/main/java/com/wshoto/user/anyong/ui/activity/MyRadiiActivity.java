@@ -78,7 +78,7 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
                 Toast.makeText(MyRadiiActivity.this, getText(R.string.give_success), Toast.LENGTH_SHORT).show();
                 onResume();
             } else {
-                Toast.makeText(MyRadiiActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyRadiiActivity.this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
 
