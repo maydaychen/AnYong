@@ -4,7 +4,7 @@
     <string name="tv_change_pass">修改密码</string>
     <string name="confirm_success">认证成功</string>
     <string name="rationale_camera">此应用需要摄像头权限</string>
-    <string name="rationale_location">此应用需要定位权限</string>
+    <string name="rationale_location">此应用需要定位及相关权限</string>
 
     <string name="login">登录</string>
     <string name="tv_login_first">首次登录？</string>
@@ -109,7 +109,7 @@
     <string name="comfirm_pass2">请再次输入密码</string>
     <string name="confirm_step_4_1">是否有热心的同事推荐你用EY Footprint呢？</string>
     <string name="confirm_step_4_2">输入他（她）的推荐码吧</string>
-    <string name="invite_code">邀请码(选天)</string>
+    <string name="invite_code">邀请码(选填)</string>
     <string name="step1_error">请将信息填写完整！</string>
 
 
@@ -161,5 +161,6 @@
     <string name="right_pass_hint">请输入正确密码</string>
     <string name="right_pass_hint2">密码须为8位以上，数字+字母+特殊符号</string>
     <string name="operate_successfully">操作成功</string>
+    <string name="jiaocheng">是否跳转视频链接</string>
     <!--<string name="point_hint">请输入想要赠送的积分</string>-->
 </resources>

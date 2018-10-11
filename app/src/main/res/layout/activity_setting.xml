@@ -40,7 +40,7 @@
         android:id="@+id/tv_language_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_size_8dp"
+        android:padding="@dimen/margin_size_12dp"
         android:text="@string/language_setting"
         android:textColor="@color/white" />
 

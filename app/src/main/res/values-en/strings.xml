@@ -46,12 +46,12 @@
     <string name="task2_time">Activity time: 16:00 ~ 17:00 every day</string>
     <string name="honour">My EY Honor</string>
     <string name="credit_detail">Point Details</string>
-    <string name="main1">Where am I today?</string>
+    <string name="main1">My Journey</string>
     <string name="main3">My EY Honor</string>
-    <string name="main4">Moments</string>
-    <string name="main6">EY Calendar</string>
-    <string name="main7">EY Community</string>
-    <string name="main8">My Annual Summary</string>
+    <string name="main4">Between us</string>
+    <string name="main6">Together with EY</string>
+    <string name="main7">Moments</string>
+    <string name="main8">Flashbacks</string>
     <string name="qiandao">Check in</string>
     <string name="message_center">Message</string>
     <string name="friend">My Friends</string>
@@ -72,11 +72,11 @@
     <string name="thank_send_hint">Use full name to search</string>
     <string name="thank_model">Use template</string>
     <string name="send_theme">Subject：</string>
-    <string name="send_to">Send to：</string>
+    <string name="send_to">To：</string>
     <string name="image_upload">Upload picture：</string>
     <string name="send_content">Send：</string>
     <string name="preview">Preview</string>
-    <string name="send">Send</string>
+    <string name="send">I want to send</string>
     <string name="search_list">Searching List</string>
     <string name="cancel">Cancel</string>
     <string name="turn_on_flash">Light on</string>
@@ -141,13 +141,13 @@
     <string name="give_success">Give Successfully!</string>
     <string name="point">point(s)</string>
     <string name="join_success">join successfully！</string>
-    <string name="friend_apply">EY request add</string>
+    <string name="friend_apply">More Friends</string>
     <string name="logout_error">Your account has been logged elsewhere, please login again!</string>
     <string name="exit_hint">Are you sure you want to exit?</string>
     <string name="logout">log out</string>
     <string name="give_point">Give friends points</string>
-    <string name="obtain"> obtain</string>
-    <string name="lose"> lose</string>
+    <string name="obtain"> gain </string>
+    <string name="lose"> lose </string>
     <string name="point_hint">Please enter the points you want to give.</string>
     <string name="point_success">Received points!</string>
     <string name="point_successfully">The points have been obtained successfully!</string>
@@ -162,5 +162,5 @@
     <string name="right_pass_hint">Please enter the correct password</string>
     <string name="right_pass_hint2">Password must be 8 or more, number + letter + special symbol</string>
     <string name="operate_successfully">Operate successfully</string>
-
+    <string name="jiaocheng">Whether to jump to the video link?</string>
 </resources>

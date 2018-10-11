@@ -25,7 +25,6 @@ public class PointActivity extends InitActivity {
 
     @BindView(R.id.rv_points)
     RecyclerView mRvPoints;
-    private SubscriberOnNextListener<JSONObject> pointOnNext;
     private PointBean pointBean;
     private Gson mGson = new Gson();
 
@@ -38,7 +37,7 @@ public class PointActivity extends InitActivity {
 
     @Override
     public void initData() {
-        pointOnNext = jsonObject -> {
+        SubscriberOnNextListener<JSONObject> pointOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 pointBean = mGson.fromJson(jsonObject.toString(), PointBean.class);
                 mRvPoints.setLayoutManager(new LinearLayoutManager(this));
@@ -52,13 +51,11 @@ public class PointActivity extends InitActivity {
                 (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
-    @OnClick({R.id.iv_comfirm_back, R.id.iv_point_help})
+    @OnClick({R.id.iv_comfirm_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_comfirm_back:
                 finish();
-                break;
-            case R.id.iv_point_help:
                 break;
             default:
                 break;

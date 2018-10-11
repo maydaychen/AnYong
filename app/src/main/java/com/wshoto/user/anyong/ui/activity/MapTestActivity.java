@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -83,7 +85,11 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
     WheelView mCity;
     @BindView(R.id.id_area)
     WheelView mArea;
+    @BindView(R.id.iv_qiandao)
+    ImageView ivQiandao;
 
+    //放大缩小动画
+    Animation mAnimation = null;
     private Context mContext;
     /**
      * 列表适配器
@@ -186,6 +192,10 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
 
         initJsonData();
         initDatas();
+        mAnimation = AnimationUtils.loadAnimation(this, R.anim.bigsmall);
+        ivQiandao.setAnimation(mAnimation);
+        mAnimation.start();
+
 
         mProvince.setViewAdapter(new ArrayWheelAdapter<>(this, mProvinceDatas));
         // 添加change事件
@@ -291,7 +301,6 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
                 break;
         }
     }
-
 
     /**
      * 定位SDK监听函数
@@ -646,15 +655,21 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
      */
     private void initJsonData() {
         try {
-            StringBuilder sb = new StringBuilder();
-            InputStream is = getAssets().open("city.json");
-            int len;
-            byte[] buf = new byte[1024];
-            while ((len = is.read(buf)) != -1) {
-                sb.append(new String(buf, 0, len, "UTF-8"));
-            }
-            is.close();
-            mJsonObj = new JSONObject(sb.toString());
+//            StringBuilder sb = new StringBuilder();
+//            InputStream is = getAssets().open("city.json");
+//            int len;
+//            byte[] buf = new byte[1024];
+//            while ((len = is.read(buf)) != -1) {
+//                sb.append(new String(buf, 0, len, "UTF-8"));
+//            }
+//            is.close();
+            String resultString = "";
+            InputStream inputStream = getApplication().getResources().getAssets().open("city.json");
+            byte[] buffer = new byte[inputStream.available()];
+            inputStream.read(buffer);
+            resultString = new String(buffer, "UTF-8");
+
+            mJsonObj = new JSONObject(resultString);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

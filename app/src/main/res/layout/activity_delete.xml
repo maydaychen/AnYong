@@ -54,7 +54,7 @@
             android:id="@+id/tv_choice_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background">
+            android:background="#AAAAAA">
 
             <TextView
                 android:id="@+id/tv_choose_cancel"
@@ -98,19 +98,19 @@
             <kankan.wheel.widget.WheelView
                 android:id="@+id/id_province"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="145dp"
                 android:layout_weight="1"></kankan.wheel.widget.WheelView>
 
             <kankan.wheel.widget.WheelView
                 android:id="@+id/id_city"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="145dp"
                 android:layout_weight="1"></kankan.wheel.widget.WheelView>
 
             <kankan.wheel.widget.WheelView
                 android:id="@+id/id_area"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="145dp"
                 android:layout_weight="1"></kankan.wheel.widget.WheelView>
         </LinearLayout>
 

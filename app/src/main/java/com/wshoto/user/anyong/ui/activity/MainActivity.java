@@ -62,7 +62,9 @@ import static android.Manifest.permission.CAMERA;
 
 public class MainActivity extends InitActivity implements EasyPermissions.PermissionCallbacks {
     private static final int RC_CAMERA_PERM = 123;
+    private static final int RC_STORAGE_CONTACTS_PERM = 124;
     private static final int RC_MAP_CONTACTS_PERM = 125;
+    private static final int RC_BBS = 126;
 
     private static final int SHOW_SUBACTIVITY = 1;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
@@ -87,7 +89,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
     private Gson mGson = new Gson();
     private boolean isBind = false;
     private String fileName = Environment.getExternalStorageDirectory() + "/anyong.png";
-    private static final int RC_STORAGE_CONTACTS_PERM = 125;
+
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -214,9 +216,15 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
                 startActivity(new Intent(MainActivity.this, DeleteActivity.class));
                 break;
             case R.id.ll_part7:
-                Intent bbs = new Intent(MainActivity.this, BBSActivity.class);
-                bbs.putExtra("id", userInfoBean.getData().getId());
-                startActivity(bbs);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{CAMERA}, RC_BBS);
+                    } else {
+                        goBBS();
+                    }
+                } else {
+                    goBBS();
+                }
                 break;
             case R.id.ll_part8:
                 Intent anni = new Intent(MainActivity.this, AnniversaryActivity.class);
@@ -261,6 +269,20 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
         }
     }
 
+    @AfterPermissionGranted(RC_BBS)
+    public void goBBS() {
+        String[] perms = {ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            Intent bbs = new Intent(MainActivity.this, BBSActivity.class);
+            bbs.putExtra("id", userInfoBean.getData().getId());
+            startActivity(bbs);
+        } else {
+            // Ask for both permissions
+            EasyPermissions.requestPermissions(this, getString(R.string.rationale_location),
+                    RC_BBS, perms);
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -270,17 +292,17 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         Log.d("chenyi", "onPermissionsGranted:" + requestCode + ":" + perms.size());
-        if (requestCode == RC_CAMERA_PERM) {
-            Intent intent = new Intent(this, CaptureActivity.class);
-            startActivityForResult(intent, SHOW_SUBACTIVITY);
-        }
-        if (requestCode == RC_MAP_CONTACTS_PERM) {
-            Intent intent = new Intent(this, MapTestActivity.class);
-            startActivity(intent);
-        }
-        if (requestCode == RC_STORAGE_CONTACTS_PERM) {
-            saveImg();
-        }
+//        if (requestCode == RC_CAMERA_PERM) {
+//            Intent intent = new Intent(this, CaptureActivity.class);
+//            startActivityForResult(intent, SHOW_SUBACTIVITY);
+//        }
+//        if (requestCode == RC_MAP_CONTACTS_PERM) {
+//            Intent intent = new Intent(this, MapTestActivity.class);
+//            startActivity(intent);
+//        }
+//        if (requestCode == RC_STORAGE_CONTACTS_PERM) {
+//            saveImg();
+//        }
     }
 
     @Override

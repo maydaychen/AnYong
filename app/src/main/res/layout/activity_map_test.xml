@@ -150,12 +150,12 @@
 
         <ImageView
             android:id="@+id/iv_qiandao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:padding="@dimen/margin_size_8dp"
-            android:src="@drawable/qiand" />
+            android:src="@drawable/finger" />
     </RelativeLayout>
 
     <!--附近的地点-->

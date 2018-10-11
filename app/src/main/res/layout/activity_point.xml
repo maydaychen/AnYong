@@ -31,14 +31,6 @@
             android:layout_height="wrap_content"
             android:text="@string/credit_detail"/>
 
-        <ImageView
-            android:id="@+id/iv_point_help"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/jf_help"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

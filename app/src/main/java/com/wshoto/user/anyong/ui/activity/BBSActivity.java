@@ -156,7 +156,6 @@ public class BBSActivity extends InitActivity {
             if (mUploadCallbackAboveL != null) {
                 onActivityResultAboveL(requestCode, resultCode, data);
             } else if (mUploadMessage != null) {
-
                 if (result != null) {
                     String path = getPath(getApplicationContext(), result);
                     Uri uri = Uri.fromFile(new File(path));
@@ -256,7 +255,6 @@ public class BBSActivity extends InitActivity {
 
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
                 return getDataColumn(context, contentUri, null, null);
             }
             // MediaProvider
