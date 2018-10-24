@@ -44,7 +44,7 @@
     <string name="task2">Do some stretching</string>
     <string name="task2_desc">It\'s time to move your neck and shoulder</string>
     <string name="task2_time">Activity time: 16:00 ~ 17:00 every day</string>
-    <string name="honour">My EY Honor</string>
+    <string name="honour">Glory of Frame</string>
     <string name="credit_detail">Point Details</string>
     <string name="main1">My Journey</string>
     <string name="main3">My EY Honor</string>
@@ -135,6 +135,7 @@
     <string name="upload_success">Uploaded successfully!</string>
     <string name="save">save</string>
     <string name="language_setting">Language Settings</string>
+    <string name="background_setting">Home background setting</string>
     <string name="pic">Gallery</string>
     <string name="send_sussess">Send Successfully!</string>
     <string name="check">check</string>
@@ -163,4 +164,6 @@
     <string name="right_pass_hint2">Password must be 8 or more, number + letter + special symbol</string>
     <string name="operate_successfully">Operate successfully</string>
     <string name="jiaocheng">Whether to jump to the video link?</string>
+    <string name="no_longer">No longer remind</string>
+    <string name="map_alert">Click the hand below to complete the check in</string>
 </resources>

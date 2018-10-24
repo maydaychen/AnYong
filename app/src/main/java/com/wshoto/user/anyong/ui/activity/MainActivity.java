@@ -64,7 +64,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
     private static final int RC_CAMERA_PERM = 123;
     private static final int RC_STORAGE_CONTACTS_PERM = 124;
     private static final int RC_MAP_CONTACTS_PERM = 125;
-    private static final int RC_BBS = 126;
+    private static final int RC_BBS = 126;//跳转不定期更新页面申请摄像头权限
 
     private static final int SHOW_SUBACTIVITY = 1;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;

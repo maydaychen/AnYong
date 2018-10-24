@@ -50,6 +50,19 @@
         android:layout_height="1dp"
         android:background="@color/line_44" />
 
+    <TextView
+        android:id="@+id/tv_background_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_size_12dp"
+        android:text="@string/background_setting"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_44" />
 
     <Button
         android:id="@+id/tv_logout"

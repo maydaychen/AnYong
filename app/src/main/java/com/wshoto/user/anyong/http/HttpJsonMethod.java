@@ -207,7 +207,7 @@ public class HttpJsonMethod {
     }
 
     public void calendar(Subscriber<JSONObject> subscriber, String session, String province, String city, String language) {
-        movieService.calendar(session, province, city, language)
+        movieService.calendar(session, city, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -225,7 +225,7 @@ public class HttpJsonMethod {
     }
 
     public void timeCalendar(Subscriber<JSONObject> subscriber, String session, String time, String province, String city, String language) {
-        movieService.timeCalendar(session, time, province, city, language)
+        movieService.timeCalendar(session, time, city, language)
 //                .map(new HttpResultFunc<>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

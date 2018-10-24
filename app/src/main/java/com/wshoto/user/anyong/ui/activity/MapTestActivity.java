@@ -1,5 +1,6 @@
 package com.wshoto.user.anyong.ui.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -147,7 +148,6 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
      * 所有省
      */
     private String[] mProvinceDatas;
-    private String[] mProvinceIds;
     /**
      * key - 省 value - 市s
      */
@@ -167,11 +167,6 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
      * 当前市的名称
      */
     private String mCurrentCityName;
-    /**
-     * 当前区的名称
-     */
-    private String mCurrentAreaId;
-    private String mCurrentAreaName;
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -189,27 +184,11 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
-
-        initJsonData();
-        initDatas();
+        ifShow();
         mAnimation = AnimationUtils.loadAnimation(this, R.anim.bigsmall);
         ivQiandao.setAnimation(mAnimation);
         mAnimation.start();
-
-
-        mProvince.setViewAdapter(new ArrayWheelAdapter<>(this, mProvinceDatas));
-        // 添加change事件
-        mProvince.addChangingListener(this);
-        // 添加change事件
-        mCity.addChangingListener(this);
-        // 添加change事件
-        mArea.addChangingListener(this);
-
-        mProvince.setVisibleItems(5);
-        mCity.setVisibleItems(5);
-        mArea.setVisibleItems(5);
-        updateCities();
-        updateAreas();
+        sanjiliandong();
     }
 
     /**
@@ -268,14 +247,10 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        img_location_back_origin.setImageResource(R.drawable.back_origin_normal);
-
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             locatorAdapter.setSelectItemIndex(0);
-
             // 获取经纬度
             LatLng latLng = data.getParcelableExtra("LatLng");
-
             // 实现动画跳转
             MapStatusUpdate u = MapStatusUpdateFactory
                     .newLatLng(latLng);
@@ -306,7 +281,6 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
      * 定位SDK监听函数
      */
     public class MyLocationListener implements BDLocationListener {
-
         @Override
         public void onReceiveLocation(BDLocation location) {
             // map view 销毁后不在处理新接收的位置
@@ -321,10 +295,8 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
 
             Double mLatitude = location.getLatitude();
             Double mLongitude = location.getLongitude();
-
             LatLng currentLatLng = new LatLng(mLatitude, mLongitude);
             mLoactionLatLng = new LatLng(mLatitude, mLongitude);
-
             // 是否第一次定位
             if (isFirstLoc) {
                 isFirstLoc = false;
@@ -340,8 +312,6 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
             }
         }
 
-        public void onReceivePoi(BDLocation poiLocation) {
-        }
     }
 
     // 地图触摸事件监听器
@@ -364,7 +334,6 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         if (mCenterPoint == null) {
             return;
         }
-
         // 获取当前 MapView 中心屏幕坐标对应的地理坐标
         LatLng currentLatLng = mBaiduMap.getProjection().fromScreenLocation(
                 mCenterPoint);
@@ -407,18 +376,15 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         // 设置选中项下标，并刷新
         locatorAdapter.setSelectItemIndex(position);
         locatorAdapter.notifyDataSetChanged();
-
         mBaiduMap.clear();
         PoiInfo info = (PoiInfo) locatorAdapter.getItem(position);
         LatLng la = info.location;
         // 获取位置
         mLocationValue = info.name;
         Toast.makeText(mContext, info.city, Toast.LENGTH_SHORT).show();
-
         // 动画跳转
         MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(la);
         mBaiduMap.animateMapStatus(u);
-
         img_location_back_origin.setImageResource(R.drawable.back_origin_normal);
     }
 
@@ -559,8 +525,6 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
 //        mCurrentCityId = mCitisDatasID.get(mCurrentProviceName)[pCurrent];
         String[] areas = mAreaDatasMap.get(mCurrentCityName);
         String[] areasId = mAreaDatasId.get(mCurrentCityName);
-        mCurrentAreaName = areas[0];
-        mCurrentAreaId = areasId[0];
         if (areas == null) {
             areas = new String[]{""};
         }
@@ -591,14 +555,14 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         try {
             JSONArray jsonArray = mJsonObj.getJSONArray("citylist");
             mProvinceDatas = new String[jsonArray.length()];
-            mProvinceIds = new String[jsonArray.length()];
+            String[] provinceIds = new String[jsonArray.length()];
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonP = jsonArray.getJSONObject(i);// 每个省的json对象
                 String province = jsonP.getString("name");// 省名字
                 String provinceId = jsonP.getString("regionid");//省ID
 
                 mProvinceDatas[i] = province;
-                mProvinceIds[i] = provinceId;
+                provinceIds[i] = provinceId;
 
                 JSONArray jsonCs;
                 try {
@@ -685,11 +649,44 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         } else if (wheel == mCity) {
             updateAreas();
         } else if (wheel == mArea) {
-            mCurrentAreaName = mAreaDatasMap.get(mCurrentCityName)[newValue];
-            mCurrentAreaId = mAreaDatasId.get(mCurrentCityName)[newValue];
         }
     }
 
+    private void sanjiliandong() {
+        initJsonData();
+        initDatas();
+        mProvince.setViewAdapter(new ArrayWheelAdapter<>(this, mProvinceDatas));
+        // 添加change事件
+        mProvince.addChangingListener(this);
+        // 添加change事件
+        mCity.addChangingListener(this);
+        // 添加change事件
+        mArea.addChangingListener(this);
+
+        mProvince.setVisibleItems(5);
+        mCity.setVisibleItems(5);
+        mArea.setVisibleItems(5);
+        updateCities();
+        updateAreas();
+    }
+
+    private void ifShow() {
+        if ((boolean) SharedPreferencesUtils.getParam(this, "map_teach", true)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MapTestActivity.this);
+            builder.setMessage(getText(R.string.map_alert));
+            builder.setTitle(R.string.app_name);
+            builder.setCancelable(false);
+
+            builder.setPositiveButton(getText(R.string.confirm), (dialog, which) -> dialog.dismiss());
+
+            builder.setNegativeButton(getText(R.string.no_longer), (dialog, which) -> {
+                dialog.dismiss();
+                SharedPreferencesUtils.setParam(getApplicationContext(), "map_teach", false);
+            });
+
+            builder.create().show();
+        }
+    }
 //    private void showPopupWindow() {
 //        View contentView = LayoutInflater.from(this).inflate(
 //                R.layout.pop_wheel, null);

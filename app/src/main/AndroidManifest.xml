@@ -174,20 +174,22 @@
         <activity android:name=".ui.activity.SearchNewFriendActivity" />
         <activity android:name=".ui.activity.AddFriendActivity" />
         <activity android:name=".ui.activity.MapTestActivity" />
-        <activity android:name=".ui.activity.EventDetailActivity"></activity>
+        <activity android:name=".ui.activity.EventDetailActivity" />
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5b6d4812b27b0a3d44000039"></meta-data>
+            android:value="5b6d4812b27b0a3d44000039" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="d1c5076ee45f9f51fd15f8c58ea5103c"></meta-data>
+            android:value="d1c5076ee45f9f51fd15f8c58ea5103c" />
         <meta-data
             android:name="Mob-AppKey"
             android:value="27b49acf4ee20" />
         <meta-data
             android:name="Mob-AppSecret"
             android:value="e0be5c356e95eaf96f76592c023e799f" />
+
+        <activity android:name=".ui.activity.Main2Activity"></activity>
     </application>
 
 </manifest>

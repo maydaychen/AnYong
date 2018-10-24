@@ -11,10 +11,10 @@
     <string name="tv_login_forget">忘记密码？</string>
     <string name="tv_login_username">邮箱账号</string>
     <string name="tv_login_pass">请输入密码</string>
-    <string name="thanku">ThankU</string>
+    <string name="thanku">ThankU</string>nian
     <string name="tv_thank_send">我也要发</string>
     <string name="back">返回</string>
-    <string name="nianduzhangdan">年度账单</string>
+    <string name="nianduzhangdan">年度轨迹</string>
     <string name="calendar">活动日历</string>
     <string name="today">本日活动</string>
     <string name="mine">我报名的活动</string>
@@ -31,7 +31,7 @@
     <string name="confirm1">欢迎您的到来</string>
     <string name="confirm2">在成功路上安永一直陪伴您</string>
     <string name="confirm3">恭喜您认证成功</string>
-    <string name="healthy_life">健康生活</string>
+    <string name="healthy_life">活力EY</string>
     <string name="step_today">今日步数</string>
     <string name="step_hint">达到8000步，可获得积分</string>
     <string name="come_on">继续努力</string>
@@ -134,6 +134,7 @@
     <string name="upload_success">上传成功!</string>
     <string name="save">保存</string>
     <string name="language_setting">语言设置</string>
+    <string name="background_setting">首页背景设置</string>
     <string name="pic">图库</string>
     <string name="send_sussess">发送成功!</string>
     <string name="check">查看</string>
@@ -162,5 +163,7 @@
     <string name="right_pass_hint2">密码须为8位以上，数字+字母+特殊符号</string>
     <string name="operate_successfully">操作成功</string>
     <string name="jiaocheng">是否跳转视频链接</string>
+    <string name="no_longer">不再提醒</string>
+    <string name="map_alert">点击下方小手按钮完成签到</string>
     <!--<string name="point_hint">请输入想要赠送的积分</string>-->
 </resources>
