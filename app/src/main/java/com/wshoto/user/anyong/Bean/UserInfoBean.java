@@ -1,13 +1,14 @@
 package com.wshoto.user.anyong.Bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class UserInfoBean {
-
     /**
      * code : 1
      * message : {"status":"success"}
-     * data : {"integral":"620","id":"5","username":"","avatar":"https://anyong.wshoto.com/uploads/20180713165142.png","english_name":"tom","job_no":"123455","email":"tom@wshoto.com","mobile":"13665137658","birthday":"1991-05-03","join_time":"2000-01-01","position":"会计","department":"1","invitecode":"00000005","talent_ops":"","gds_pss":"","nickname":"飞仙"}
+     * data : {"integral":"897","id":"5","username":"1","avatar":"https://anyong.wshoto.com/uploads/20181010173956.png","english_name":"tom","job_no":"123455","email":"tom@wshoto.com","mobile":"13665137658","birthday":"2018-09-04","join_time":"2000-01-01","position":"Account","department":"1","invitecode":"00000005","talent_ops":"1","gds_pss":"1","tranning":"0","tranning_hour":"0","more_time":"0","exceed_award":"0","nickname":"good master","firend_num":"6","switch":1}
      */
 
     private int code;
@@ -56,22 +57,28 @@ public class UserInfoBean {
 
     public static class DataBean implements Serializable {
         /**
-         * integral : 620
+         * integral : 897
          * id : 5
-         * username :
-         * avatar : https://anyong.wshoto.com/uploads/20180713165142.png
+         * username : 1
+         * avatar : https://anyong.wshoto.com/uploads/20181010173956.png
          * english_name : tom
          * job_no : 123455
          * email : tom@wshoto.com
          * mobile : 13665137658
-         * birthday : 1991-05-03
+         * birthday : 2018-09-04
          * join_time : 2000-01-01
-         * position : 会计
+         * position : Account
          * department : 1
          * invitecode : 00000005
-         * talent_ops :
-         * gds_pss :
-         * nickname : 飞仙
+         * talent_ops : 1
+         * gds_pss : 1
+         * tranning : 0
+         * tranning_hour : 0
+         * more_time : 0
+         * exceed_award : 0
+         * nickname : good master
+         * firend_num : 6
+         * switch : 1
          */
 
         private String integral;
@@ -89,7 +96,14 @@ public class UserInfoBean {
         private String invitecode;
         private String talent_ops;
         private String gds_pss;
+        private String tranning;
+        private String tranning_hour;
+        private String more_time;
+        private String exceed_award;
         private String nickname;
+        private String firend_num;
+        @SerializedName("switch")
+        private int switchX;
 
         public String getIntegral() {
             return integral;
@@ -211,12 +225,60 @@ public class UserInfoBean {
             this.gds_pss = gds_pss;
         }
 
+        public String getTranning() {
+            return tranning;
+        }
+
+        public void setTranning(String tranning) {
+            this.tranning = tranning;
+        }
+
+        public String getTranning_hour() {
+            return tranning_hour;
+        }
+
+        public void setTranning_hour(String tranning_hour) {
+            this.tranning_hour = tranning_hour;
+        }
+
+        public String getMore_time() {
+            return more_time;
+        }
+
+        public void setMore_time(String more_time) {
+            this.more_time = more_time;
+        }
+
+        public String getExceed_award() {
+            return exceed_award;
+        }
+
+        public void setExceed_award(String exceed_award) {
+            this.exceed_award = exceed_award;
+        }
+
         public String getNickname() {
             return nickname;
         }
 
         public void setNickname(String nickname) {
             this.nickname = nickname;
+        }
+
+        public String getFirend_num() {
+            return firend_num;
+        }
+
+        public void setFirend_num(String firend_num) {
+            this.firend_num = firend_num;
+        }
+
+        public int getSwitchX() {
+            return switchX;
+        }
+
+        public void setSwitchX(int switchX) {
+            this.switchX = switchX;
         }
     }
 }

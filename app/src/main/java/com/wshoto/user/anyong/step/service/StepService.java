@@ -23,7 +23,7 @@ import com.wshoto.user.anyong.step.accelerometer.StepCount;
 import com.wshoto.user.anyong.step.accelerometer.StepValuePassListener;
 import com.wshoto.user.anyong.step.bean.StepData;
 import com.wshoto.user.anyong.step.utils.DbUtils;
-import com.wshoto.user.anyong.ui.activity.MainActivity;
+import com.wshoto.user.anyong.ui.activity.Main2Activity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -268,7 +268,7 @@ public class StepService extends Service implements SensorEventListener {
      */
     private void updateNotification() {
         //设置点击跳转
-        Intent hangIntent = new Intent(this, MainActivity.class);
+        Intent hangIntent = new Intent(this, Main2Activity.class);
         PendingIntent hangPendingIntent = PendingIntent.getActivity(this, 0, hangIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 //
 //        Notification notification = mBuilder.setContentTitle(getResources().getString(R.string.app_name))

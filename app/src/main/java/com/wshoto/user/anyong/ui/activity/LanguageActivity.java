@@ -3,7 +3,6 @@ package com.wshoto.user.anyong.ui.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -86,7 +85,7 @@ public class LanguageActivity extends InitActivity {
                         }
                         break;
                 }
-                Intent intent = new Intent(LanguageActivity.this, MainActivity.class);
+                Intent intent = new Intent(LanguageActivity.this, Main2Activity.class);
                 startActivity(intent);
                 break;
         }

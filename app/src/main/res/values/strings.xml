@@ -56,6 +56,9 @@
     <string name="message_center">消息中心</string>
     <string name="friend">好友</string>
     <string name="credit">积分</string>
+    <string name="credit1">积分：%1$s</string>
+    <string name="level">等级：%1$s</string>
+    <string name="frined">好友：%1$s</string>
     <string name="credit_paiming">安永排名</string>
     <string name="credit_give">赠送</string>
     <string name="new_friend">新的好友</string>

@@ -17,7 +17,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,18 +54,21 @@ public class SettingActivity extends InitActivity {
     final public static int REQUEST_WRITE = 222;
     private Context mContext;
     private String path;
+    private String userID;
+    private Uri uri;
 
     @Override
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-
     }
 
     @Override
     public void initData() {
         mContext = this;
-        path = mContext.getExternalFilesDir("image").toString() + "/seawaterHeadImg.jpg";
+        userID = (String) SharedPreferencesUtils.getParam(this, "user_id", "1");
+        path = mContext.getExternalFilesDir(userID).toString() + "/background.jpg";
+
 
         logoutOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
@@ -197,14 +199,28 @@ public class SettingActivity extends InitActivity {
             switch (requestCode) {
                 case 100:
 //         从图库裁减返回
-                    Log.d("wjj", "100");
                     if (data != null) {
-                        Uri uri = data.getData();
+                        SharedPreferencesUtils.setParam(getApplicationContext(), userID, true);//存储用户是否更换照片
+                        uri = data.getData();
+                        cropImageUri(uri, 103);
+                    }
+                    break;
+                case 101:
+                    // 从拍照返回
+//                    if (data != null) {
+                    bmp = BitmapFactory.decodeFile(path);
+                    SharedPreferencesUtils.setParam(getApplicationContext(), userID, true);//存储用户是否更换照片
+                    Intent intent = new Intent(this, Main2Activity.class);
+                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    break;
+                case 103:
+                    if (data != null) {
+                        SharedPreferencesUtils.setParam(getApplicationContext(), userID, true);//存储用户是否更换照片
+//                        Uri uri = data.getData();
                         ContentResolver cr = this.getContentResolver();
                         try {
                             assert uri != null;
                             bmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
-//                            imageView.setImageBitmap(bmp);
                             picFile = new File(path);
                             if (!picFile.exists()) {
                                 picFile.getParentFile().mkdirs();
@@ -219,20 +235,9 @@ public class SettingActivity extends InitActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        Intent intent1 = new Intent(this, Main2Activity.class);
+                        startActivity(intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
-
-                    break;
-                case 101:
-                    // 从拍照返回
-//                    if (data != null) {
-                    bmp = BitmapFactory.decodeFile(path);
-
-//                        Bundle bundle = data.getExtras();
-//                        assert bundle != null;
-//                        bmp = (Bitmap) bundle.get("data");
-//                    imageView.setImageBitmap(bmp);
-//                        upDataHeadImg();
-//                    }
                     break;
                 default:
                     break;
@@ -301,10 +306,31 @@ public class SettingActivity extends InitActivity {
         picFile = new File(path);
     }
 
+    /**
+     * 拍照后图片裁减
+     *
+     * @param uri
+     * @param requestCode
+     */
+    private void cropImageUri(Uri uri, int requestCode) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1080);
+        intent.putExtra("aspectY", 1920);
+        intent.putExtra("outputX", 720);
+        intent.putExtra("outputY", 1280);
+        intent.putExtra("scale", true);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra("return-data", false);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
+        startActivityForResult(intent, requestCode);
+    }
+
     public static boolean isIntentAvailable(Context context, Intent intent) {
         final PackageManager packageManager = context.getPackageManager();
-        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
-                PackageManager.GET_ACTIVITIES);
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.GET_ACTIVITIES);
         return list.size() > 0;
     }
 }

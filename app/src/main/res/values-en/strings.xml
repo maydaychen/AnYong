@@ -56,6 +56,9 @@
     <string name="message_center">Message</string>
     <string name="friend">My Friends</string>
     <string name="credit">Points</string>
+    <string name="credit1">points：%1$s</string>
+    <string name="level">level：%1$s</string>
+    <string name="frined">friends：%1$s</string>
     <string name="credit_paiming">Ranking</string>
     <string name="credit_give">Giff-gaff</string>
     <string name="new_friend">New Friend</string>

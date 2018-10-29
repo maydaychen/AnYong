@@ -1,8 +1,6 @@
 package com.wshoto.user.anyong.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,8 +29,6 @@ public class LoginActivity extends InitActivity {
     @BindView(R.id.et_login_pass)
     EditText mEtLoginPass;
     private SubscriberOnNextListener<JSONObject> LoginOnNext;
-    private SharedPreferences mPreferences;
-    private SharedPreferences.Editor mEditor;
 
 
     @Override
@@ -40,7 +36,7 @@ public class LoginActivity extends InitActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         if ((boolean) SharedPreferencesUtils.getParam(this, "autolog", false)) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
@@ -64,8 +60,6 @@ public class LoginActivity extends InitActivity {
     public void initData() {
         PushAgent pushAgent = PushAgent.getInstance(this);
         pushAgent.onAppStart();
-        mPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        mEditor = mPreferences.edit();
         LoginOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
 //                if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
@@ -77,7 +71,7 @@ public class LoginActivity extends InitActivity {
                 SharedPreferencesUtils.setParam(getApplicationContext(), "username", mEtLoginMail.getText().toString());
                 SharedPreferencesUtils.setParam(getApplicationContext(), "pass", mEtLoginPass.getText().toString());
                 SharedPreferencesUtils.setParam(getApplicationContext(), "autolog", true);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 //                }
             } else {
