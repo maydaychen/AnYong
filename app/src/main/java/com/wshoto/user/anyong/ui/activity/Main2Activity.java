@@ -143,7 +143,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 tvUserCredit.setText(String.format((String) getResources().getText(R.string.credit1), userInfoBean.getData().getIntegral() + ""));
                 tvUserLevel.setText(String.format((String) getResources().getText(R.string.level), userInfoBean.getData().getNickname()));
                 tvUserFriendNum.setText(String.format((String) getResources().getText(R.string.frined), userInfoBean.getData().getFirend_num()));
-                tvUserLevel.setText(userInfoBean.getData().getNickname());
+//                tvUserLevel.setText(userInfoBean.getData().getNickname());
                 if (userInfoBean.getData().getAvatar().equals("")) {
                     ivMainLogo.setImageDrawable(getResources().getDrawable(R.drawable.tx));
                 } else {

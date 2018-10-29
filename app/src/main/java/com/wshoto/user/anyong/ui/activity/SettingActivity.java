@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +18,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -261,8 +263,20 @@ public class SettingActivity extends InitActivity {
     private void takePhoto() {
         createPicFile();
         try {
+            Uri imgUri = null;
+
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(picFile));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //如果在Android7.0以上,使用FileProvider获取Uri
+//                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//                picFile = new File(path);
+//                Uri contentUri = FileProvider.getUriForFile(SettingActivity.this, "com.wshoto.user.anyong", picFile);
+                ContentValues contentValues = new ContentValues(1);
+                contentValues.put(MediaStore.Images.Media.DATA, path);
+                imgUri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            } else { //否则使用Uri.fromFile(file)方法获取Uri
+                imgUri = Uri.fromFile(picFile);
+            }
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
             startActivityForResult(intent, 101);
         } catch (Exception e) {
             e.printStackTrace();
@@ -299,10 +313,10 @@ public class SettingActivity extends InitActivity {
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
             return;
         }
-        File file = new File(Environment.getExternalStorageDirectory().toString());
-        if (!file.exists()) {
-            file.mkdirs();
-        }
+//        File file = new File(Environment.getExternalStorageDirectory().toString());
+//        if (!file.exists()) {
+//            file.mkdirs();
+//        }
         picFile = new File(path);
     }
 
