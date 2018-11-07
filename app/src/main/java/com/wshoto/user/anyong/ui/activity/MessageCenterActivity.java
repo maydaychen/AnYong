@@ -3,6 +3,7 @@ package com.wshoto.user.anyong.ui.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.wshoto.user.anyong.Bean.MessageCenterBean;

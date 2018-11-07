@@ -86,6 +86,10 @@ public interface BlueService {
     @FormUrlEncoded
     rx.Observable<JSONObject> thankTheme(@Field("session") String session, @Field("language") String language);
 
+    @POST("/index.php?r=api/thank/template-content")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> thankContent(@Field("session") String session, @Field("language") String language);
+
     @POST("/index.php?r=api/activity/activity-list")
     @FormUrlEncoded
     rx.Observable<JSONObject> calendar(@Field("session") String session, @Field("city") String city, @Field("language") String language);

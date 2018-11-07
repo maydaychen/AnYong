@@ -28,21 +28,38 @@
             android:layout_height="wrap_content"
             android:text="@string/title" />
 
-        <ImageView
-            android:id="@+id/iv_main_email"
+        <RelativeLayout
+            android:id="@+id/rl_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/margin_size_8dp"
-            android:src="@drawable/email" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/iv_main_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_size_8dp"
+                android:src="@drawable/email" />
+
+            <View
+                android:id="@+id/view_dot"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_alignRight="@id/iv_main_email"
+                android:layout_marginTop="@dimen/margin_size_4dp"
+                android:layout_marginEnd="@dimen/margin_size_4dp"
+                android:background="@drawable/dot_red"
+                android:visibility="gone" />
+        </RelativeLayout>
+
 
         <ImageView
             android:id="@+id/iv_main_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/iv_main_email"
+            android:layout_toLeftOf="@id/rl_email"
             android:padding="@dimen/margin_size_8dp"
             android:src="@drawable/mainmessage" />
     </RelativeLayout>

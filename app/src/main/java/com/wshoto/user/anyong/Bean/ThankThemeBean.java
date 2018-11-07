@@ -6,7 +6,7 @@ public class ThankThemeBean {
     /**
      * code : 1
      * message : {"status":"success"}
-     * data : [{"id":"1","template_name":"测试","template_path":"http://www.baidu.com","created":"1970-01-01 08:00:00","is_available":"1"},{"id":"2","template_name":"测试","template_path":"http://www.baidu.com","created":"1970-01-01 08:00:00","is_available":"1"},{"id":"3","template_name":"测试","template_path":"http://www.baidu.com","created":"1970-01-01 08:00:00","is_available":"1"}]
+     * data : [{"id":"1","template_name":"Test3","template_desc":"We make the world work better in a million different ways. Share just one by nominating the individual / team that inspires you for EY\u2019s 2018 Better begins with you, global employee award program: giving bold actions the attention they deserve!","template_path":"https://anyong.wshoto.com/uploads/thumbnail/2018091016573217617.jpeg","created":"1970-01-01 08:00:00","is_available":"1"},{"id":"2","template_name":"Test 2","template_desc":"We\u2019re always trying to make the working world better as a team. Just like the World Cup, our teammates make great contributions to our own achievements. Cheer on a teammate who strives with you, recognize a coach who guides you, or show your admiration for a team you are inspired by.","template_path":"https://anyong.wshoto.com/uploads/thumbnail/2018091016571092576.jpeg","created":"1970-01-01 08:00:00","is_available":"1"},{"id":"4","template_name":"Test1","template_desc":"We are like dwarfs sitting on the shoulders of giants. We see more, and things that are more distant, than they did, not because our sight is superior or because we are taller than they, but because they raise us up, and by their great stature add to ours. \r\n                            ----  John of Salisbury, Metalogicon Circa 1159","template_path":"https://anyong.wshoto.com/uploads/thumbnail/2018091016575142356.jpeg","created":"2018-07-11 20:18:22","is_available":"1"}]
      */
 
     private int code;
@@ -56,14 +56,16 @@ public class ThankThemeBean {
     public static class DataBean {
         /**
          * id : 1
-         * template_name : 测试
-         * template_path : http://www.baidu.com
+         * template_name : Test3
+         * template_desc : We make the world work better in a million different ways. Share just one by nominating the individual / team that inspires you for EY’s 2018 Better begins with you, global employee award program: giving bold actions the attention they deserve!
+         * template_path : https://anyong.wshoto.com/uploads/thumbnail/2018091016573217617.jpeg
          * created : 1970-01-01 08:00:00
          * is_available : 1
          */
 
         private String id;
         private String template_name;
+        private String template_desc;
         private String template_path;
         private String created;
         private String is_available;
@@ -82,6 +84,14 @@ public class ThankThemeBean {
 
         public void setTemplate_name(String template_name) {
             this.template_name = template_name;
+        }
+
+        public String getTemplate_desc() {
+            return template_desc;
+        }
+
+        public void setTemplate_desc(String template_desc) {
+            this.template_desc = template_desc;
         }
 
         public String getTemplate_path() {

@@ -119,7 +119,7 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
         } else {
             loadImage(mDataBean.getAvatar());
         }
-        tvPersonName.setText(mDataBean.getUsername());
+        tvPersonName.setText(mDataBean.getEnglish_name());
         tvPersonNumber.setText(mDataBean.getJob_no());
         tvPersonBumen.setText(mDataBean.getDepartment());
         tvPersonPosition.setText(mDataBean.getPosition());

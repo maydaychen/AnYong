@@ -40,10 +40,10 @@
     <string name="task_time_not_reach">It\'s not exericse time yet!</string>
     <string name="task_time_reach">Completed the task</string>
     <string name="task1_desc">Relax your eyes</string>
-    <string name="task1_time">Activity time: 10:00 ~ 11:00 every day</string>
+    <string name="task1_time">Activity time: 10:00 ~ 18:00 every day</string>
     <string name="task2">Do some stretching</string>
     <string name="task2_desc">It\'s time to move your neck and shoulder</string>
-    <string name="task2_time">Activity time: 16:00 ~ 17:00 every day</string>
+    <string name="task2_time">Activity time: 15:00 ~ 20:00 every day</string>
     <string name="honour">Glory of Frame</string>
     <string name="credit_detail">Point Details</string>
     <string name="main1">My Journey</string>
@@ -72,16 +72,17 @@
     <string name="telephone">Contact Information</string>
     <string name="email">Email Address</string>
     <string name="recommend_number">Reference Code</string>
-    <string name="thank_send_hint">Use full name to search</string>
+    <string name="thank_send_hint">Use full name search</string>
     <string name="thank_model">Use template</string>
-    <string name="send_theme">Subject：</string>
+    <string name="send_theme">Recommended Picture：</string>
     <string name="send_to">To：</string>
-    <string name="image_upload">Upload picture：</string>
-    <string name="send_content">Send：</string>
+    <string name="image_upload">Customize：</string>
+    <string name="send_content">Message：</string>
     <string name="preview">Preview</string>
     <string name="send">I want to send</string>
     <string name="search_list">Searching List</string>
     <string name="cancel">Cancel</string>
+    <string name="save_pic">save picture</string>
     <string name="turn_on_flash">Light on</string>
     <string name="at">Each</string>
     <string name="family"> </string>
@@ -128,7 +129,7 @@
     <string name="permition">This app requires camera and album permissions</string>
 
 
-    <string name="temp_choose">Select a fixed template</string>
+    <string name="temp_choose">Template</string>
 
     <string name="text_error">Please complete the information！</string>
     <string name="update_img">upload image！</string>
@@ -168,5 +169,6 @@
     <string name="operate_successfully">Operate successfully</string>
     <string name="jiaocheng">Whether to jump to the video link?</string>
     <string name="no_longer">No longer remind</string>
-    <string name="map_alert">Click the hand below to complete the check in</string>
+    <string name="map_alert">Click the hand below to complete the check in, a little suprise will be send to frequent users throughout the year!</string>
+    <string name="save_success">save successfully!</string>
 </resources>

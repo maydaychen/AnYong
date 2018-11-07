@@ -104,6 +104,7 @@ public class UserInfoBean {
         private String firend_num;
         @SerializedName("switch")
         private int switchX;
+        private boolean has_new;
 
         public String getIntegral() {
             return integral;
@@ -279,6 +280,14 @@ public class UserInfoBean {
 
         public void setSwitchX(int switchX) {
             this.switchX = switchX;
+        }
+
+        public boolean isHas_new() {
+            return has_new;
+        }
+
+        public void setHas_new(boolean has_new) {
+            this.has_new = has_new;
         }
     }
 }

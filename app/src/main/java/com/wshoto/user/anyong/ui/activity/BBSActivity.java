@@ -1,8 +1,11 @@
 package com.wshoto.user.anyong.ui.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.ContentUris;
@@ -11,25 +14,47 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.github.lzyzsd.jsbridge.BridgeWebView;
+import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
+import com.github.lzyzsd.jsbridge.DefaultHandler;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,11 +65,17 @@ import butterknife.OnClick;
 public class BBSActivity extends InitActivity {
 
     @BindView(R.id.wv_bbs)
-    WebView mWvBbs;
+    BridgeWebView mWvBbs;
     private ValueCallback<Uri> mUploadMessage;// 表单的数据信息
     private ValueCallback<Uri[]> mUploadCallbackAboveL;
     private final static int FILECHOOSER_RESULTCODE = 1;// 表单的结果回调</span>
+
     private Uri imageUri;
+    private String mUrl;
+    private View inflate;
+    private ProgressDialog mSaveDialog = null;
+    private String mSaveMessage;
+    final public static int REQUEST_SAVE_WRITE = 333;
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -69,11 +100,8 @@ public class BBSActivity extends InitActivity {
     private void init() {
         WebSettings webSettings = mWvBbs.getSettings();
         webSettings.setUseWideViewPort(true);//设置此属性，可任意比例缩放
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-
-        webSettings.setUseWideViewPort(true);
-        webSettings.setLoadWithOverviewMode(true);
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
         webSettings.setAppCacheMaxSize(1024 * 1024 * 8);
         String appCachePath = getApplicationContext().getCacheDir().getAbsolutePath();
         webSettings.setAppCachePath(appCachePath);
@@ -81,7 +109,6 @@ public class BBSActivity extends InitActivity {
         webSettings.setSupportZoom(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setTextSize(WebSettings.TextSize.NORMAL);
-
         mWvBbs.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         //open dom storage
         webSettings.setDomStorageEnabled(true);
@@ -89,10 +116,12 @@ public class BBSActivity extends InitActivity {
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         webSettings.setAppCacheEnabled(true);
         webSettings.setDatabaseEnabled(true);
-        webSettings.setDatabasePath(BBSActivity.this.getApplicationContext().getCacheDir().getAbsolutePath());
-        //add by wjj end
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        //add by chenyi end
         String ua = webSettings.getUserAgentString();
         webSettings.setUserAgentString(ua + ";wshoto");
+        mWvBbs.setDefaultHandler(new DefaultHandler());
         mWvBbs.setWebChromeClient(new WebChromeClient() {
 
             @Override
@@ -120,31 +149,109 @@ public class BBSActivity extends InitActivity {
                 take();
             }
         });
-        mWvBbs.setWebViewClient(new WebViewClient() {
+        mWvBbs.setWebViewClient(new BridgeWebViewClient(mWvBbs) {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                //该方法在Build.VERSION_CODES.LOLLIPOP以前有效，从Build.VERSION_CODES.LOLLIPOP起，建议使用shouldOverrideUrlLoading(WebView, WebResourceRequest)} instead
-                //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
-                //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
-                return false;
+                Log.i("chenyi", "shouldOverrideUrlLoading: " + url);
+                if (url.startsWith("tel:")) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
+                    startActivity(intent);
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, url);
             }
 
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
-                //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    if (request.getUrl().toString().contains("sina.cn")) {
-                        view.loadUrl("http://ask.csdn.net/questions/178242");
-                        return true;
-                    }
-                }
-
-                return false;
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             }
+        });
+
+        mWvBbs.registerHandler("saveImg", (responseData, function) -> {
+            Log.i("chenyi", "BBS: start");
+            show(responseData);
 
         });
+    }
+
+    public void show(String url) {
+        Dialog dialog = new Dialog(this, R.style.BottomDialog);
+        inflate = LayoutInflater.from(this).inflate(R.layout.pop_pic, null);
+        Button choosePhoto = inflate.findViewById(R.id.takePhoto);
+        Button cancel = inflate.findViewById(R.id.btn_cancel);
+        mUrl = url;
+        choosePhoto.setOnClickListener(v -> {
+            dialog.dismiss();
+            mSaveDialog = ProgressDialog.show(BBSActivity.this, getText(R.string.save_pic), "图片正在保存中，请稍等...", true);
+            if (Build.VERSION.SDK_INT >= 23) {
+                int checkCallPhonePermission = ContextCompat.checkSelfPermission(BBSActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(BBSActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_SAVE_WRITE);
+                } else {
+                    new Thread(saveFileRunnable).start();
+                }
+            } else {
+                new Thread(saveFileRunnable).start();
+            }
+        });
+        cancel.setOnClickListener(v -> dialog.dismiss());
+        dialog.setContentView(inflate);
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        lp.width = -1;
+        dialogWindow.setAttributes(lp);
+        dialog.show();
+    }
+
+    private Runnable saveFileRunnable = new Runnable() {
+        @Override
+        public void run() {
+            savePicture(getHttpBitmap(mUrl));
+            mSaveMessage = getText(R.string.save_success).toString();
+            messageHandler.sendMessage(messageHandler.obtainMessage());
+        }
+
+    };
+    private Handler messageHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            mSaveDialog.dismiss();
+            Toast.makeText(BBSActivity.this, mSaveMessage, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    public Bitmap getHttpBitmap(String url) {
+        Bitmap bitmap = null;
+        try {
+            JSONObject jsonObject = new JSONObject(url);
+            url = jsonObject.getString("url");
+            URL pictureUrl = new URL(url);
+            InputStream in = pictureUrl.openStream();
+            bitmap = BitmapFactory.decodeStream(in);
+            in.close();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    public void savePicture(Bitmap bitmap) {
+        String pictureName = Environment.getExternalStorageDirectory() + "/" + System.currentTimeMillis() + ".jpg";
+        File file = new File(pictureName);
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

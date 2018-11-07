@@ -89,6 +89,8 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
     RelativeLayout mLlMap;
     @BindView(R.id.ll_main_background)
     LinearLayout llBackground;
+    @BindView(R.id.view_dot)
+    View mViewDot;
     private SubscriberOnNextListener<JSONObject> infoOnNext;
     private SubscriberOnNextListener<JSONObject> newerOnNext;
     private SubscriberOnNextListener<JSONObject> scanOnNext;
@@ -115,7 +117,6 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 new ProgressSubscriber(infoOnNext, Main2Activity.this),
                 (String) SharedPreferencesUtils.getParam(this, "session", ""),
                 (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
-
     }
 
     @Override
@@ -135,9 +136,13 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         newerOnNext = jsonObject -> {
         };
         infoOnNext = jsonObject -> {
-            Log.i("chenyi", "initData: userinfo" + jsonObject.toString());
             if (jsonObject.getInt("code") == 1) {
                 userInfoBean = mGson.fromJson(jsonObject.toString(), UserInfoBean.class);
+                if (userInfoBean.getData().isHas_new()) {
+                    mViewDot.setVisibility(View.VISIBLE);
+                } else {
+                    mViewDot.setVisibility(View.GONE);
+                }
                 SharedPreferencesUtils.setParam(getApplicationContext(), "user_id", userInfoBean.getData().getIntegral());//存储用户id
                 tvMainName.setText(userInfoBean.getData().getEnglish_name());
                 tvUserCredit.setText(String.format((String) getResources().getText(R.string.credit1), userInfoBean.getData().getIntegral() + ""));
@@ -211,6 +216,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 break;
             case R.id.iv_main_email:
                 startActivity(new Intent(Main2Activity.this, MessageCenterActivity.class));
+                //todo 点击之后需要调接口告诉后端所有信息已读，并去掉红点
                 break;
             case R.id.iv_main_guide:
                 startActivity(new Intent(Main2Activity.this, GuideActivity.class));

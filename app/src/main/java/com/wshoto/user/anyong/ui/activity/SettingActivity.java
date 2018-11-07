@@ -264,7 +264,6 @@ public class SettingActivity extends InitActivity {
         createPicFile();
         try {
             Uri imgUri = null;
-
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //如果在Android7.0以上,使用FileProvider获取Uri
 //                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -314,8 +313,7 @@ public class SettingActivity extends InitActivity {
             return;
         }
 //        File file = new File(Environment.getExternalStorageDirectory().toString());
-//        if (!file.exists()) {
-//            file.mkdirs();
+//        if (!file.exists()) {//            file.mkdirs();
 //        }
         picFile = new File(path);
     }

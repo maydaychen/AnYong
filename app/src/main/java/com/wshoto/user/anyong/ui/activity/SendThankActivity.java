@@ -30,11 +30,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.wshoto.user.anyong.Bean.ThankThemeBean;
 import com.wshoto.user.anyong.Bean.ThankUserBean;
 import com.wshoto.user.anyong.R;
@@ -72,14 +78,21 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
     EditText mEtThankContent;
     @BindView(R.id.spinner)
     Spinner spinner;
+    @BindView(R.id.spinner_content)
+    Spinner spinnerContent;
+    @BindView(R.id.ll_pic)
+    LinearLayout mLlPic;
+    @BindView(R.id.iv_thank_pic)
+    ImageView ivThankPic;
+
     final public static int REQUEST_CODE_ASK_CALL_PHONE = 123;
     private static final int RC_LOCATION_CONTACTS_PERM = 124;
     final public static int REQUEST_WRITE = 222;
-    @BindView(R.id.iv_thank_pic)
-    ImageView ivThankPic;
+
     private SubscriberOnNextListener<JSONObject> sendOnNext;
     private SubscriberOnNextAndErrorListener<JSONObject> uploadOnNext;
     private ThankThemeBean mThankThemeBean;
+    private ThankThemeBean mThankContentBean;
     private ProgressDialog updateDialog = null;
     private Gson mGson = new Gson();
     private Bitmap bmp;
@@ -87,6 +100,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
     private String userid = "";
     private String themeid = "";
     private String url = "";
+    private String path = "";
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -103,7 +117,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                 list.add(getText(R.string.temp_choose).toString());
                 mThankThemeBean = mGson.fromJson(jsonObject.toString(), ThankThemeBean.class);
                 for (ThankThemeBean.DataBean dataBean : mThankThemeBean.getData()) {
-                    list.add(dataBean.getId());
+                    list.add(dataBean.getTemplate_name());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -118,7 +132,47 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                         tv.setTextSize(14.0f);    //设置大小
                         tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
                         if (position != 0) {
+                            mIvThankUpload.setVisibility(View.GONE);
                             themeid = mThankThemeBean.getData().get(position - 1).getId();
+//                            ivThankPic.setImageUrl(mThankThemeBean.getData().get(position - 1).getTemplate_path());
+                            loadImage(mThankThemeBean.getData().get(position - 1).getTemplate_path());
+                        } else {
+                            mIvThankUpload.setVisibility(View.VISIBLE);
+                            themeid = "";
+                            ivThankPic.setImageBitmap(null);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+            }
+        };
+        SubscriberOnNextListener<JSONObject> themeContentOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                List<String> list = new ArrayList();
+                list.add(getText(R.string.temp_choose).toString());
+                mThankContentBean = mGson.fromJson(jsonObject.toString(), ThankThemeBean.class);
+                for (ThankThemeBean.DataBean dataBean : mThankContentBean.getData()) {
+                    list.add(dataBean.getTemplate_name());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //绑定 Adapter到控件
+                spinnerContent.setAdapter(adapter);
+                spinnerContent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        //showPrice(position);
+                        TextView tv = (TextView) view;
+                        tv.setTextColor(getResources().getColor(R.color.yellow));    //设置颜色
+                        tv.setTextSize(14.0f);    //设置大小
+                        tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
+                        if (position != 0) {
+                            mEtThankContent.setText(mThankContentBean.getData().get(position - 1).getTemplate_desc());
+                        } else {
+                            mEtThankContent.setText("");
                         }
                     }
 
@@ -149,7 +203,6 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                     updateDialog.dismiss();
                 }
                 Toast.makeText(SendThankActivity.this, getText(R.string.upload_fail), Toast.LENGTH_SHORT).show();
-                Log.d("wjj", "err");
                 deletePic();
                 e.printStackTrace();
             }
@@ -165,6 +218,11 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
         };
         HttpJsonMethod.getInstance().thankTheme(
                 new ProgressSubscriber(themeOnNext, SendThankActivity.this),
+                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+
+        HttpJsonMethod.getInstance().thankContent(
+                new ProgressSubscriber(themeContentOnNext, SendThankActivity.this),
                 (String) SharedPreferencesUtils.getParam(this, "session", ""),
                 (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
@@ -211,12 +269,10 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
             Window dialogWindow = dialog.getWindow();
             dialogWindow.setGravity(Gravity.BOTTOM);
             WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-//        lp.y = 20;
             lp.width = -1;
             dialogWindow.setAttributes(lp);
             dialog.show();
         } else {
-            // Ask for both permissions
             EasyPermissions.requestPermissions(this, getString(R.string.permition),
                     RC_LOCATION_CONTACTS_PERM, perms);
         }
@@ -290,7 +346,6 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
             switch (requestCode) {
                 case 100:
 //         从图库裁减返回
-                    Log.d("wjj", "100");
                     if (data != null) {
                         Uri uri = data.getData();
                         ContentResolver cr = this.getContentResolver();
@@ -316,12 +371,13 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                         Bundle bundle = data.getExtras();
                         assert bundle != null;
                         bmp = (Bitmap) bundle.get("data");
+//                        bmp = BitmapFactory.decodeFile(path);
+                        ivThankPic.setVisibility(View.VISIBLE);
+                        ivThankPic.setImageBitmap(bmp);
                         Matrix matrix = new Matrix();
                         matrix.setScale(0.5f, 0.5f);
                         bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
                                 bmp.getHeight(), matrix, true);
-                        ivThankPic.setVisibility(View.VISIBLE);
-                        ivThankPic.setImageBitmap(bmp);
                         upDataHeadImg();
                     }
                     break;
@@ -351,7 +407,20 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
     private void takePhoto() {
         createPicFile();
         try {
+//            Uri imgUri = null;
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //如果在Android7.0以上,使用FileProvider获取Uri
+//                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//                picFile = new File(path);
+//                Uri contentUri = FileProvider.getUriForFile(SettingActivity.this, "com.wshoto.user.anyong", picFile);
+//                ContentValues contentValues = new ContentValues(1);
+//                contentValues.put(MediaStore.Images.Media.DATA, path);
+//                imgUri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+//            } else { //否则使用Uri.fromFile(file)方法获取Uri
+//                imgUri = Uri.fromFile(picFile);
+//            }
+//            intent.putExtra("return-data", true);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
             startActivityForResult(intent, 101);
         } catch (Exception e) {
             e.printStackTrace();
@@ -393,6 +462,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
         if (!file.exists()) {
             file.mkdirs();
         }
+        path = Environment.getExternalStorageDirectory().toString() + "/seawaterHeadImg.jpg";
         picFile = new File(file
                 + "/seawaterHeadImg.jpg");
     }
@@ -405,13 +475,13 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
     }
 
     private void sendThank() {
-        if (userid.equals("") || themeid.equals("") || bmp == null || mEtThankContent.getText().toString().equals("")) {
+        if (userid.equals("") || mEtThankContent.getText().toString().equals("")) {
             Toast.makeText(this, getText(R.string.text_error), Toast.LENGTH_SHORT).show();
             return;
         }
         HttpJsonMethod.getInstance().previewThank(
                 new ProgressSubscriber(sendOnNext, SendThankActivity.this), userid, themeid, url,
-                (String) SharedPreferencesUtils.getParam(this, "session", ""), mEtThankContent.getText().toString(),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+                (String) SharedPreferencesUtils.getParam(this, "session", ""), mEtThankContent.getText().toString(), (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
     }
 
     /**
@@ -422,7 +492,48 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
             updateDialog = ProgressDialog.show(SendThankActivity.this, getText(R.string.update_img), getText(R.string.update_img_ing), true, false);
         }
         HttpJsonMethod.getInstance().uploadImg(
-                new ProgressErrorSubscriber<>(uploadOnNext, SendThankActivity.this), Utils.bitmaptoString(bmp),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+                new ProgressErrorSubscriber<>(uploadOnNext, SendThankActivity.this), Utils.bitmaptoString(bmp), (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+    }
+
+    private void loadImage(String url) {
+        // 图片路径
+        String uri = (url);
+        // 图片大小
+        ImageSize mImageSize = new ImageSize(300, 300);
+        // 图片的配置
+        DisplayImageOptions mOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true).cacheOnDisc(true)
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
+
+        ImageLoader.getInstance().loadImage(uri, mOptions,
+                new ImageLoadingListener() {
+
+                    @Override
+                    public void onLoadingStarted(String arg0, View arg1) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String arg0, View arg1,
+                                                FailReason arg2) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String arg0, View arg1,
+                                                  Bitmap arg2) {
+                        ivThankPic.setImageBitmap(arg2);
+
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String arg0, View arg1) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
     }
 
 }

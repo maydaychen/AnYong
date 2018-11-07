@@ -40,34 +40,39 @@
         android:id="@+id/tv_language_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_size_12dp"
+        android:layout_marginLeft="@dimen/margin_size_20dp"
+        android:layout_marginTop="@dimen/margin_size_20dp"
+        android:layout_marginRight="@dimen/margin_size_20dp"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:padding="@dimen/margin_size_16dp"
         android:text="@string/language_setting"
-        android:textColor="@color/white" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_44" />
+        android:textColor="#2F2F2F" />
 
     <TextView
         android:id="@+id/tv_background_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_size_12dp"
+        android:layout_marginLeft="@dimen/margin_size_20dp"
+        android:layout_marginTop="@dimen/margin_size_10dp"
+        android:layout_marginRight="@dimen/margin_size_20dp"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:padding="@dimen/margin_size_16dp"
         android:text="@string/background_setting"
-        android:textColor="@color/white" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_44" />
+        android:textColor="#2F2F2F" />
 
     <Button
         android:id="@+id/tv_logout"
-        style="@style/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_size_20dp"
         android:layout_marginTop="40dp"
-        android:text="@string/logout" />
+        android:layout_marginRight="@dimen/margin_size_20dp"
+        android:background="#EB5F45"
+        android:gravity="center"
+        android:padding="@dimen/margin_size_16dp"
+        android:text="@string/logout"
+        android:textColor="@color/white" />
 
 </LinearLayout>

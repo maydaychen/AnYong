@@ -206,6 +206,15 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
+    public void thankContent(Subscriber<JSONObject> subscriber, String session, String language) {
+        movieService.thankContent(session, language)
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
     public void calendar(Subscriber<JSONObject> subscriber, String session, String province, String city, String language) {
         movieService.calendar(session, city, language)
 //                .map(new HttpResultFunc<>())

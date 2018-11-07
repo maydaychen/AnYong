@@ -43,11 +43,6 @@ public class AnniversaryActivity extends InitActivity {
 
     @Override
     public void initData() {
-        Log.i("chenyi", "initData: "+"https://anyong.wshoto.com/html/annual.html?uid=" +
-                getIntent().getStringExtra("id") + "&session=" +
-                SharedPreferencesUtils.getParam(this, "session", "") +
-                "&lang=" + SharedPreferencesUtils.getParam(this, "language", "zh"));
-//        mWvAnni.loadUrl("https://www.baidu.com");
         mWvAnni.loadUrl("https://anyong.wshoto.com/html/annual.html?uid=" +
                 getIntent().getStringExtra("id") + "&session=" +
                 SharedPreferencesUtils.getParam(this, "session", "") +

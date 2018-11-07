@@ -40,10 +40,10 @@
     <string name="task_time_not_reach">未在活动时间</string>
     <string name="task_time_reach">完成任务点我</string>
     <string name="task1_desc">保护视力，缓解眼疲劳</string>
-    <string name="task1_time">活动时间：每日10点-11点</string>
+    <string name="task1_time">活动时间：每日10点-18点</string>
     <string name="task2">颈椎操</string>
     <string name="task2_desc">预防颈椎病，年轻有活力</string>
-    <string name="task2_time">活动时间：每日16点-17点</string>
+    <string name="task2_time">活动时间：每日15点-20点</string>
     <string name="honour">荣·耀</string>
     <string name="credit_detail">积分明细</string>
     <string name="main1">今日坐标</string>
@@ -74,9 +74,9 @@
     <string name="recommend_number">推 荐 码</string>
     <string name="thank_send_hint">使用数据库中英文名用于搜索</string>
     <string name="thank_model">选择固定模板</string>
-    <string name="send_theme">发送主题：</string>
+    <string name="send_theme">推荐模板选择：</string>
     <string name="send_to">发送对象：</string>
-    <string name="image_upload">上传图片：</string>
+    <string name="image_upload">自定义图片：</string>
     <string name="send_content">发送内容：</string>
     <string name="preview">浏览</string>
     <string name="send">发送</string>
@@ -127,7 +127,7 @@
     <string name="permition">此应用需要获取相机及相册权限</string>
 
 
-    <string name="temp_choose">选择固定模板</string>
+    <string name="temp_choose">自定义</string>
 
     <string name="text_error">请将信息填写完整！</string>
     <string name="update_img">上传图片！</string>
@@ -136,6 +136,7 @@
     <string name="upload_fail">上传失败，请稍后再试</string>
     <string name="upload_success">上传成功!</string>
     <string name="save">保存</string>
+    <string name="save_pic">保存图片</string>
     <string name="language_setting">语言设置</string>
     <string name="background_setting">首页背景设置</string>
     <string name="pic">图库</string>
@@ -167,6 +168,7 @@
     <string name="operate_successfully">操作成功</string>
     <string name="jiaocheng">是否跳转视频链接</string>
     <string name="no_longer">不再提醒</string>
-    <string name="map_alert">点击下方小手按钮完成签到</string>
+    <string name="map_alert">点击下方小手按钮完成签到，年终会有小惊喜给到认真打卡的你哦！</string>
     <!--<string name="point_hint">请输入想要赠送的积分</string>-->
+    <string name="save_success">图片保存成功！</string>
 </resources>

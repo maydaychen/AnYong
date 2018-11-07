@@ -92,31 +92,29 @@ public class HealthyLifeActivity extends InitActivity {
 
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        switch (hour) {
-            case 10:
-                mTvOptionYanbao.setClickable(true);
-                mTvOptionYanbao.setOnClickListener(v -> {
-                    show(1);
-                    HttpJsonMethod.getInstance().healthCommit(
-                            new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
-                            (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""),
-                            "1", (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
-                });
-                mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
-                mTvOptionYanbao.setText(getText(R.string.complete));
-                break;
-            case 16:
-                mTvOptionJingzhui.setClickable(true);
-                mTvOptionJingzhui.setOnClickListener(v -> {
-                    show(2);
-                    HttpJsonMethod.getInstance().healthCommit(
-                            new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
-                            (String) SharedPreferencesUtils.getParam(this, "session", ""), "2",
-                            (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
-                });
-                mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
-                mTvOptionJingzhui.setText(getText(R.string.complete));
-                break;
+        if (hour >= 10 && hour <= 18) {
+            mTvOptionYanbao.setClickable(true);
+            mTvOptionYanbao.setOnClickListener(v -> {
+                show(1);
+                HttpJsonMethod.getInstance().healthCommit(
+                        new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
+                        (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""),
+                        "1", (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+            });
+            mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
+            mTvOptionYanbao.setText(getText(R.string.complete));
+        }
+        if (hour >= 15 && hour <= 20) {
+            mTvOptionJingzhui.setClickable(true);
+            mTvOptionJingzhui.setOnClickListener(v -> {
+                show(2);
+                HttpJsonMethod.getInstance().healthCommit(
+                        new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""), "2",
+                        (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+            });
+            mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
+            mTvOptionJingzhui.setText(getText(R.string.complete));
         }
         if (Integer.valueOf((String) SharedPreferencesUtils.getParam(this, "step", "0")) >= 500) {
             if ((Boolean) SharedPreferencesUtils.getParam(this, "fresh", false)) {
