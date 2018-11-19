@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">EY</string>
+    <string name="app_name">EY Footprint</string>
     <string name="title">安永EY</string>
+    <string name="guide_title">导览</string>
     <string name="tv_change_pass">修改密码</string>
     <string name="confirm_success">认证成功</string>
     <string name="rationale_camera">此应用需要摄像头权限</string>
@@ -145,7 +146,7 @@
     <string name="give_success">赠送成功!</string>
     <string name="point">积分</string>
     <string name="join_success">参加成功！</string>
-    <string name="friend_apply">安永请求添加</string>
+    <string name="friend_apply">添加好友</string>
     <string name="logout_error">您的账号已在别处登录，请重新登录！</string>
     <string name="exit_hint">确定要退出么?</string>
     <string name="logout">退出登录</string>

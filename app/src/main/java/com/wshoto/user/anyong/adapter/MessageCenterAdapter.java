@@ -19,14 +19,14 @@ import butterknife.ButterKnife;
 public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdapter.ViewHolder> implements View.OnClickListener {
 
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
-    private List<MessageCenterBean.MessageBean.DataBean> mData;
+    private List<MessageCenterBean.DataBean> mData;
 
     //define interface
     public interface OnRecyclerViewItemClickListener {
         void onItemClick(View view, int data);
     }
 
-    public MessageCenterAdapter(Context context, List<MessageCenterBean.MessageBean.DataBean> mData) {
+    public MessageCenterAdapter(Context context, List<MessageCenterBean.DataBean> mData) {
         this.mData = mData;
         Context context1 = context;
     }

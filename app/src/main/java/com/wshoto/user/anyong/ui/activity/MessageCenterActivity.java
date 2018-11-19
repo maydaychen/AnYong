@@ -3,7 +3,6 @@ package com.wshoto.user.anyong.ui.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.wshoto.user.anyong.Bean.MessageCenterBean;
@@ -43,7 +42,7 @@ public class MessageCenterActivity extends InitActivity {
             if (jsonObject.getInt("code") == 1) {
                 mMessageBean = mGson.fromJson(jsonObject.toString(), MessageCenterBean.class);
                 rvPoints.setLayoutManager(new LinearLayoutManager(this));
-                MessageCenterAdapter messageCenterAdapter = new MessageCenterAdapter(getApplicationContext(), mMessageBean.getMessage().getData());
+                MessageCenterAdapter messageCenterAdapter = new MessageCenterAdapter(getApplicationContext(), mMessageBean.getData());
                 rvPoints.setAdapter(messageCenterAdapter);
             }
         };

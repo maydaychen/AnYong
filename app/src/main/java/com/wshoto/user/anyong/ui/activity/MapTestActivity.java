@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -36,6 +37,7 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeOption;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
@@ -91,6 +93,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
 
     //放大缩小动画
     Animation mAnimation = null;
+
     private Context mContext;
     /**
      * 列表适配器
@@ -167,6 +170,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
      * 当前市的名称
      */
     private String mCurrentCityName;
+    private String mCurrentAreaName;
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -482,13 +486,52 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
                 break;
             case R.id.tv_choose_confirm:
                 mAddAddress.setVisibility(View.GONE);
-                HttpJsonMethod.getInstance().locate(
-                        new ProgressSubscriber(locateOnNext, MapTestActivity.this),
-                        (String) SharedPreferencesUtils.getParam(this, "session", ""),
-                        mCurrentProviceName + mCurrentCityName, (String) SharedPreferencesUtils.getParam(this,
-                                "language", "zh"), "", "");
+                getLat();
                 break;
         }
+    }
+
+    private void getLat() {
+        // 创建地理编码检索实例
+        GeoCoder geoCoder = GeoCoder.newInstance();
+        //
+        OnGetGeoCoderResultListener listener = new OnGetGeoCoderResultListener() {
+
+            public void onGetGeoCodeResult(GeoCodeResult result) {
+                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+                    //没有检索到结果
+                    HttpJsonMethod.getInstance().locate(
+                            new ProgressSubscriber(locateOnNext, MapTestActivity.this),
+                            (String) SharedPreferencesUtils.getParam(MapTestActivity.this, "session", ""),
+                            mCurrentProviceName + mCurrentCityName, (String) SharedPreferencesUtils.getParam(MapTestActivity.this,
+                                    "language", "zh"), "", "");
+                }
+                //获取地理编码结果
+                Log.i("chenyi", "onGetGeoCodeResult: " + result.toString());
+                HttpJsonMethod.getInstance().locate(
+                        new ProgressSubscriber(locateOnNext, MapTestActivity.this),
+                        (String) SharedPreferencesUtils.getParam(MapTestActivity.this, "session", ""),
+                        mCurrentProviceName + mCurrentCityName, (String) SharedPreferencesUtils.getParam(MapTestActivity.this,
+                                "language", "zh"), result.getLocation().latitude + "", result.getLocation().longitude + "");
+            }
+
+            @Override
+            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+
+                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+                    //没有找到检索结果
+                }
+
+                //获取反向地理编码结果
+            }
+        };
+        // 设置地理编码检索监听者
+        geoCoder.setOnGetGeoCodeResultListener(listener);
+        //
+        geoCoder.geocode(new GeoCodeOption()
+                .city(mCurrentCityName)
+                .address(mCurrentAreaName));
+
     }
 
     private void showPopupWindow(String number, String numberPercent) {
@@ -525,6 +568,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
 //        mCurrentCityId = mCitisDatasID.get(mCurrentProviceName)[pCurrent];
         String[] areas = mAreaDatasMap.get(mCurrentCityName);
         String[] areasId = mAreaDatasId.get(mCurrentCityName);
+        mCurrentAreaName = areas[0];
         if (areas == null) {
             areas = new String[]{""};
         }
@@ -649,6 +693,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         } else if (wheel == mCity) {
             updateAreas();
         } else if (wheel == mArea) {
+            mCurrentAreaName = mAreaDatasMap.get(mCurrentCityName)[newValue];
         }
     }
 

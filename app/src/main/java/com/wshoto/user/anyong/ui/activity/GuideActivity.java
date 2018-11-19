@@ -5,7 +5,6 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wshoto.user.anyong.R;
@@ -21,8 +20,6 @@ import butterknife.OnClick;
 public class GuideActivity extends InitActivity {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
-    @BindView(R.id.llyt_dots)
-    LinearLayout layoutDots;
     @BindView(R.id.btn_im_exp)
     TextView btnImExp;
 

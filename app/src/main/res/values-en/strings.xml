@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">EY</string>
+    <string name="app_name">EY Footprint</string>
     <string name="title">安永EY</string>
+    <string name="guide_title">EY Footprint</string>
     <string name="tv_change_pass">Change Password</string>
     <string name="confirm_success">Authentication success</string>
     <string name="rationale_camera">Allow the application to access camera?</string>
@@ -31,7 +32,7 @@
     <string name="confirm1">Welcome!</string>
     <string name="confirm2">The exceptional EY experience lasts a lifetime</string>
     <string name="confirm3">Successfully Verified</string>
-    <string name="healthy_life">Work Life Balance</string>
+    <string name="healthy_life">EY Energy</string>
     <string name="step_today">Today\'s Steps</string>
     <string name="step_hint">Reach 8000 steps!\n Get the point now!</string>
     <string name="come_on">Keep going!</string>
@@ -56,14 +57,14 @@
     <string name="message_center">Message</string>
     <string name="friend">My Friends</string>
     <string name="credit">Points</string>
-    <string name="credit1">points：%1$s</string>
-    <string name="level">level：%1$s</string>
-    <string name="frined">friends：%1$s</string>
+    <string name="credit1">Points：%1$s</string>
+    <string name="level">Level：%1$s</string>
+    <string name="frined">Friends：%1$s</string>
     <string name="credit_paiming">Ranking</string>
     <string name="credit_give">Giff-gaff</string>
     <string name="new_friend">New Friend</string>
     <string name="new_friend_info">GPN/Skype Name/Mobile Number</string>
-    <string name="person_info">Personal information</string>
+    <string name="person_info">Personal Information</string>
     <string name="setting">Setting</string>
     <string name="user_number">GPN</string>
     <string name="user_position">Rank</string>
@@ -82,7 +83,7 @@
     <string name="send">I want to send</string>
     <string name="search_list">Searching List</string>
     <string name="cancel">Cancel</string>
-    <string name="save_pic">save picture</string>
+    <string name="save_pic">Save Picture</string>
     <string name="turn_on_flash">Light on</string>
     <string name="at">Each</string>
     <string name="family"> </string>
@@ -101,7 +102,7 @@
     <string name="over_2">% colleagues!!</string>
     <string name="sign_1">Signed in for</string>
     <string name="sign_2">days</string>
-    <string name="auto">auto</string>
+    <string name="auto">Auto</string>
     <string name="camera">camera</string>
     <string name="percent">%1$s %</string>
 
@@ -137,9 +138,9 @@
     <string name="check_sd">Please check if SD card is available</string>
     <string name="upload_fail">Upload failed, please try again later</string>
     <string name="upload_success">Uploaded successfully!</string>
-    <string name="save">save</string>
+    <string name="save">Save</string>
     <string name="language_setting">Language Settings</string>
-    <string name="background_setting">Home background setting</string>
+    <string name="background_setting">Change Background Picture</string>
     <string name="pic">Gallery</string>
     <string name="send_sussess">Send Successfully!</string>
     <string name="check">check</string>
