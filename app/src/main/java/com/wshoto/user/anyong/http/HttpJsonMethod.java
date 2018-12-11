@@ -125,6 +125,14 @@ public class HttpJsonMethod {
                 .subscribe(subscriber);
     }
 
+    public void mesageRead(Subscriber<JSONObject> subscriber, String session, String id) {
+        movieService.mesageRead(session, id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 
     public void locate(Subscriber<JSONObject> subscriber, String session, String lal, String language, String latitude, String longitude) {
         movieService.locate(session, lal, language, latitude, longitude)

@@ -35,6 +35,8 @@ import butterknife.OnClick;
 public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.ModifyCountInterface {
     @BindView(R.id.rv_my_radii)
     RecyclerView rvMyRadii;
+    @BindView(R.id.tv_hint)
+    TextView hint;
     @BindView(R.id.ll_new_friend_apply)
     LinearLayout llNewFriendApply;
     private SubscriberOnNextListener<JSONObject> listOnNext;
@@ -66,9 +68,17 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
             if (jsonObject.getInt("code") == 1) {
                 myRadiuBean = mGson.fromJson(jsonObject.toString(), MyRadiuBean.class);
                 rvMyRadii.setLayoutManager(new LinearLayoutManager(this));
+//                rvMyRadii.setPullRefreshEnable(true);
+//                rvMyRadii.setPushRefreshEnable(true);
+//                rvMyRadii.setLinearLayout();
+//                rvMyRadii.setEmptyView(LayoutInflater.from(this).inflate(R.layout.empty_content, null));
                 MyRadiiAdapter messageCenterAdapter = new MyRadiiAdapter(getApplicationContext(), myRadiuBean.getData());
                 rvMyRadii.setAdapter(messageCenterAdapter);
-                messageCenterAdapter.setModifyCountInterface(MyRadiiActivity.this);// 关键步骤2,设置数量增减接口
+                messageCenterAdapter.setModifyCountInterface(MyRadiiActivity.this);
+                if (myRadiuBean.getData().size() == 0) {
+                    rvMyRadii.setVisibility(View.GONE);
+                    hint.setVisibility(View.VISIBLE);
+                }
             } else {
                 Toast.makeText(MyRadiiActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
             }
@@ -110,7 +120,7 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
             HttpJsonMethod.getInstance().givePoint(
                     new ProgressSubscriber(giveOnNext, MyRadiiActivity.this),
                     (String) SharedPreferencesUtils.getParam(this, "session", ""),
-                    id, pointNum.getText().toString(),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+                    id, pointNum.getText().toString(), (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
             popupWindow.dismiss();
         });
 

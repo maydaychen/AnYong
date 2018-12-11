@@ -48,6 +48,9 @@ public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdap
         viewHolder.tvMessageTitle.setText(mData.get(position).getTitle());
         viewHolder.tvMessageTime.setText(mData.get(position).getPublished());
         viewHolder.tvMessageSubTitle.setText(mData.get(position).getContent());
+        if (mData.get(position).getIsread()==0) {
+            viewHolder.dot.setVisibility(View.VISIBLE);
+        }
         viewHolder.itemView.setTag(position);
     }
 
@@ -83,6 +86,8 @@ public class MessageCenterAdapter extends RecyclerView.Adapter<MessageCenterAdap
         TextView tvMessageTime;
         @BindView(R.id.tv_message_sub_title)
         TextView tvMessageSubTitle;
+        @BindView(R.id.dot_read)
+        View dot;
 
         ViewHolder(View view) {
             super(view);

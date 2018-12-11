@@ -50,6 +50,10 @@ public interface BlueService {
     @FormUrlEncoded
     rx.Observable<JSONObject> mesageList(@Field("session") String session, @Field("language") String language);
 
+    @POST("/index.php?r=api/user/message-read")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> mesageRead(@Field("session") String session, @Field("broadid") String id);
+
     @POST("/index.php?r=api/signin/index")
     @FormUrlEncoded
     rx.Observable<JSONObject> locate(@Field("session") String session, @Field("place") String lal,

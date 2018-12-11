@@ -8,7 +8,7 @@ public class UserInfoBean {
     /**
      * code : 1
      * message : {"status":"success"}
-     * data : {"integral":"897","id":"5","username":"1","avatar":"https://anyong.wshoto.com/uploads/20181010173956.png","english_name":"tom","job_no":"123455","email":"tom@wshoto.com","mobile":"13665137658","birthday":"2018-09-04","join_time":"2000-01-01","position":"Account","department":"1","invitecode":"00000005","talent_ops":"1","gds_pss":"1","tranning":"0","tranning_hour":"0","more_time":"0","exceed_award":"0","nickname":"good master","firend_num":"6","switch":1}
+     * data : {"integral":"20","id":"10","username":"Yi Chen","avatar":"https://anyong.wshoto.com/uploads/20180625164129.png","english_name":"Yi Chen","job_no":"CN010458","email":"chenyi@cn.ey.com","mobile":"13665137658","birthday":"12-06-91","join_time":"2011-09-17","position":"Associate Manager","department":"CBS PEO Field Services SZ","invitecode":"","talent_ops":"","gds_pss":"","tranning":"0","location_city":"苏州市","tranning_hour":"0","more_time":"0","exceed_award":"0","has_new":"0","anniversary":"","counts":5,"nickname":"暂无等级","firend_num":"2","switch":1,"switcherHat":1,"hatUrl":"https://anyong.wshoto.com/uploads/thumbnail/2018113019080577187.png"}
      */
 
     private int code;
@@ -57,28 +57,34 @@ public class UserInfoBean {
 
     public static class DataBean implements Serializable {
         /**
-         * integral : 897
-         * id : 5
-         * username : 1
-         * avatar : https://anyong.wshoto.com/uploads/20181010173956.png
-         * english_name : tom
-         * job_no : 123455
-         * email : tom@wshoto.com
+         * integral : 20
+         * id : 10
+         * username : Yi Chen
+         * avatar : https://anyong.wshoto.com/uploads/20180625164129.png
+         * english_name : Yi Chen
+         * job_no : CN010458
+         * email : chenyi@cn.ey.com
          * mobile : 13665137658
-         * birthday : 2018-09-04
-         * join_time : 2000-01-01
-         * position : Account
-         * department : 1
-         * invitecode : 00000005
-         * talent_ops : 1
-         * gds_pss : 1
+         * birthday : 12-06-91
+         * join_time : 2011-09-17
+         * position : Associate Manager
+         * department : CBS PEO Field Services SZ
+         * invitecode :
+         * talent_ops :
+         * gds_pss :
          * tranning : 0
+         * location_city : 苏州市
          * tranning_hour : 0
          * more_time : 0
          * exceed_award : 0
-         * nickname : good master
-         * firend_num : 6
+         * has_new : 0
+         * anniversary :
+         * counts : 5
+         * nickname : 暂无等级
+         * firend_num : 2
          * switch : 1
+         * switcherHat : 1
+         * hatUrl : https://anyong.wshoto.com/uploads/thumbnail/2018113019080577187.png
          */
 
         private String integral;
@@ -97,14 +103,19 @@ public class UserInfoBean {
         private String talent_ops;
         private String gds_pss;
         private String tranning;
+        private String location_city;
         private String tranning_hour;
         private String more_time;
         private String exceed_award;
+        private String has_new;
+        private String anniversary;
+        private int counts;
         private String nickname;
         private String firend_num;
         @SerializedName("switch")
         private int switchX;
-        private boolean has_new;
+        private int switcherHat;
+        private String hatUrl;
 
         public String getIntegral() {
             return integral;
@@ -234,6 +245,14 @@ public class UserInfoBean {
             this.tranning = tranning;
         }
 
+        public String getLocation_city() {
+            return location_city;
+        }
+
+        public void setLocation_city(String location_city) {
+            this.location_city = location_city;
+        }
+
         public String getTranning_hour() {
             return tranning_hour;
         }
@@ -256,6 +275,30 @@ public class UserInfoBean {
 
         public void setExceed_award(String exceed_award) {
             this.exceed_award = exceed_award;
+        }
+
+        public String getHas_new() {
+            return has_new;
+        }
+
+        public void setHas_new(String has_new) {
+            this.has_new = has_new;
+        }
+
+        public String getAnniversary() {
+            return anniversary;
+        }
+
+        public void setAnniversary(String anniversary) {
+            this.anniversary = anniversary;
+        }
+
+        public int getCounts() {
+            return counts;
+        }
+
+        public void setCounts(int counts) {
+            this.counts = counts;
         }
 
         public String getNickname() {
@@ -282,12 +325,20 @@ public class UserInfoBean {
             this.switchX = switchX;
         }
 
-        public boolean isHas_new() {
-            return has_new;
+        public int getSwitcherHat() {
+            return switcherHat;
         }
 
-        public void setHas_new(boolean has_new) {
-            this.has_new = has_new;
+        public void setSwitcherHat(int switcherHat) {
+            this.switcherHat = switcherHat;
+        }
+
+        public String getHatUrl() {
+            return hatUrl;
+        }
+
+        public void setHatUrl(String hatUrl) {
+            this.hatUrl = hatUrl;
         }
     }
 }

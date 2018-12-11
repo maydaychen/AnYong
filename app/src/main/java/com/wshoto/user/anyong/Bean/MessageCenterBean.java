@@ -6,7 +6,7 @@ public class MessageCenterBean {
     /**
      * code : 1
      * message : {"status":"success"}
-     * data : [{"id":"107","title":"感谢信","template_id":"https://anyong.wshoto.com/uploads/thumbnail/2018091016575142356.jpeg","author":"雪花","receiver":"5","content":"333333","created":"2018-11-07 16:56:42","published":"2018-11-07 16:56:45","status":"已读","reply":"正常","thumb":"https://anyong.wshoto.com/uploads/thumbnail/2018091016575142356.jpeg"},{"id":"72","title":"感谢信","template_id":"https://anyong.wshoto.com/uploads/thumbnail/2018091016573217617.jpeg","author":"雪花","receiver":"5","content":"在\n","created":"2018-10-11 17:33:29","published":"2018-10-11 17:33:32","status":"已读","reply":"正常","thumb":"https://anyong.wshoto.com/uploads/20181011173328.png"},{"id":"920","title":"生日快乐","receiver":"jon","job_no":"123454","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-07 08:00:02","department":"1","push_type":"0","published":"2018-10-07 08:00:02"},{"id":"919","title":"生日快乐","receiver":"tom","job_no":"123455","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-07 08:00:01","department":"1","push_type":"0","published":"2018-10-07 08:00:01"},{"id":"918","title":"生日快乐","receiver":"bob","job_no":"123456","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-07 08:00:01","department":"1","push_type":"0","published":"2018-10-07 08:00:01"},{"id":"810","title":"生日快乐","receiver":"jon","job_no":"123454","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-06 08:00:02","department":"1","push_type":"0","published":"2018-10-06 08:00:02"},{"id":"809","title":"生日快乐","receiver":"tom","job_no":"123455","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-06 08:00:01","department":"1","push_type":"0","published":"2018-10-06 08:00:01"},{"id":"808","title":"生日快乐","receiver":"bob","job_no":"123456","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-06 08:00:01","department":"1","push_type":"0","published":"2018-10-06 08:00:01"},{"id":"700","title":"生日快乐","receiver":"jon","job_no":"123454","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-05 08:00:02","department":"1","push_type":"0","published":"2018-10-05 08:00:02"},{"id":"698","title":"生日快乐","receiver":"bob","job_no":"123456","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-05 08:00:02","department":"1","push_type":"0","published":"2018-10-05 08:00:02"},{"id":"699","title":"生日快乐","receiver":"tom","job_no":"123455","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-05 08:00:02","department":"1","push_type":"0","published":"2018-10-05 08:00:02"},{"id":"590","title":"生日快乐","receiver":"jon","job_no":"123454","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-04 08:00:03","department":"1","push_type":"0","published":"2018-10-04 08:00:03"},{"id":"589","title":"生日快乐","receiver":"tom","job_no":"123455","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-04 08:00:02","department":"1","push_type":"0","published":"2018-10-04 08:00:02"},{"id":"588","title":"生日快乐","receiver":"bob","job_no":"123456","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-04 08:00:02","department":"1","push_type":"0","published":"2018-10-04 08:00:02"},{"id":"478","title":"生日快乐","receiver":"bob","job_no":"123456","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-03 08:00:01","department":"1","push_type":"0","published":"2018-10-03 08:00:01"},{"id":"480","title":"生日快乐","receiver":"jon","job_no":"123454","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-03 08:00:01","department":"1","push_type":"0","published":"2018-10-03 08:00:01"},{"id":"479","title":"生日快乐","receiver":"tom","job_no":"123455","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-03 08:00:01","department":"1","push_type":"0","published":"2018-10-03 08:00:01"},{"id":"368","title":"生日快乐","receiver":"bob","job_no":"123456","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-02 08:00:02","department":"1","push_type":"0","published":"2018-10-02 08:00:02"},{"id":"370","title":"生日快乐","receiver":"jon","job_no":"123454","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-02 08:00:02","department":"1","push_type":"0","published":"2018-10-02 08:00:02"},{"id":"369","title":"生日快乐","receiver":"tom","job_no":"123455","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-02 08:00:02","department":"1","push_type":"0","published":"2018-10-02 08:00:02"},{"id":"258","title":"生日快乐","receiver":"bob","job_no":"123456","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-01 08:00:02","department":"1","push_type":"0","published":"2018-10-01 08:00:02"},{"id":"260","title":"生日快乐","receiver":"jon","job_no":"123454","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-01 08:00:02","department":"1","push_type":"0","published":"2018-10-01 08:00:02"},{"id":"259","title":"生日快乐","receiver":"tom","job_no":"123455","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-10-01 08:00:02","department":"1","push_type":"0","published":"2018-10-01 08:00:02"},{"id":"148","title":"生日快乐","receiver":"bob","job_no":"123456","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-09-30 08:00:02","department":"1","push_type":"0","published":"2018-09-30 08:00:02"},{"id":"150","title":"生日快乐","receiver":"jon","job_no":"123454","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-09-30 08:00:02","department":"1","push_type":"0","published":"2018-09-30 08:00:02"},{"id":"149","title":"生日快乐","receiver":"tom","job_no":"123455","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-09-30 08:00:02","department":"1","push_type":"0","published":"2018-09-30 08:00:02"},{"id":"40","title":"生日快乐","receiver":"jon","job_no":"123454","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-09-29 08:00:02","department":"1","push_type":"0","published":"2018-09-29 08:00:02"},{"id":"38","title":"生日快乐","receiver":"bob","job_no":"123456","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-09-29 08:00:02","department":"1","push_type":"0","published":"2018-09-29 08:00:02"},{"id":"39","title":"生日快乐","receiver":"tom","job_no":"123455","position":"Account","content":"今天是您的生日，祝您生日快乐~！","created":"2018-09-29 08:00:02","department":"1","push_type":"0","published":"2018-09-29 08:00:02"},{"id":"33","title":"a","receiver":"","job_no":"123455","position":"Account","content":"b","created":"2018-09-18 15:52:00","department":"1","push_type":"0","published":"2018-09-18 15:52:00"},{"id":"29","title":"111","receiver":"","job_no":"1","position":"1","content":"111","created":"2018-09-13 21:38:00","department":"1","push_type":"1","published":"2018-09-13 21:38:00"},{"id":"13","title":"今日天气","receiver":"","job_no":"","position":"","content":"天气：阴。出门请带伞。","created":"2018-09-13 14:32:00","department":"1","push_type":"0","published":"2018-09-13 14:32:00"},{"id":"12","title":"1","receiver":"","job_no":"","position":"","content":"2","created":"2018-09-10 09:29:00","department":"1","push_type":"0","published":"2018-09-10 09:29:00"},{"id":"11","title":"1231","receiver":"","job_no":"123454","position":"Account","content":"123","created":"2018-09-09 13:32:00","department":"1","push_type":"0","published":"2018-09-09 13:32:00"},{"id":"4","title":"感谢信","template_id":"https://anyong.wshoto.com/uploads/thumbnail/2018091016573217617.jpeg","author":"bob","receiver":"5","content":"2","created":"0","published":"2018-06-24 15:26:40","status":"未读","reply":"正常","thumb":""}]
+     * data : [{"id":"185","title":"眼保健操要开始啦","receiver":"All","city":null,"job_no":"","job_nos":null,"position":"","content":"眼保健操要开始啦~快进入APP签到确认吧。","created":"2018-12-11 10:00:02","department":"","push_type":"1","type":"4","isread":0,"published":"2018-12-11 10:00:02"},{"id":"184","title":"颈椎保健操要开始啦","receiver":"All","city":null,"job_no":"","job_nos":null,"position":"","content":"颈椎保健操要开始啦~快进入APP签到确认吧。","created":"2018-12-10 16:00:01","department":"","push_type":"1","type":"4","isread":0,"published":"2018-12-10 16:00:01"},{"id":"179","title":"批量推送工号标题","receiver":"","city":null,"job_no":"","job_nos":"CN010492,CN010287,CN010079,CN010405,CN010458","position":"","content":"批量推送工号内容","created":"2018-12-08 18:18:30","department":"","push_type":"1","type":"1","isread":0,"published":"2018-12-08 18:18:30"},{"id":"126","title":"Test Rank","receiver":"","city":null,"job_no":"","job_nos":"","position":"Associate Manager","content":"Test Rank","created":"2018-12-07 11:23:37","department":"","push_type":"1","type":"1","isread":0,"published":"2018-12-07 11:23:37"},{"id":"26","title":"Associate Manager标题","receiver":"","city":null,"job_no":"","job_nos":"","position":"Associate Manager","content":"Associate Manager内容","created":"2018-12-05 21:40:29","department":"","push_type":"1","type":"1","isread":0,"published":"2018-12-05 21:40:29"}]
      */
 
     private int code;
@@ -55,38 +55,36 @@ public class MessageCenterBean {
 
     public static class DataBean {
         /**
-         * id : 107
-         * title : 感谢信
-         * template_id : https://anyong.wshoto.com/uploads/thumbnail/2018091016575142356.jpeg
-         * author : 雪花
-         * receiver : 5
-         * content : 333333
-         * created : 2018-11-07 16:56:42
-         * published : 2018-11-07 16:56:45
-         * status : 已读
-         * reply : 正常
-         * thumb : https://anyong.wshoto.com/uploads/thumbnail/2018091016575142356.jpeg
-         * job_no : 123454
-         * position : Account
-         * department : 1
-         * push_type : 0
+         * id : 185
+         * title : 眼保健操要开始啦
+         * receiver : All
+         * city : null
+         * job_no :
+         * job_nos : null
+         * position :
+         * content : 眼保健操要开始啦~快进入APP签到确认吧。
+         * created : 2018-12-11 10:00:02
+         * department :
+         * push_type : 1
+         * type : 4
+         * isread : 0
+         * published : 2018-12-11 10:00:02
          */
 
         private String id;
         private String title;
-        private String template_id;
-        private String author;
         private String receiver;
+        private Object city;
+        private String job_no;
+        private Object job_nos;
+        private String position;
         private String content;
         private String created;
-        private String published;
-        private String status;
-        private String reply;
-        private String thumb;
-        private String job_no;
-        private String position;
         private String department;
         private String push_type;
+        private String type;
+        private int isread;
+        private String published;
 
         public String getId() {
             return id;
@@ -104,28 +102,44 @@ public class MessageCenterBean {
             this.title = title;
         }
 
-        public String getTemplate_id() {
-            return template_id;
-        }
-
-        public void setTemplate_id(String template_id) {
-            this.template_id = template_id;
-        }
-
-        public String getAuthor() {
-            return author;
-        }
-
-        public void setAuthor(String author) {
-            this.author = author;
-        }
-
         public String getReceiver() {
             return receiver;
         }
 
         public void setReceiver(String receiver) {
             this.receiver = receiver;
+        }
+
+        public Object getCity() {
+            return city;
+        }
+
+        public void setCity(Object city) {
+            this.city = city;
+        }
+
+        public String getJob_no() {
+            return job_no;
+        }
+
+        public void setJob_no(String job_no) {
+            this.job_no = job_no;
+        }
+
+        public Object getJob_nos() {
+            return job_nos;
+        }
+
+        public void setJob_nos(Object job_nos) {
+            this.job_nos = job_nos;
+        }
+
+        public String getPosition() {
+            return position;
+        }
+
+        public void setPosition(String position) {
+            this.position = position;
         }
 
         public String getContent() {
@@ -144,54 +158,6 @@ public class MessageCenterBean {
             this.created = created;
         }
 
-        public String getPublished() {
-            return published;
-        }
-
-        public void setPublished(String published) {
-            this.published = published;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        public String getReply() {
-            return reply;
-        }
-
-        public void setReply(String reply) {
-            this.reply = reply;
-        }
-
-        public String getThumb() {
-            return thumb;
-        }
-
-        public void setThumb(String thumb) {
-            this.thumb = thumb;
-        }
-
-        public String getJob_no() {
-            return job_no;
-        }
-
-        public void setJob_no(String job_no) {
-            this.job_no = job_no;
-        }
-
-        public String getPosition() {
-            return position;
-        }
-
-        public void setPosition(String position) {
-            this.position = position;
-        }
-
         public String getDepartment() {
             return department;
         }
@@ -206,6 +172,30 @@ public class MessageCenterBean {
 
         public void setPush_type(String push_type) {
             this.push_type = push_type;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public int getIsread() {
+            return isread;
+        }
+
+        public void setIsread(int isread) {
+            this.isread = isread;
+        }
+
+        public String getPublished() {
+            return published;
+        }
+
+        public void setPublished(String published) {
+            this.published = published;
         }
     }
 }

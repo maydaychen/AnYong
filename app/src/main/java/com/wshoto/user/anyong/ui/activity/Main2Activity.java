@@ -18,7 +18,6 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +25,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding.view.RxView;
+import com.loopj.android.image.SmartImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -84,13 +84,17 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
     @BindView(R.id.tv_user_level)
     TextView tvUserLevel;
     @BindView(R.id.iv_birthday)
-    ImageView birthday;
+    SmartImageView birthday;
     @BindView(R.id.ll_zuobiao)
     RelativeLayout mLlMap;
     @BindView(R.id.ll_main_background)
     LinearLayout llBackground;
+    @BindView(R.id.ll_part8)
+    LinearLayout Llprat8;
     @BindView(R.id.view_dot)
-    View mViewDot;
+    TextView mViewDot;
+    @BindView(R.id.rl_dot)
+    View mRlDot;
     private SubscriberOnNextListener<JSONObject> infoOnNext;
     private SubscriberOnNextListener<JSONObject> newerOnNext;
     private SubscriberOnNextListener<JSONObject> scanOnNext;
@@ -138,10 +142,11 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         infoOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 userInfoBean = mGson.fromJson(jsonObject.toString(), UserInfoBean.class);
-                if (userInfoBean.getData().isHas_new()) {
-                    mViewDot.setVisibility(View.VISIBLE);
+                mViewDot.setText(userInfoBean.getData().getCounts() + "");
+                if (userInfoBean.getData().getCounts() != 0) {
+                    mRlDot.setVisibility(View.VISIBLE);
                 } else {
-                    mViewDot.setVisibility(View.GONE);
+                    mRlDot.setVisibility(View.GONE);
                 }
                 SharedPreferencesUtils.setParam(getApplicationContext(), "user_id", userInfoBean.getData().getIntegral());//存储用户id
                 tvMainName.setText(userInfoBean.getData().getEnglish_name());
@@ -155,7 +160,12 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                     loadImage(userInfoBean.getData().getAvatar());
                 }
                 if (isDate2Bigger(userInfoBean.getData().getBirthday())) {
-                    birthday.setVisibility(View.VISIBLE);
+                    birthday.setImageDrawable(getResources().getDrawable(R.drawable.hg));
+                } else if (userInfoBean.getData().getSwitcherHat() == 1) {
+                    birthday.setImageUrl(userInfoBean.getData().getHatUrl());
+                }
+                if (userInfoBean.getData().getSwitchX() == 0) {
+                    Llprat8.setClickable(false);
                 }
                 HttpJsonMethod.getInstance().newer(
                         new ProgressSubscriber(newerOnNext, Main2Activity.this), userInfoBean.getData().getJob_no(),
@@ -216,7 +226,6 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 break;
             case R.id.iv_main_email:
                 startActivity(new Intent(Main2Activity.this, MessageCenterActivity.class));
-                //todo 点击之后需要调接口告诉后端所有信息已读，并去掉红点
                 break;
             case R.id.iv_main_guide:
                 startActivity(new Intent(Main2Activity.this, GuideActivity.class));

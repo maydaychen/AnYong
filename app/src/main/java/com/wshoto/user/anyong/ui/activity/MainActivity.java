@@ -117,6 +117,7 @@ public class MainActivity extends InitActivity implements EasyPermissions.Permis
         newerOnNext = jsonObject -> {
         };
         infoOnNext = jsonObject -> {
+
             if (jsonObject.getInt("code") == 1) {
                 userInfoBean = mGson.fromJson(jsonObject.toString(), UserInfoBean.class);
                 tvMainName.setText(userInfoBean.getData().getEnglish_name());

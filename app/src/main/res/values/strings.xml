@@ -66,7 +66,7 @@
     <string name="new_friend_info">工号/姓名/手机号</string>
     <string name="person_info">个人资料</string>
     <string name="setting">账号设置</string>
-    <string name="user_number">工号</string>
+    <string name="user_number">工号（GPN）</string>
     <string name="user_number1">(%1$s)</string>
     <string name="user_position">职位</string>
     <string name="user_locate">部门</string>
@@ -88,7 +88,7 @@
     <string name="family">这个大家庭</string>
     <string name="confirm_step1_title">我们都有自己的工号和英文名</string>
     <string name="next">下一步</string>
-    <string name="english_name">英文名</string>
+    <string name="english_name">英文名（同Skype Name）</string>
     <string name="hello">你好</string>
     <string name="confirm_step_2_1">下面需要给您账号绑定手机</string>
     <string name="confirm_step_2_2">请输入您的手机号和验证码</string>
@@ -113,7 +113,7 @@
     <string name="comfirm_pass2">请再次输入密码</string>
     <string name="confirm_step_4_1">是否有热心的同事推荐你用EY Footprint呢？</string>
     <string name="confirm_step_4_2">输入他（她）的推荐码吧</string>
-    <string name="invite_code">邀请码(选填)</string>
+    <string name="invite_code">好友邀请码(选填)</string>
     <string name="step1_error">请将信息填写完整！</string>
 
 
@@ -172,4 +172,5 @@
     <string name="map_alert">点击下方小手按钮完成签到，年终会有小惊喜给到认真打卡的你哦！</string>
     <!--<string name="point_hint">请输入想要赠送的积分</string>-->
     <string name="save_success">图片保存成功！</string>
+    <string name="no_data">暂无数据</string>
 </resources>

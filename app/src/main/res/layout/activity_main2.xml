@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/rl_confirm_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@color/title">
 
         <ImageView
@@ -31,7 +31,7 @@
         <RelativeLayout
             android:id="@+id/rl_email"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true">
 
@@ -39,18 +39,34 @@
                 android:id="@+id/iv_main_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:padding="@dimen/margin_size_8dp"
                 android:src="@drawable/email" />
 
-            <View
-                android:id="@+id/view_dot"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
+            <RelativeLayout
+                android:id="@+id/rl_dot"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_alignRight="@id/iv_main_email"
                 android:layout_marginTop="@dimen/margin_size_4dp"
                 android:layout_marginEnd="@dimen/margin_size_4dp"
-                android:background="@drawable/dot_red"
-                android:visibility="gone" />
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dot_red" />
+
+                <TextView
+                    android:id="@+id/view_dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="99"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_12sp" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
 
@@ -87,7 +103,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <ImageView
+                <com.loopj.android.image.SmartImageView
                     android:id="@+id/iv_birthday"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -96,9 +112,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="-20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="-20dp"
-                    android:src="@drawable/hg"
-                    android:visibility="invisible" />
+                    android:layout_marginBottom="-20dp" />
 
                 <RelativeLayout
                     android:layout_width="140dp"

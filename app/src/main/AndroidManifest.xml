@@ -47,9 +47,9 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -84,7 +84,6 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
         <activity android:name=".ui.activity.ThankSelectActivity" />
         <activity android:name=".ui.activity.MapActivity" />
-
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -178,12 +177,12 @@
         <activity android:name=".ui.activity.MapTestActivity" />
         <activity android:name=".ui.activity.EventDetailActivity" />
 
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="5b6d4812b27b0a3d44000039" />
-        <meta-data
-            android:name="UMENG_MESSAGE_SECRET"
-            android:value="d1c5076ee45f9f51fd15f8c58ea5103c" />
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_APPKEY" -->
+        <!-- android:value="5b6d4812b27b0a3d44000039" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_MESSAGE_SECRET" -->
+        <!-- android:value="d1c5076ee45f9f51fd15f8c58ea5103c" /> -->
         <meta-data
             android:name="Mob-AppKey"
             android:value="27b49acf4ee20" />
@@ -193,8 +192,8 @@
 
         <activity
             android:name=".ui.activity.Main2Activity"
-            android:launchMode="singleTask"/>
-
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.activity.MessageDetailActivity"></activity>
     </application>
 
 </manifest>

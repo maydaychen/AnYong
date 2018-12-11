@@ -68,6 +68,8 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
     WheelView mCity;
     @BindView(R.id.id_area)
     WheelView mArea;
+    @BindView(R.id.tv_hint)
+    TextView hint;
 
     MonthPager monthPager;
     private SubscriberOnNextListener<JSONObject> listOnNext;
@@ -197,11 +199,15 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                     intent.putExtra("mine", true);
                     intent.putExtra("id", mCalendarMineBean.getData().get(data).getId());
                     startActivity(intent);
-//                    HttpJsonMethod.getInstance().activityInfo(
-//                            new ProgressSubscriber(detailOnNext, DeleteActivity.this),
-//                            (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), mCalendarMineBean.getData().get(data).getId()))
 
                 });
+            }
+            if (mCalendarMineBean.getData().size() != 0) {
+                rvCalendarActivity.setVisibility(View.VISIBLE);
+                hint.setVisibility(View.GONE);
+            } else {
+                rvCalendarActivity.setVisibility(View.GONE);
+                hint.setVisibility(View.VISIBLE);
             }
         };
         timelistOnNext = jsonObject -> {
@@ -221,6 +227,13 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                     intent.putExtra("id", mCalendarDayEventBean.getData().get(data).getId());
                     startActivity(intent);
                 });
+                if (mCalendarDayEventBean.getData().size() != 0) {
+                    rvCalendarActivity.setVisibility(View.VISIBLE);
+                    hint.setVisibility(View.GONE);
+                } else {
+                    rvCalendarActivity.setVisibility(View.GONE);
+                    hint.setVisibility(View.VISIBLE);
+                }
             }
         };
 

@@ -12,6 +12,15 @@
         android:layout_margin="@dimen/margin_size_10dp"
         android:src="@drawable/hzltx" />
 
+    <View
+        android:id="@+id/dot_read"
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        android:layout_alignLeft="@id/iv_message_logo"
+        android:layout_alignTop="@id/iv_message_logo"
+        android:background="@color/red"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,14 +34,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_message_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_size_8dp"
-                android:textColor="@color/yellow"
-                android:textSize="@dimen/font_size_16sp" />
-
-            <TextView
                 android:id="@+id/tv_message_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,12 +44,26 @@
                 android:textSize="@dimen/font_size_12sp" />
 
             <ImageView
+                android:id="@+id/iv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/tv_message_time"
                 android:padding="@dimen/margin_size_8dp"
                 android:src="@drawable/icon" />
+
+            <TextView
+                android:id="@+id/tv_message_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@id/iv_time"
+                android:ellipsize="end"
+                android:maxEms="20"
+                android:padding="@dimen/margin_size_8dp"
+                android:singleLine="true"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/font_size_16sp" />
         </RelativeLayout>
 
         <TextView
