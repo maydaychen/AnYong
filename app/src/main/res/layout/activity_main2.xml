@@ -95,7 +95,7 @@
             android:weightSum="2">
 
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/ll_logo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -103,20 +103,11 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <com.loopj.android.image.SmartImageView
-                    android:id="@+id/iv_birthday"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignTop="@id/iv_main_logo"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="-20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="-20dp" />
 
                 <RelativeLayout
                     android:layout_width="140dp"
                     android:layout_height="140dp"
+                    android:layout_marginTop="30dp"
                     android:layout_below="@id/tv_main_point"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal">
@@ -135,7 +126,18 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/tx" />
                 </RelativeLayout>
-            </LinearLayout>
+
+                <com.loopj.android.image.SmartImageView
+                    android:id="@+id/iv_birthday"
+                    android:layout_width="75dp"
+                    android:layout_height="57dp"
+                    android:layout_alignTop="@id/iv_main_logo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="-40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="-45dp" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="0dp"

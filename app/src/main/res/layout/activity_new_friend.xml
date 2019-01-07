@@ -41,6 +41,7 @@
         android:drawableLeft="@drawable/ss"
         android:drawablePadding="@dimen/margin_size_8dp"
         android:gravity="left|center_vertical"
+        android:visibility="gone"
         android:text="@string/new_friend_info"
         android:textColor="@color/font_colour_99" />
 

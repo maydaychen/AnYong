@@ -225,7 +225,9 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 }
                 break;
             case R.id.iv_main_email:
-                startActivity(new Intent(Main2Activity.this, MessageCenterActivity.class));
+                Intent intent = new Intent(Main2Activity.this, MessageCenterActivity.class);
+                intent.putExtra("id", userInfoBean.getData().getId());
+                startActivity(intent);
                 break;
             case R.id.iv_main_guide:
                 startActivity(new Intent(Main2Activity.this, GuideActivity.class));
@@ -265,11 +267,11 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 startActivity(anni);
                 break;
             case R.id.iv_main_logo:
-                Intent intent = new Intent(Main2Activity.this, PersonActivity.class);
+                Intent person = new Intent(Main2Activity.this, PersonActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("person", userInfoBean.getData());
-                intent.putExtras(bundle);
-                startActivity(intent);
+                person.putExtras(bundle);
+                startActivity(person);
                 break;
             case R.id.tv_user_credit:
                 startActivity(new Intent(Main2Activity.this, PointActivity.class));

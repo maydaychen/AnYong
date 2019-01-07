@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +36,11 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
     RecyclerView rvMyRadii;
     @BindView(R.id.tv_hint)
     TextView hint;
-    @BindView(R.id.ll_new_friend_apply)
-    LinearLayout llNewFriendApply;
+    @BindView(R.id.tv_more_friend)
+    TextView tvMoreFriend;
+    @BindView(R.id.tv_apply)
+    TextView tvApply;
+
     private SubscriberOnNextListener<JSONObject> listOnNext;
     private SubscriberOnNextListener<JSONObject> messageOnNext;
     private SubscriberOnNextListener<JSONObject> giveOnNext;
@@ -49,7 +51,8 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_my_radii);
         ButterKnife.bind(this);
-        llNewFriendApply.setOnClickListener(view -> startActivity(new Intent(MyRadiiActivity.this, NewFriendActivity.class)));
+        tvMoreFriend.setOnClickListener(view -> startActivity(new Intent(MyRadiiActivity.this, SearchNewFriendActivity.class)));
+        tvApply.setOnClickListener(v -> startActivity(new Intent(MyRadiiActivity.this, NewFriendActivity.class)));
     }
 
     @Override
@@ -138,4 +141,5 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
         popupWindow.showAtLocation(MyRadiiActivity.this.findViewById(R.id.rv_my_radii),
                 Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
+
 }

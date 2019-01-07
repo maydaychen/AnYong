@@ -1,12 +1,10 @@
 package com.wshoto.user.anyong.Bean;
 
-import java.io.Serializable;
-
 public class CalendarDetailBean {
     /**
      * code : 1
      * message : {"status":"success"}
-     * data : {"id":"3","title":"测试","start_time":"2018-06-21 10:51:12","end_time":"2018-06-21 21:57:52","content":"测试","type":"有时效","is_join":"1","created":0,"updated":0,"published":"2018-10-11 17:17:52","qrcode":"","is_today":0}
+     * data : {"id":"50","title":"Outdoor barbecue","province":"江苏","city":"无锡市","start_time":"2018-12-01 00:00:00","end_time":"2018-12-24 00:00:00","thumb":"https://anyong.wshoto.com/uploads/thumbnail/2018121213424960425.jpeg","content":"<p>Outdoor barbecues will be held this Sunday. You can bring your family to participate in the event.<\/p><p>Time: September 9, 2018<\/p>","type":"有时效","is_join":"1","created":"2018-12-12 13:43:04","updated":"2018-12-12 13:43:04","published":"2018-12-12 00:00:00","qrcode":"https://anyong.wshoto.com/uploads/qrcode/2018121213430449081.png","is_today":1}
      */
 
     private int code;
@@ -53,26 +51,32 @@ public class CalendarDetailBean {
         }
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean {
         /**
-         * id : 3
-         * title : 测试
-         * start_time : 2018-06-21 10:51:12
-         * end_time : 2018-06-21 21:57:52
-         * content : 测试
+         * id : 50
+         * title : Outdoor barbecue
+         * province : 江苏
+         * city : 无锡市
+         * start_time : 2018-12-01 00:00:00
+         * end_time : 2018-12-24 00:00:00
+         * thumb : https://anyong.wshoto.com/uploads/thumbnail/2018121213424960425.jpeg
+         * content : <p>Outdoor barbecues will be held this Sunday. You can bring your family to participate in the event.</p><p>Time: September 9, 2018</p>
          * type : 有时效
          * is_join : 1
-         * created : 0
-         * updated : 0
-         * published : 2018-10-11 17:17:52
-         * qrcode :
-         * is_today : 0
+         * created : 2018-12-12 13:43:04
+         * updated : 2018-12-12 13:43:04
+         * published : 2018-12-12 00:00:00
+         * qrcode : https://anyong.wshoto.com/uploads/qrcode/2018121213430449081.png
+         * is_today : 1
          */
 
         private String id;
         private String title;
+        private String province;
+        private String city;
         private String start_time;
         private String end_time;
+        private String thumb;
         private String content;
         private String type;
         private String is_join;
@@ -98,6 +102,22 @@ public class CalendarDetailBean {
             this.title = title;
         }
 
+        public String getProvince() {
+            return province;
+        }
+
+        public void setProvince(String province) {
+            this.province = province;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
         public String getStart_time() {
             return start_time;
         }
@@ -112,6 +132,14 @@ public class CalendarDetailBean {
 
         public void setEnd_time(String end_time) {
             this.end_time = end_time;
+        }
+
+        public String getThumb() {
+            return thumb;
+        }
+
+        public void setThumb(String thumb) {
+            this.thumb = thumb;
         }
 
         public String getContent() {

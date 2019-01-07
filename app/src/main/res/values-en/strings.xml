@@ -22,6 +22,7 @@
     <string name="detail">detail</string>
     <string name="start_time">start time：%1$s</string>
     <string name="end_time">end time：%1$s</string>
+    <string name="time">%1$s - %2$s</string>
     <string name="tv_change_pass_mobile">Please enter your mobile number</string>
     <string name="tv_change_pass_sms">Please enter verification code</string>
     <string name="tv_change_pass_sms_send">Get verification code</string>
@@ -148,6 +149,7 @@
     <string name="point">point(s)</string>
     <string name="join_success">join successfully！</string>
     <string name="friend_apply">More Friends</string>
+    <string name="friend_apply2">Friends Applies</string>
     <string name="logout_error">Your account has been logged elsewhere, please login again!</string>
     <string name="exit_hint">Are you sure you want to exit?</string>
     <string name="logout">log out</string>
@@ -173,4 +175,6 @@
     <string name="map_alert">Click the hand below to complete the check in, a little suprise will be send to frequent users throughout the year!</string>
     <string name="save_success">save successfully!</string>
     <string name="no_data">No Data</string>
+    <string name="message_detail_title">title：</string>
+    <string name="message_detail_content">content：</string>
 </resources>

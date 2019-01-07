@@ -67,9 +67,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="-20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="90dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="-20dp"
                     android:src="@drawable/hg"
                     android:visibility="invisible" />
 
@@ -116,8 +116,8 @@
                             android:id="@+id/tv_person_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="1024"
                             android:textColor="@color/white" />
                     </LinearLayout>
 
@@ -140,8 +140,8 @@
                             android:id="@+id/tv_person_bumen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="1024"
                             android:textColor="@color/white" />
                     </LinearLayout>
 
@@ -164,8 +164,8 @@
                             android:id="@+id/tv_person_position"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:padding="@dimen/margin_size_8dp"
-                            android:text="1024"
                             android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>

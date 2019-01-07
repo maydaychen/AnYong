@@ -172,8 +172,16 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
             if (jsonObject.getInt("code") == 1) {
                 mCalendarEventBean = mGson.fromJson(jsonObject.toString(), CalendarEventBean.class);
                 HashMap<String, String> markData = new HashMap<>();
-                for (CalendarEventBean.DataBeanX dataBeanX : mCalendarEventBean.getData()) {
-                    markData.put(dataBeanX.getTime(), "0");
+                for (String s : mCalendarEventBean.getTimedata()) {
+                    String[] list = s.split("-");
+                    if (list[2].startsWith("0")) {
+                        list[2] = list[2].substring(1);
+                    }
+//                    if (list[1].startsWith("0")) {
+//                        list[1] = list[1].substring(1);
+//                    }
+                    s = list[0] + "-" + list[1] + "-" + list[2];
+                    markData.put(s, "0");
                 }
                 calendarAdapter.setMarkData(markData);
                 calendarAdapter.notifyDataChanged();
@@ -388,7 +396,6 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
     private void refreshMonthPager() {
         CalendarDate today = new CalendarDate();
         calendarAdapter.notifyDataChanged(today);
-
         mTitle.setText(today.getYear() + "/" + today.getMonth() + "/" + today.getDay());
     }
 
@@ -424,6 +431,10 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                 mAddAddress.setVisibility(View.GONE);
                 city = mCurrentCityName;
                 provice = mCurrentProviceName;
+                HttpJsonMethod.getInstance().calendar(
+                        new ProgressSubscriber(listOnNext, DeleteActivity.this),
+                        (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), provice, city,
+                        (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "language", "zh"));
                 getData();
                 break;
         }

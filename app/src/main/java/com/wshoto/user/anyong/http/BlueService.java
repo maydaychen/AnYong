@@ -94,7 +94,7 @@ public interface BlueService {
     @FormUrlEncoded
     rx.Observable<JSONObject> thankContent(@Field("session") String session, @Field("language") String language);
 
-    @POST("/index.php?r=api/activity/activity-list")
+    @POST("/index.php?r=api/activity/all-time")
     @FormUrlEncoded
     rx.Observable<JSONObject> calendar(@Field("session") String session, @Field("city") String city, @Field("language") String language);
 

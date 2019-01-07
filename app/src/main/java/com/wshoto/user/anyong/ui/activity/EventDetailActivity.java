@@ -1,12 +1,14 @@
 package com.wshoto.user.anyong.ui.activity;
 
 import android.os.Bundle;
-import android.text.Html;
+import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.loopj.android.image.SmartImageView;
 import com.wshoto.user.anyong.Bean.CalendarDetailBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
@@ -22,16 +24,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EventDetailActivity extends InitActivity {
-    private SubscriberOnNextListener<JSONObject> detailOnNext;
+    @BindView(R.id.iv_detail)
+    SmartImageView ivDetail;
     private Gson mGson = new Gson();
     private SubscriberOnNextListener<JSONObject> joinOnNext;
 
-    @BindView(R.id.tv_time_start)
-    TextView tvTimeStart;
-    @BindView(R.id.tv_time_end)
-    TextView tvTimeEnd;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
     @BindView(R.id.tv_time_content)
-    TextView tvTimeContent;
+    WebView tvTimeContent;
     @BindView(R.id.tv_join)
     TextView tvJoin;
     @BindView(R.id.tv_title)
@@ -42,14 +43,20 @@ public class EventDetailActivity extends InitActivity {
         setContentView(R.layout.activity_event_detail);
         ButterKnife.bind(this);
 
-        detailOnNext = jsonObject -> {
+        SubscriberOnNextListener<JSONObject> detailOnNext = jsonObject -> {
+            Log.i("chenyi", "detail: " + jsonObject.toString());
             if (jsonObject.getInt("code") == 1) {
                 CalendarDetailBean detailBean = mGson.fromJson(jsonObject.toString(), CalendarDetailBean.class);
                 CalendarDetailBean.DataBean dataBean = detailBean.getData();
-                tvTimeStart.setText(String.format((String) getResources().getText(R.string.start_time), dataBean.getStart_time()));
-                tvTimeEnd.setText(String.format((String) getResources().getText(R.string.end_time), dataBean.getEnd_time()));
+                tvTime.setText(String.format((String) getResources().getText(R.string.time), dataBean.getStart_time(), dataBean.getEnd_time()));
                 tvTitle.setText(dataBean.getTitle());
-                tvTimeContent.setText(Html.fromHtml(dataBean.getContent()));
+//                tvTimeContent.setText(Html.fromHtml(dataBean.getContent()));
+                ivDetail.setImageUrl(dataBean.getThumb());
+
+                tvTimeContent.getSettings().setJavaScriptEnabled(true);
+                String html = "<html><head>" + "</head><body>" + dataBean.getContent() + "</body></html>";
+                html = html.replace("<div class=\"img-place-holder\">", "");
+                tvTimeContent.loadDataWithBaseURL("x-data://base", html, "text/html", "UTF-8", null);
             }
         };
         joinOnNext = jsonObject -> {
@@ -63,7 +70,7 @@ public class EventDetailActivity extends InitActivity {
         HttpJsonMethod.getInstance().activityInfo(
                 new ProgressSubscriber(detailOnNext, EventDetailActivity.this),
                 (String) SharedPreferencesUtils.getParam(EventDetailActivity.this, "session", ""),
-                getIntent().getStringExtra("id"),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+                getIntent().getStringExtra("id"), (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
 
     }
 
@@ -85,7 +92,7 @@ public class EventDetailActivity extends InitActivity {
                 HttpJsonMethod.getInstance().joinActivity(
                         new ProgressSubscriber(joinOnNext, EventDetailActivity.this),
                         (String) SharedPreferencesUtils.getParam(EventDetailActivity.this, "session", ""),
-                        getIntent().getStringExtra("id"),(String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+                        getIntent().getStringExtra("id"), (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
                 break;
         }
     }

@@ -40,12 +40,12 @@ public class ThankPreviewActivity extends InitActivity {
         Log.i("chenyi", "initData: " + "https://anyong.wshoto.com/html/thankU.html?id=" + getIntent().getIntExtra("id", 0));
         wvPreview.loadUrl("https://anyong.wshoto.com/html/thankU.html?id=" + getIntent().getIntExtra("id", 0));
         sendOnNext = jsonObject -> {
-            if (jsonObject.getInt("code") == 1) {
+//            if (jsonObject.getInt("code") == 1) {
                 Toast.makeText(getApplicationContext(), getText(R.string.send_sussess), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(ThankPreviewActivity.this, ThankYouActivity.class));
-            } else {
-                Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
-            }
+//            } else {
+//                Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+//            }
         };
     }
 

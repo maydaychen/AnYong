@@ -38,7 +38,7 @@
 
 
         <LinearLayout
-            android:id="@+id/ll_new_friend_apply"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
@@ -50,11 +50,19 @@
                 android:src="@drawable/hzltx" />
 
             <TextView
+                android:id="@+id/tv_more_friend"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_size_8dp"
                 android:text="@string/friend_apply"
+                android:textColor="@color/yellow" />
+
+            <TextView
+                android:id="@+id/tv_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_size_8dp"
+                android:text="@string/friend_apply2"
                 android:textColor="@color/yellow" />
         </LinearLayout>
         <!--<android.support.v7.widget.RecyclerView-->

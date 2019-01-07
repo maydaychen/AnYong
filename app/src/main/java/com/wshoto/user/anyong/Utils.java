@@ -14,6 +14,9 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -120,5 +123,17 @@ public class Utils {
     public static  int Dp2Px(Context context, float dp) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
+    }
+    public static String string2Date(String data) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy年MM月dd日"); //加上时间
+        //必须捕获异常
+        try {
+            Date date = simpleDateFormat.parse(data);
+            return sDateFormat.format(date);
+        } catch (ParseException px) {
+            px.printStackTrace();
+        }
+        return "";
     }
 }

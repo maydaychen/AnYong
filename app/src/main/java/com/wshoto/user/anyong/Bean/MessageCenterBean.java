@@ -1,5 +1,6 @@
 package com.wshoto.user.anyong.Bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MessageCenterBean {
@@ -53,7 +54,7 @@ public class MessageCenterBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * id : 185
          * title : 眼保健操要开始啦
