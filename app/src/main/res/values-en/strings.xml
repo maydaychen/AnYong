@@ -177,4 +177,7 @@
     <string name="no_data">No Data</string>
     <string name="message_detail_title">title：</string>
     <string name="message_detail_content">content：</string>
+    <string name="confirm_remark"><![CDATA[Tips：\nYour GPN:e.gCN010******. You can check your GPN at User Profile of gT&E Tools .\nYou don’t need to enter any symbols (  ·   _  ­-  ).
+]]></string>
+    <string name="no_location">No Location Found!</string>
 </resources>

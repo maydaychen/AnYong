@@ -37,13 +37,13 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
-
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
 
             <ImageView
+                android:id="@+id/image_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_size_8dp"
@@ -53,6 +53,8 @@
                 android:id="@+id/tv_more_friend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/image_logo"
                 android:padding="@dimen/margin_size_8dp"
                 android:text="@string/friend_apply"
                 android:textColor="@color/yellow" />
@@ -61,10 +63,12 @@
                 android:id="@+id/tv_apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:padding="@dimen/margin_size_8dp"
                 android:text="@string/friend_apply2"
                 android:textColor="@color/yellow" />
-        </LinearLayout>
+        </RelativeLayout>
         <!--<android.support.v7.widget.RecyclerView-->
         <!--android:id="@+id/rv_my_radii_friend"-->
         <!--android:layout_width="wrap_content"-->

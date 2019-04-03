@@ -55,7 +55,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_size_8dp"
-                android:text="郑先伟"
                 android:textColor="@color/yellow" />
 
             <TextView
@@ -64,8 +63,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv_new_friend_name"
                 android:padding="@dimen/margin_size_8dp"
-
-                android:text="(1024)"
                 android:textColor="@color/white" />
 
             <TextView
@@ -74,7 +71,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_new_friend_name"
                 android:padding="@dimen/margin_size_8dp"
-                android:text="1333333333"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_12sp" />
         </RelativeLayout>
@@ -101,7 +97,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
-            android:text="财务部"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_16sp" />
     </RelativeLayout>
@@ -131,7 +126,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
-            android:text="财务部"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_16sp" />
     </RelativeLayout>
@@ -163,7 +157,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
-            android:text="3999"
             android:textColor="@color/orange"
             android:textSize="@dimen/font_size_20sp" />
     </RelativeLayout>
@@ -193,7 +186,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_size_16dp"
-            android:text="1"
             android:textColor="@color/yellow"
             android:textSize="@dimen/font_size_20sp" />
     </RelativeLayout>

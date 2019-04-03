@@ -18,6 +18,7 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -89,6 +90,8 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
     RelativeLayout mLlMap;
     @BindView(R.id.ll_main_background)
     LinearLayout llBackground;
+    @BindView(R.id.iv_background)
+    ImageView ivBackground;
     @BindView(R.id.ll_part8)
     LinearLayout Llprat8;
     @BindView(R.id.view_dot)
@@ -131,7 +134,8 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         if ((Boolean) SharedPreferencesUtils.getParam(this, userID, false)) {
             Bitmap bitmap = BitmapFactory.decodeFile(path);
             Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-            llBackground.setBackground(drawable);
+//            llBackground.setBackground(drawable);
+            ivBackground.setImageDrawable(drawable);
         }
         saveImg();
         ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this).writeDebugLogs().build();
@@ -159,6 +163,13 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 } else {
                     loadImage(userInfoBean.getData().getAvatar());
                 }
+                ivMainLogo.setOnClickListener(v -> {
+                    Intent person = new Intent(Main2Activity.this, PersonActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("person", userInfoBean.getData());
+                    person.putExtras(bundle);
+                    startActivity(person);
+                });
                 if (isDate2Bigger(userInfoBean.getData().getBirthday())) {
                     birthday.setImageDrawable(getResources().getDrawable(R.drawable.hg));
                 } else if (userInfoBean.getData().getSwitcherHat() == 1) {
@@ -208,7 +219,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
 
     }
 
-    @OnClick({R.id.iv_main_sao, R.id.iv_main_email, R.id.iv_main_logo, R.id.iv_main_guide,
+    @OnClick({R.id.iv_main_sao, R.id.iv_main_email,R.id.iv_main_guide,
             R.id.ll_part2, R.id.ll_part3, R.id.ll_part4, R.id.ll_part5, R.id.ll_part6,
             R.id.ll_part7, R.id.ll_part8, R.id.tv_user_credit})
     public void onViewClicked(View view) {
@@ -266,13 +277,6 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 anni.putExtra("id", userInfoBean.getData().getId());
                 startActivity(anni);
                 break;
-            case R.id.iv_main_logo:
-                Intent person = new Intent(Main2Activity.this, PersonActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("person", userInfoBean.getData());
-                person.putExtras(bundle);
-                startActivity(person);
-                break;
             case R.id.tv_user_credit:
                 startActivity(new Intent(Main2Activity.this, PointActivity.class));
                 break;
@@ -327,17 +331,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         Log.d("chenyi", "onPermissionsGranted:" + requestCode + ":" + perms.size());
-//        if (requestCode == RC_CAMERA_PERM) {
-//            Intent intent = new Intent(this, CaptureActivity.class);
-//            startActivityForResult(intent, SHOW_SUBACTIVITY);
-//        }
-//        if (requestCode == RC_MAP_CONTACTS_PERM) {
-//            Intent intent = new Intent(this, MapTestActivity.class);
-//            startActivity(intent);
-//        }
-//        if (requestCode == RC_STORAGE_CONTACTS_PERM) {
-//            saveImg();
-//        }
+
     }
 
     @Override

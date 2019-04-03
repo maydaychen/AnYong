@@ -231,6 +231,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         mLocClient.registerLocationListener(myLocationListener);
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true); // 打开gps
+        option.setIsNeedAddress(true);
         option.setCoorType("bd09ll"); // 设置坐标类型
         option.setScanSpan(5000);
         mLocClient.setLocOption(option);
@@ -500,11 +501,13 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
             public void onGetGeoCodeResult(GeoCodeResult result) {
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
                     //没有检索到结果
-                    HttpJsonMethod.getInstance().locate(
-                            new ProgressSubscriber(locateOnNext, MapTestActivity.this),
-                            (String) SharedPreferencesUtils.getParam(MapTestActivity.this, "session", ""),
-                            mCurrentProviceName + mCurrentCityName, (String) SharedPreferencesUtils.getParam(MapTestActivity.this,
-                                    "language", "zh"), "", "");
+//                    HttpJsonMethod.getInstance().locate(
+//                            new ProgressSubscriber(locateOnNext, MapTestActivity.this),
+//                            (String) SharedPreferencesUtils.getParam(MapTestActivity.this, "session", ""),
+//                            mCurrentProviceName + mCurrentCityName, (String) SharedPreferencesUtils.getParam(MapTestActivity.this,
+//                                    "language", "zh"), "", "");
+                    Toast.makeText(mContext, R.string.no_location, Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 //获取地理编码结果
                 Log.i("chenyi", "onGetGeoCodeResult: " + result.toString());

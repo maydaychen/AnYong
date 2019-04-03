@@ -108,6 +108,16 @@
         android:layout_below="@id/ll_step1_2"
         android:background="@color/line_44" />
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/step1_line2"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/margin_size_20dp"
+        android:text="@string/confirm_remark"
+        android:textColor="@color/white" />
+
     <TextView
         android:id="@+id/tv_step1_next"
         android:layout_width="wrap_content"

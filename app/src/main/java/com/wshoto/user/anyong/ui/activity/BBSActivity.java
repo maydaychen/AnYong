@@ -241,7 +241,7 @@ public class BBSActivity extends InitActivity {
     }
 
     public void savePicture(Bitmap bitmap) {
-        String pictureName = Environment.getExternalStorageDirectory() + "/" + System.currentTimeMillis() + ".jpg";
+        String pictureName = Environment.getExternalStorageDirectory() + "/Download/" + System.currentTimeMillis() + ".png";
         File file = new File(pictureName);
         FileOutputStream out;
         try {
@@ -319,7 +319,7 @@ public class BBSActivity extends InitActivity {
         if (!imageStorageDir.exists()) {
             imageStorageDir.mkdirs();
         }
-        File file = new File(imageStorageDir + File.separator + "IMG_" + String.valueOf(System.currentTimeMillis()) + ".jpg");
+        File file = new File(imageStorageDir + File.separator + "IMG_" + String.valueOf(System.currentTimeMillis()) + ".png");
         imageUri = Uri.fromFile(file);
         final List<Intent> cameraIntents = new ArrayList<Intent>();
         final Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

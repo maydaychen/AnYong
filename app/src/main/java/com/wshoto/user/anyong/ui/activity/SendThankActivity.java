@@ -98,7 +98,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
     private Bitmap bmp;
     private File picFile;
     private String userid = "";
-    private String themeid = "";
+    private String themeid = "0";
     private String url = "";
     private String path = "";
 
@@ -138,7 +138,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                             loadImage(mThankThemeBean.getData().get(position - 1).getTemplate_path());
                         } else {
                             mIvThankUpload.setVisibility(View.VISIBLE);
-                            themeid = "";
+                            themeid = "0";
                             ivThankPic.setImageBitmap(null);
                         }
                     }

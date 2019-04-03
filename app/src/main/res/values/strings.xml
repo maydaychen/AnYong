@@ -53,7 +53,7 @@
     <string name="main4">我的半径</string>
     <string name="main6">刷刷存在感</string>
     <string name="main7">不定期更新</string>
-    <string name="main8">年度存档</string>
+    <string name="main8">年度轨迹</string>
     <string name="qiandao">签到</string>
     <string name="message_center">消息中心</string>
     <string name="friend">好友</string>
@@ -100,8 +100,8 @@
     <string name="get_it">我知道了</string>
     <string name="over">超过了</string>
     <string name="over_2">%的同事哦!!</string>
-    <string name="sign_1">这是您第</string>
-    <string name="sign_2">天签到</string>
+    <string name="sign_1">连续打卡第</string>
+    <string name="sign_2">天</string>
     <string name="auto">自动</string>
     <string name="camera">相机</string>
     <string name="percent">%1$s %</string>
@@ -148,7 +148,7 @@
     <string name="point">积分</string>
     <string name="join_success">参加成功！</string>
     <string name="friend_apply">添加好友</string>
-    <string name="friend_apply2">好友申请</string>
+    <string name="friend_apply2">通过好友</string>
     <string name="logout_error">您的账号已在别处登录，请重新登录！</string>
     <string name="exit_hint">确定要退出么?</string>
     <string name="logout">退出登录</string>
@@ -177,4 +177,6 @@
     <string name="no_data">暂无数据</string>
     <string name="message_detail_title">标题：</string>
     <string name="message_detail_content">内容：</string>
+    <string name="confirm_remark"><![CDATA[注： \n工号（GPN）,比如CN010******，可在gT&E→Tools → User Profile 中查询。 \n英文名，同Skype Name，无点、下划线、连接符等符号。]]></string>
+    <string name="no_location">无法找到该位置</string>
 </resources>

@@ -18,7 +18,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -200,11 +199,30 @@ public class SettingActivity extends InitActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 100:
-//         从图库裁减返回
                     if (data != null) {
                         SharedPreferencesUtils.setParam(getApplicationContext(), userID, true);//存储用户是否更换照片
                         uri = data.getData();
-                        cropImageUri(uri, 103);
+//                        cropImageUri(uri, 103);
+                        ContentResolver cr = this.getContentResolver();
+                        try {
+                            assert uri != null;
+                            bmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
+//                            picFile = new File(path);
+//                            if (!picFile.exists()) {
+//                                picFile.getParentFile().mkdirs();
+//                                picFile.createNewFile();
+//                            }
+                            FileOutputStream fos = new FileOutputStream(picFile);
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                            fos.flush();
+                            fos.close();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent1 = new Intent(this, Main2Activity.class);
+                        startActivity(intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
                     break;
                 case 101:
@@ -312,9 +330,6 @@ public class SettingActivity extends InitActivity {
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
             return;
         }
-//        File file = new File(Environment.getExternalStorageDirectory().toString());
-//        if (!file.exists()) {//            file.mkdirs();
-//        }
         picFile = new File(path);
     }
 

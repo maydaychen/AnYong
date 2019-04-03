@@ -174,9 +174,9 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                 HashMap<String, String> markData = new HashMap<>();
                 for (String s : mCalendarEventBean.getTimedata()) {
                     String[] list = s.split("-");
-                    if (list[2].startsWith("0")) {
-                        list[2] = list[2].substring(1);
-                    }
+//                    if (list[2].startsWith("0")) {
+//                        list[2] = list[2].substring(1);
+//                    }
 //                    if (list[1].startsWith("0")) {
 //                        list[1] = list[1].substring(1);
 //                    }
