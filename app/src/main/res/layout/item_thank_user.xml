@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/rv_body"
     android:layout_height="40dp">
+
+    <CheckBox
+        android:id="@+id/cb_select"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_check"
+        android:button="@null" />
 
     <com.loopj.android.image.SmartImageView
         android:id="@+id/logo"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_size_8dp"
+        android:layout_toRightOf="@id/cb_select" />
 
     <TextView
         android:id="@+id/textView3"

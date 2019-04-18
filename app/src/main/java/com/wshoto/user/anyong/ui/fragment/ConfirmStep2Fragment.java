@@ -1,25 +1,32 @@
 package com.wshoto.user.anyong.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
-import com.wshoto.user.anyong.Utils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
+import com.wshoto.user.anyong.ui.activity.ConfirmSuccessActivity;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,22 +41,28 @@ import butterknife.Unbinder;
 public class ConfirmStep2Fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.tv_step2_name)
-    TextView mTvStep2Name;
-    @BindView(R.id.et_step1_number)
-    EditText mEtStep1Number;
-    @BindView(R.id.tv_get_ems)
+    @BindView(R.id.et_login_mobile)
+    EditText mTvStep2Mobile;
+    @BindView(R.id.tv_get_sms)
     TextView mTvGetEms;
-    @BindView(R.id.et_step2_name)
-    EditText mEtStep1Name;
+    @BindView(R.id.et_login_code)
+    EditText mTvGetCode;
+    @BindView(R.id.sp_location)
+    Spinner mSpLocation;
     Unbinder unbinder;
+    @BindView(R.id.et_login_pass)
+    EditText etLoginPass;
+    @BindView(R.id.et_login_pass_again)
+    EditText etLoginPassAgain;
 
     private String mParam1;
     private String mParam2;
-    private FragmentManager mFragmentManager;
     private int recLen = 60;
     private boolean flag = true;
     private SubscriberOnNextListener<JSONObject> sendOnNext;
+    private SubscriberOnNextListener<JSONObject> confirmOnNext;
+    List<String> list = new ArrayList();
+    private String code;
 
     public ConfirmStep2Fragment() {
         // Required empty public constructor
@@ -71,7 +84,6 @@ public class ConfirmStep2Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
         sendOnNext = resultBean -> {
             if (resultBean.getInt("code") == 1) {
                 Toast.makeText(getContext(), getText(R.string.send_sussess), Toast.LENGTH_SHORT).show();
@@ -79,6 +91,14 @@ public class ConfirmStep2Fragment extends Fragment {
                 Toast.makeText(getContext(), resultBean.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
+        confirmOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                startActivity(new Intent(getActivity(), ConfirmSuccessActivity.class));
+            } else {
+                Toast.makeText(getContext(), jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+            }
+        };
+
     }
 
     @Override
@@ -87,7 +107,33 @@ public class ConfirmStep2Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_confirm_step2, container, false);
         unbinder = ButterKnife.bind(this, view);
-        mTvStep2Name.setText(mParam2);
+
+
+        list.add("+86");
+        list.add("+886");
+        list.add("+852");
+        list.add("+853");
+        code = list.get(0);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //绑定 Adapter到控件
+        mSpLocation.setAdapter(adapter);
+        mSpLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //showPrice(position);
+                code = list.get(position);
+                TextView tv = (TextView) view;
+                tv.setTextColor(getResources().getColor(R.color.yellow));    //设置颜色
+                tv.setTextSize(14.0f);    //设置大小
+                tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         return view;
     }
 
@@ -97,30 +143,38 @@ public class ConfirmStep2Fragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.tv_get_ems, R.id.tv_step1_next})
+    @OnClick({R.id.tv_get_sms, R.id.tv_step1_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_get_ems:
-                String tele = mEtStep1Number.getText().toString();
-                if (flag && Utils.isChinaPhoneLegal(tele)) {
+            case R.id.tv_get_sms:
+                String tele = mTvStep2Mobile.getText().toString();
+                if (flag) {
                     flag = false;
                     mTvGetEms.setClickable(false);
                     handler.post(runnable);
                     HttpJsonMethod.getInstance().sendCode(
-                            new ProgressSubscriber(sendOnNext, getActivity()), tele ,"bind",
-                            (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"));
+                            new ProgressSubscriber(sendOnNext, getActivity()), tele, "bind",
+                            (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"),
+                            code.substring(1));
                 } else {
                     Toast.makeText(getContext(), getText(R.string.mobile_hint), Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv_step1_next:
-                if (mEtStep1Number.getText().toString().equals("")||mEtStep1Name.getText().toString().equals("")) {
+                if (mTvStep2Mobile.getText().toString().equals("") || mTvGetCode.getText().toString().equals("") ||
+                        etLoginPass.getText().toString().equals("") || etLoginPassAgain.getText().toString().equals("")) {
                     Toast.makeText(getContext(), getText(R.string.step1_error), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mFragmentManager = getActivity().getSupportFragmentManager();
-                Fragment fragment = ConfirmStep3Fragment.newInstance(mParam1, mParam2, mEtStep1Number.getText().toString(), mEtStep1Name.getText().toString());
-                mFragmentManager.beginTransaction().replace(R.id.id_content, fragment).addToBackStack("a").commit();
+                if (!etLoginPassAgain.getText().toString().equals(etLoginPass.getText().toString())) {
+                    Toast.makeText(getContext(), getText(R.string.step1_pass), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                HttpJsonMethod.getInstance().userRisgist(
+                        new ProgressSubscriber(confirmOnNext, getActivity()), mParam1, mParam2,
+                        mTvStep2Mobile.getText().toString(), mTvGetCode.getText().toString(),
+                        (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"),
+                        etLoginPassAgain.getText().toString());
                 break;
             default:
                 break;

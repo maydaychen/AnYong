@@ -49,25 +49,74 @@
                 android:padding="@dimen/margin_size_8dp"
                 android:src="@drawable/hzltx" />
 
-            <TextView
-                android:id="@+id/tv_more_friend"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/image_logo"
-                android:padding="@dimen/margin_size_8dp"
-                android:text="@string/friend_apply"
-                android:textColor="@color/yellow" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_apply"
+                <TextView
+                    android:id="@+id/tv_my_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:textColor="@color/yellow" />
+
+                <TextView
+                    android:id="@+id/tv_my_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_size_8dp"
+                    android:textColor="@color/yellow" />
+            </LinearLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/tv_more_friend"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toRightOf="@id/image_logo"-->
+            <!--android:padding="@dimen/margin_size_8dp"-->
+            <!--android:text="@string/friend_apply"-->
+            <!--android:textColor="@color/yellow" />-->
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_size_8dp"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/margin_size_8dp"
-                android:text="@string/friend_apply2"
-                android:textColor="@color/yellow" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_more_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/margin_size_8dp"
+                    android:layout_toRightOf="@id/image_logo"
+                    android:background="@drawable/boder_yellow_4radius"
+                    android:paddingLeft="@dimen/margin_size_12dp"
+                    android:paddingTop="@dimen/margin_size_6dp"
+                    android:paddingRight="@dimen/margin_size_12dp"
+                    android:paddingBottom="@dimen/margin_size_6dp"
+                    android:text="@string/friend_apply"
+                    android:textColor="@color/font_666" />
+
+                <TextView
+                    android:id="@+id/tv_apply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/boder_yellow_4radius"
+                    android:paddingLeft="@dimen/margin_size_12dp"
+                    android:paddingTop="@dimen/margin_size_6dp"
+                    android:paddingRight="@dimen/margin_size_12dp"
+                    android:paddingBottom="@dimen/margin_size_6dp"
+                    android:text="@string/friend_apply2"
+                    android:textColor="@color/font_666" />
+            </LinearLayout>
+
+
         </RelativeLayout>
         <!--<android.support.v7.widget.RecyclerView-->
         <!--android:id="@+id/rv_my_radii_friend"-->

@@ -8,10 +8,12 @@
     <string name="rationale_location">Allow the application to access location?</string>
 
     <string name="login">Login</string>
+    <string name="sign">SignIn</string>
     <string name="tv_login_first">Registration？</string>
     <string name="tv_login_forget">Forget Password？</string>
     <string name="tv_login_username">Your EY E-mail Account</string>
     <string name="tv_login_pass">Please enter your password</string>
+    <string name="tv_login_invite">Invitation code (other party number)</string>
     <string name="thanku">ThankU</string>
     <string name="tv_thank_send">I want to send it too</string>
     <string name="back">Back</string>
@@ -85,7 +87,7 @@
     <string name="search_list">Searching List</string>
     <string name="cancel">Cancel</string>
     <string name="save_pic">Save Picture</string>
-    <string name="turn_on_flash">Light on</string>
+    <string name="turn_on_flash">Light On</string>
     <string name="at">Each</string>
     <string name="family"> </string>
     <string name="confirm_step1_title">have our own GPN and Full Name</string>
@@ -93,7 +95,7 @@
     <string name="english_name">English Full Name</string>
     <string name="hello">Hi</string>
     <string name="confirm_step_2_1">Please enter your phone number and verification code</string>
-    <string name="confirm_step_2_2">to bind your account</string>
+    <string name="confirm_step_2_2">Please enter your verification code</string>
     <string name="mobile">Mobile phone number</string>
     <string name="yanzhengma">Verification Code</string>
     <string name="yanzhengma_get">Get the verification code</string>
@@ -111,13 +113,15 @@
     <string name="good">Very Good</string>
     <string name="confirm_step_3_1">Now set a password for your account</string>
     <string name="confirm_step_3_2">After that, you can log in to the APP using the email + password.</string>
+    <string name="confirm_step_email">Please input the email address</string>
     <string name="confirm_pass">Enter password</string>
     <string name="comfirm_pass2">Please enter your password again</string>
     <string name="confirm_step_4_1">Is there an enthusiastic colleague who recommends you to use EY Footprint?</string>
     <string name="confirm_step_4_2">Enter his or her recommendation code</string>
     <string name="invite_code">Invitation code(Optional)</string>
     <string name="step1_error">Please complete the information！</string>
-
+    <string name="step1_pass">Inconsistent password！</string>
+    <string name="step1_gpn">GPN does not exist！</string>
 
     <string name="new_friend_info_title">New friend information</string>
     <string name="friend_info_title">Friend information</string>
@@ -180,4 +184,10 @@
     <string name="confirm_remark"><![CDATA[Tips：\nYour GPN:e.gCN010******. You can check your GPN at User Profile of gT&E Tools .\nYou don’t need to enter any symbols (  ·   _  ­-  ).
 ]]></string>
     <string name="no_location">No Location Found!</string>
+    <string name="thank_you_letter">Thank You Letter</string>
+    <string name="inbox">My Ibox</string>
+    <string name="outbox">My Outbox</string>
+    <string name="my_point">My Scores：%1$s</string>
+    <string name="my_rank">My Rank：%1$s</string>
+    <string name="delete">delete</string>
 </resources>

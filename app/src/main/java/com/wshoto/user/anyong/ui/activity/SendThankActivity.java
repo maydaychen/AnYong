@@ -58,6 +58,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,9 +99,11 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
     private Bitmap bmp;
     private File picFile;
     private String userid = "";
+    private String username = "";
     private String themeid = "0";
     private String url = "";
     private String path = "";
+    private ArrayList<ThankUserBean.DataBean> addressBean = new ArrayList<>();
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -209,9 +212,8 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
         };
         sendOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-                Intent intent = new Intent(SendThankActivity.this, ThankPreviewActivity.class);
-                intent.putExtra("id", jsonObject.getInt("data"));
-                startActivity(intent);
+                Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
+                finish();
             } else {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
@@ -240,7 +242,9 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                 showType();
                 break;
             case R.id.tv_thank_select:
-                startActivityForResult(new Intent(SendThankActivity.this, ThankSelectActivity.class), 99);
+                Intent intent = new Intent(SendThankActivity.this, ThankSelectActivity.class);
+                intent.putExtra("user", addressBean);
+                startActivityForResult(intent, 99);
                 break;
             default:
                 break;
@@ -382,9 +386,18 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                     }
                     break;
                 case 99:
-                    ThankUserBean.DataBean addressBean = (ThankUserBean.DataBean) data.getSerializableExtra("user");
-                    mTvThankSelect.setText(addressBean.getEnglish_name());
-                    userid = addressBean.getId();
+                    userid = "";
+                    username = "";
+                    addressBean = (ArrayList<ThankUserBean.DataBean>) data.getSerializableExtra("user");
+                    for (int i = 0; i < addressBean.size() - 1; i++) {
+                        userid += addressBean.get(i).getId() + ",";
+                        username += addressBean.get(i).getEnglish_name() + ",";
+                    }
+                    userid += addressBean.get(addressBean.size() - 1).getId();
+                    username += addressBean.get(addressBean.size() - 1).getEnglish_name();
+                    Log.i("chenyi", "onActivityResult: " + userid);
+                    mTvThankSelect.setText(username);
+//                    userid = Utils.listToString(addressBean, ',');
                 default:
                     break;
             }

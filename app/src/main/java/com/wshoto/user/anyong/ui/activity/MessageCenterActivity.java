@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -16,14 +15,16 @@ import com.google.gson.Gson;
 import com.wshoto.user.anyong.Bean.MessageCenterBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
-import com.wshoto.user.anyong.adapter.MessageCenterAdapter;
+import com.wshoto.user.anyong.adapter.InventoryAdapter;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
 import com.wshoto.user.anyong.ui.widget.InitActivity;
+import com.wshoto.user.anyong.ui.widget.SlideRecyclerView;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,16 +40,18 @@ import static android.Manifest.permission.CAMERA;
 public class MessageCenterActivity extends InitActivity implements EasyPermissions.PermissionCallbacks {
 
     @BindView(R.id.rv_points)
-    RecyclerView rvPoints;
+    SlideRecyclerView rvPoints;
     @BindView(R.id.tv_hint)
     TextView hint;
 
     private SubscriberOnNextListener<JSONObject> messageOnNext;
     private SubscriberOnNextListener<JSONObject> readOnNext;
+    private SubscriberOnNextListener<JSONObject> deleteOnNext;
     private MessageCenterBean mMessageBean;
+    private List<MessageCenterBean.DataBean> list = new ArrayList<>();
     private Gson mGson = new Gson();
     private String ID = "";
-    private int position = 0;
+    private int mPosition = 0;
     private static final int RC_BBS = 126;//跳转不定期更新页面申请摄像头权限
 
     @Override
@@ -61,19 +64,27 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
     @Override
     public void initData() {
         messageOnNext = jsonObject -> {
-            Log.i("chenyi", "message: " + jsonObject.toString());
             if (jsonObject.getInt("code") == 1) {
                 mMessageBean = mGson.fromJson(jsonObject.toString(), MessageCenterBean.class);
-                rvPoints.setLayoutManager(new LinearLayoutManager(this));
-                MessageCenterAdapter messageCenterAdapter = new MessageCenterAdapter(getApplicationContext(), mMessageBean.getData());
+                list = mMessageBean.getData();
+                rvPoints.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                InventoryAdapter messageCenterAdapter = new InventoryAdapter(getApplicationContext(), list);
                 rvPoints.setAdapter(messageCenterAdapter);
-                messageCenterAdapter.setOnItemClickListener((view, data) -> {
-                    ID = mMessageBean.getData().get(data).getType();
-                    position = data;
+                messageCenterAdapter.setOnItemClickListener((adapter, v, position) -> {
+                    ID = list.get(position).getType();
+                    mPosition = position;
                     HttpJsonMethod.getInstance().mesageRead(
                             new ProgressSubscriber(readOnNext, MessageCenterActivity.this),
                             (String) SharedPreferencesUtils.getParam(MessageCenterActivity.this, "session", ""),
-                            mMessageBean.getData().get(data).getId());
+                            list.get(position).getId());
+                });
+                messageCenterAdapter.setOnDeleteClickListener((view, position) -> {
+                    list.remove(position);
+                    messageCenterAdapter.notifyDataSetChanged();
+                    rvPoints.closeMenu();
+                    HttpJsonMethod.getInstance().mesageDel(
+                            new ProgressSubscriber(readOnNext, MessageCenterActivity.this),
+                            list.get(position).getId());
                 });
             } else {
                 rvPoints.setVisibility(View.GONE);
@@ -85,7 +96,7 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
                 case "1":
                     Intent intent = new Intent(MessageCenterActivity.this, MessageDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("info", mMessageBean.getData().get(position));
+                    bundle.putSerializable("info", list.get(mPosition));
                     intent.putExtras(bundle);
                     startActivity(intent);
                     break;
@@ -114,7 +125,8 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
                     break;
             }
         };
-
+        deleteOnNext = jsonObject -> {
+        };
 
     }
 
@@ -155,17 +167,6 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         Log.d("chenyi", "onPermissionsGranted:" + requestCode + ":" + perms.size());
-//        if (requestCode == RC_CAMERA_PERM) {
-//            Intent intent = new Intent(this, CaptureActivity.class);
-//            startActivityForResult(intent, SHOW_SUBACTIVITY);
-//        }
-//        if (requestCode == RC_MAP_CONTACTS_PERM) {
-//            Intent intent = new Intent(this, MapTestActivity.class);
-//            startActivity(intent);
-//        }
-//        if (requestCode == RC_STORAGE_CONTACTS_PERM) {
-//            saveImg();
-//        }
     }
 
     @Override

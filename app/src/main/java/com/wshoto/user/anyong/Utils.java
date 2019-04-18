@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -135,5 +136,13 @@ public class Utils {
             px.printStackTrace();
         }
         return "";
+    }
+
+    public static String listToString(List list, char separator) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i)).append(separator);
+        }
+        return list.isEmpty() ? "" : sb.toString().substring(0, sb.toString().length() - 1);
     }
 }

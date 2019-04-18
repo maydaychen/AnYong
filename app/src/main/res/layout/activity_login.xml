@@ -29,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="70dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="90dp"
         android:gravity="center_vertical">
 
         <EditText
@@ -72,6 +72,36 @@
             android:drawablePadding="@dimen/margin_size_8dp"
             android:hint="@string/tv_login_pass"
             android:inputType="textPassword"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_invite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_invite"
+            android:drawablePadding="@dimen/margin_size_8dp"
+            android:hint="@string/tv_login_invite"
+            android:inputType="text"
             android:padding="8dp"
             android:singleLine="true"
             android:textColor="@color/white"

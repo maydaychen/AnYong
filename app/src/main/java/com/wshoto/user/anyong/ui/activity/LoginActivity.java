@@ -28,6 +28,8 @@ public class LoginActivity extends InitActivity {
     EditText mEtLoginMail;
     @BindView(R.id.et_login_pass)
     EditText mEtLoginPass;
+    @BindView(R.id.et_invite)
+    EditText etInvite;
     private SubscriberOnNextListener<JSONObject> LoginOnNext;
 
 
@@ -62,18 +64,12 @@ public class LoginActivity extends InitActivity {
         pushAgent.onAppStart();
         LoginOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
-//                if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
-//                    SharedPreferencesUtils.setParam(getApplicationContext(), "first",false);
-//                    Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
-//                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-//                }else {
                 SharedPreferencesUtils.setParam(getApplicationContext(), "session", jsonObject.getJSONObject("data").getString("session"));
                 SharedPreferencesUtils.setParam(getApplicationContext(), "username", mEtLoginMail.getText().toString());
                 SharedPreferencesUtils.setParam(getApplicationContext(), "pass", mEtLoginPass.getText().toString());
                 SharedPreferencesUtils.setParam(getApplicationContext(), "autolog", true);
                 Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-//                }
             } else {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
@@ -97,10 +93,14 @@ public class LoginActivity extends InitActivity {
                     Toast.makeText(this, getText(R.string.step1_error), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (!etInvite.getText().toString().equals("") && etInvite.getText().toString().length() != 11) {
+                    Toast.makeText(LoginActivity.this, getText(R.string.step1_gpn), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 HttpJsonMethod.getInstance().login(
                         new ProgressSubscriber(LoginOnNext, LoginActivity.this), name, passs,
                         (String) SharedPreferencesUtils.getParam(this, "language", "zh"),
-                        (String) SharedPreferencesUtils.getParam(this, "device_token", ""));
+                        (String) SharedPreferencesUtils.getParam(this, "device_token", ""), etInvite.getText().toString());
 
                 break;
             default:

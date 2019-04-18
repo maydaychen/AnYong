@@ -1,25 +1,20 @@
 package com.wshoto.user.anyong.ui.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.wshoto.user.anyong.Bean.ThankBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
-import com.wshoto.user.anyong.adapter.ThankUListAdapter;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
 import com.wshoto.user.anyong.http.ProgressSubscriber;
 import com.wshoto.user.anyong.http.SubscriberOnNextListener;
-import com.wshoto.user.anyong.ui.activity.ThankViewActivity;
 
 import org.json.JSONObject;
 
@@ -56,19 +51,19 @@ public class ThankListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         thankOnNext = jsonObject -> {
-            if (jsonObject.getInt("code") == 1) {
-                mThankBean = mGson.fromJson(jsonObject.toString(), ThankBean.class);
-                mRvThankyou.setLayoutManager(new LinearLayoutManager(getActivity()));
-                ThankUListAdapter messageCenterAdapter = new ThankUListAdapter(getActivity(), mThankBean.getData());
-                mRvThankyou.setAdapter(messageCenterAdapter);
-                messageCenterAdapter.setOnItemClickListener((view, data) -> {
-                    Intent intent = new Intent(getActivity(), ThankViewActivity.class);
-                    intent.putExtra("id", mThankBean.getData().get(data).getId());
-                    startActivity(intent);
-                });
-            } else {
-                Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-            }
+//            if (jsonObject.getInt("code") == 1) {
+//                mThankBean = mGson.fromJson(jsonObject.toString(), ThankBean.class);
+//                mRvThankyou.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                ThankUListAdapter messageCenterAdapter = new ThankUListAdapter(getActivity(), mThankBean.getData());
+//                mRvThankyou.setAdapter(messageCenterAdapter);
+//                messageCenterAdapter.setOnItemClickListener((view, data) -> {
+//                    Intent intent = new Intent(getActivity(), ThankViewActivity.class);
+//                    intent.putExtra("id", mThankBean.getData().get(data).getId());
+//                    startActivity(intent);
+//                });
+//            } else {
+//                Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+//            }
         };
         HttpJsonMethod.getInstance().thankList(
                 new ProgressSubscriber(thankOnNext, getActivity()), (String) SharedPreferencesUtils.getParam(getActivity(), "session", ""),

@@ -1,14 +1,15 @@
 package com.wshoto.user.anyong.adapter;
 
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.loopj.android.image.SmartImageView;
-import com.wshoto.user.anyong.Bean.ThankBean;
+import com.wshoto.user.anyong.Bean.ThankUserBean;
 import com.wshoto.user.anyong.R;
 
 import java.util.List;
@@ -16,25 +17,26 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ThankUListAdapter extends RecyclerView.Adapter<ThankUListAdapter.ViewHolder> implements View.OnClickListener {
+public class PeopleSelectAdapter extends RecyclerView.Adapter<PeopleSelectAdapter.ViewHolder> implements View.OnClickListener {
 
 
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
-    private List<ThankBean.DataBean> mData;
+    private List<ThankUserBean.DataBean> mData;
 
     //define interface
     public interface OnRecyclerViewItemClickListener {
         void onItemClick(View view, int data);
     }
 
-    public ThankUListAdapter(Context context, List<ThankBean.DataBean> mData) {
+    public PeopleSelectAdapter(Context context, List<ThankUserBean.DataBean> mData) {
         this.mData = mData;
+        Context context1 = context;
     }
 
     //创建新View，被LayoutManager所调用
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_thankyou, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_person_select, viewGroup, false);
         ViewHolder vh = new ViewHolder(view);
         view.setOnClickListener(this);
         return vh;
@@ -44,10 +46,8 @@ public class ThankUListAdapter extends RecyclerView.Adapter<ThankUListAdapter.Vi
     //将数据与界面进行绑定的操作
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        viewHolder.ivThankLogo.setImageUrl(mData.get(position).getAvatar());
-        viewHolder.tvItemTitle.setText(mData.get(position).getTitle());
-        viewHolder.tvItemTime.setText(mData.get(position).getCreated());
-        viewHolder.tvItemContent.setText(mData.get(position).getContent());
+//        viewHolder.ivMessageLogo.setImageUrl( mData.get(position).get);
+        viewHolder.tvName.setText(mData.get(position).getUsername());
         viewHolder.itemView.setTag(position);
     }
 
@@ -71,14 +71,10 @@ public class ThankUListAdapter extends RecyclerView.Adapter<ThankUListAdapter.Vi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_thank_logo)
-        SmartImageView ivThankLogo;
-        @BindView(R.id.tv_item_title)
-        TextView tvItemTitle;
-        @BindView(R.id.tv_item_time)
-        TextView tvItemTime;
-        @BindView(R.id.tv_item_content)
-        TextView tvItemContent;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.iv_cancel)
+        ImageView ivCancel;
 
         ViewHolder(View view) {
             super(view);

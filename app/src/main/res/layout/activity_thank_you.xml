@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="#f6f6f6"
     android:orientation="vertical"
     tools:context="com.wshoto.user.anyong.ui.activity.ConfirmActivity">
 
@@ -50,12 +50,35 @@
         android:layout_below="@id/rl_confirm_title"
         android:src="@drawable/thankyou" />
 
-    <FrameLayout
-        android:id="@+id/id_thank_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/tv_thanku_send"
-        android:layout_below="@id/iv_thank" />
+    <!--<FrameLayout-->
+    <!--android:id="@+id/id_thank_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_above="@id/tv_thanku_send"-->
+    <!--android:layout_below="@id/iv_thank" />-->
 
+    <Button
+        android:id="@+id/bt_mailbox"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/iv_thank"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/boder_yellow_4radius"
+        android:text="@string/inbox"
+        android:textSize="@dimen/font_size_18sp" />
+
+    <Button
+        android:id="@+id/bt_sendbox"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/bt_mailbox"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/boder_yellow_4radius"
+        android:text="@string/outbox"
+        android:textSize="@dimen/font_size_18sp" />
 
 </RelativeLayout>

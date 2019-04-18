@@ -1,5 +1,6 @@
 package com.wshoto.user.anyong.ui.widget;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -40,7 +41,7 @@ public abstract class InitActivity extends AppCompatActivity {
             } else {
                 selectLanguage("en");
             }
-        }else {
+        } else {
             selectLanguage((String) SharedPreferencesUtils.getParam(this, "language", "zh"));
         }
         PushAgent pushAgent = PushAgent.getInstance(this);
@@ -71,4 +72,7 @@ public abstract class InitActivity extends AppCompatActivity {
         SharedPreferencesUtils.setParam(getApplicationContext(), "language", language);
     }
 
+    public void goActivity(Class c) {
+        startActivity(new Intent(this, c));
+    }
 }

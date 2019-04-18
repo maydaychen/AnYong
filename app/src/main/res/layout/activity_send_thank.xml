@@ -40,7 +40,7 @@
         android:background="@color/yellow"
         android:gravity="center"
         android:padding="@dimen/margin_size_8dp"
-        android:text="@string/preview"
+        android:text="@string/send"
         android:textColor="#010101" />
 
 
@@ -74,6 +74,11 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:maxEms="30"
+                    android:ellipsize="end"
                     android:drawableRight="@drawable/jia"
                     android:drawablePadding="@dimen/margin_size_8dp"
                     android:padding="@dimen/margin_size_8dp"

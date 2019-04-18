@@ -89,7 +89,7 @@ public class SettingActivity extends InitActivity {
         };
     }
 
-    @OnClick({R.id.iv_comfirm_back, R.id.tv_logout, R.id.tv_language_setting, R.id.tv_background_setting})
+    @OnClick({R.id.iv_comfirm_back, R.id.tv_logout, R.id.tv_language_setting, R.id.tv_background_setting, R.id.tv_background_change_pass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_comfirm_back:
@@ -102,6 +102,9 @@ public class SettingActivity extends InitActivity {
                 startActivity(new Intent(SettingActivity.this, LanguageActivity.class));
                 break;
             case R.id.tv_background_setting:
+                showType();
+                break;
+            case R.id.tv_background_change_pass:
                 showType();
                 break;
 

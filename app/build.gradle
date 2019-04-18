@@ -44,7 +44,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
     //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    compile 'com.jakewharton:butterknife:8.4.0'
+    implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     //网络请求相关
     implementation 'com.squareup.okio:okio:1.14.0'
@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'cz.msebera.android:httpclient:4.3.6'
     implementation 'com.jakewharton.rxbinding:rxbinding:0.2.0'
-    compile 'com.github.lzyzsd:jsbridge:1.0.4'
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     //Rx系列
     implementation 'io.reactivex:rxandroid:1.2.1'
     // Because RxAndroid releases are few and far between, it is recommended you also

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/bg"
     android:orientation="vertical"
     tools:context=".ui.activity.SettingActivity">
 
@@ -43,7 +43,7 @@
         android:layout_marginLeft="@dimen/margin_size_20dp"
         android:layout_marginTop="@dimen/margin_size_20dp"
         android:layout_marginRight="@dimen/margin_size_20dp"
-        android:background="@color/yellow"
+        android:background="@drawable/boder_yellow_4radius"
         android:gravity="center"
         android:padding="@dimen/margin_size_16dp"
         android:text="@string/language_setting"
@@ -54,12 +54,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_size_20dp"
-        android:layout_marginTop="@dimen/margin_size_10dp"
+        android:layout_marginTop="@dimen/margin_size_20dp"
         android:layout_marginRight="@dimen/margin_size_20dp"
-        android:background="@color/yellow"
+        android:background="@drawable/boder_yellow_4radius"
         android:gravity="center"
         android:padding="@dimen/margin_size_16dp"
         android:text="@string/background_setting"
+        android:textColor="#2F2F2F" />
+
+    <TextView
+        android:id="@+id/tv_background_change_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_size_20dp"
+        android:layout_marginTop="@dimen/margin_size_20dp"
+        android:layout_marginRight="@dimen/margin_size_20dp"
+        android:background="@drawable/boder_yellow_4radius"
+        android:gravity="center"
+        android:padding="@dimen/margin_size_16dp"
+        android:text="@string/tv_change_pass"
         android:textColor="#2F2F2F" />
 
     <Button
@@ -69,10 +82,10 @@
         android:layout_marginLeft="@dimen/margin_size_20dp"
         android:layout_marginTop="40dp"
         android:layout_marginRight="@dimen/margin_size_20dp"
-        android:background="#EB5F45"
+        android:background="@drawable/login_yellow"
         android:gravity="center"
         android:padding="@dimen/margin_size_16dp"
         android:text="@string/logout"
-        android:textColor="@color/white" />
+        android:textColor="#2F2F2F" />
 
 </LinearLayout>

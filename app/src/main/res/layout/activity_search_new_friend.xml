@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,26 +8,19 @@
     android:orientation="vertical"
     tools:context="com.wshoto.user.anyong.ui.activity.ConfirmActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/title">
-
-        <TextView
-            android:id="@+id/tv_select_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/margin_size_8dp"
-            android:text="@string/cancel"
-            android:textColor="@color/yellow"/>
+        android:background="@color/title"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="8">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_size_8dp"
-            android:layout_toLeftOf="@id/tv_select_back"
+            android:layout_weight="6.5"
             android:background="@drawable/boder_select">
 
             <ImageView
@@ -37,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/margin_size_8dp"
-                android:src="@drawable/ss"/>
+                android:src="@drawable/ss" />
 
             <ImageView
                 android:id="@+id/iv_select_clear"
@@ -46,38 +38,71 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/margin_size_8dp"
-                android:src="@drawable/gb"/>
+                android:src="@drawable/gb" />
 
             <EditText
                 android:id="@+id/et_thank_select"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:singleLine="true"
                 android:layout_toLeftOf="@id/iv_select_clear"
                 android:layout_toRightOf="@id/iv_select_search"
                 android:background="@null"
-                android:textColor="@color/white"/>
+                android:singleLine="true"
+                android:textColor="@color/white" />
         </RelativeLayout>
-    </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_select_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:padding="@dimen/margin_size_8dp"
+            android:text="@string/cancel"
+            android:textColor="@color/yellow" />
+
+        <TextView
+            android:id="@+id/tv_select_send"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1.5"
+            android:background="@drawable/boder_healthy_yellow"
+            android:gravity="center"
+            android:padding="@dimen/margin_size_8dp"
+            android:text="@string/send"
+            android:textColor="@color/font_666"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_person"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_size_8dp"
         android:text="@string/search_list"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="@dimen/margin_size_8dp"
         android:layout_marginRight="@dimen/margin_size_8dp"
-        android:background="@color/line_44"/>
+        android:background="@color/line_44" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_thank_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_size_8dp"/>
+        android:padding="@dimen/margin_size_8dp" />
 </LinearLayout>

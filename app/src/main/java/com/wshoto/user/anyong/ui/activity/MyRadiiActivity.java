@@ -40,6 +40,10 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
     TextView tvMoreFriend;
     @BindView(R.id.tv_apply)
     TextView tvApply;
+    @BindView(R.id.tv_my_point)
+    TextView tvMyPoint;
+    @BindView(R.id.tv_my_rank)
+    TextView tvMyRank;
 
     private SubscriberOnNextListener<JSONObject> listOnNext;
     private SubscriberOnNextListener<JSONObject> messageOnNext;
@@ -70,6 +74,10 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
         listOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 myRadiuBean = mGson.fromJson(jsonObject.toString(), MyRadiuBean.class);
+
+                tvMyPoint.setText(String.format(getResources().getString(R.string.my_point), myRadiuBean.getMy().getIntegral()));
+                tvMyRank.setText(String.format(getResources().getString(R.string.my_rank), myRadiuBean.getMy().getFriendlevel() + ""));
+
                 rvMyRadii.setLayoutManager(new LinearLayoutManager(this));
 //                rvMyRadii.setPullRefreshEnable(true);
 //                rvMyRadii.setPushRefreshEnable(true);
@@ -141,5 +149,4 @@ public class MyRadiiActivity extends InitActivity implements MyRadiiAdapter.Modi
         popupWindow.showAtLocation(MyRadiiActivity.this.findViewById(R.id.rv_my_radii),
                 Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
-
 }

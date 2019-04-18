@@ -11,11 +11,13 @@ public class MyRadiuBean {
     /**
      * code : 1
      * message : {"status":"success"}
-     * data : [{"id":"2","username":"","avatar":"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2194440970,3478897226&fm=179&app=42&f=JPEG?w=121&h=140","english_name":"bob","integral":21,"level":21,"friendlevel":21}]
+     * data : [{"id":"206","english_name":"陈译","mobile":"13665137658","integral":"230","avatar":"https://anyong.wshoto.com/uploads/20180625164129.png","level":92,"friendlevel":1}]
+     * my : {"id":"206","english_name":"陈译","mobile":"13665137658","integral":"230","avatar":"https://anyong.wshoto.com/uploads/20180625164129.png","level":92,"friendlevel":1}
      */
 
     private int code;
     private MessageBean message;
+    private MyBean my;
     private List<DataBean> data;
 
     public int getCode() {
@@ -32,6 +34,14 @@ public class MyRadiuBean {
 
     public void setMessage(MessageBean message) {
         this.message = message;
+    }
+
+    public MyBean getMy() {
+        return my;
+    }
+
+    public void setMy(MyBean my) {
+        this.my = my;
     }
 
     public List<DataBean> getData() {
@@ -58,22 +68,22 @@ public class MyRadiuBean {
         }
     }
 
-    public static class DataBean {
+    public static class MyBean {
         /**
-         * id : 2
-         * username :
-         * avatar : https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2194440970,3478897226&fm=179&app=42&f=JPEG?w=121&h=140
-         * english_name : bob
-         * integral : 21
-         * level : 21
-         * friendlevel : 21
+         * id : 206
+         * english_name : 陈译
+         * mobile : 13665137658
+         * integral : 230
+         * avatar : https://anyong.wshoto.com/uploads/20180625164129.png
+         * level : 92
+         * friendlevel : 1
          */
 
         private String id;
-        private String username;
-        private String avatar;
         private String english_name;
-        private int integral;
+        private String mobile;
+        private String integral;
+        private String avatar;
         private int level;
         private int friendlevel;
 
@@ -85,12 +95,28 @@ public class MyRadiuBean {
             this.id = id;
         }
 
-        public String getUsername() {
-            return username;
+        public String getEnglish_name() {
+            return english_name;
         }
 
-        public void setUsername(String username) {
-            this.username = username;
+        public void setEnglish_name(String english_name) {
+            this.english_name = english_name;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public String getIntegral() {
+            return integral;
+        }
+
+        public void setIntegral(String integral) {
+            this.integral = integral;
         }
 
         public String getAvatar() {
@@ -101,6 +127,50 @@ public class MyRadiuBean {
             this.avatar = avatar;
         }
 
+        public int getLevel() {
+            return level;
+        }
+
+        public void setLevel(int level) {
+            this.level = level;
+        }
+
+        public int getFriendlevel() {
+            return friendlevel;
+        }
+
+        public void setFriendlevel(int friendlevel) {
+            this.friendlevel = friendlevel;
+        }
+    }
+
+    public static class DataBean {
+        /**
+         * id : 206
+         * english_name : 陈译
+         * mobile : 13665137658
+         * integral : 230
+         * avatar : https://anyong.wshoto.com/uploads/20180625164129.png
+         * level : 92
+         * friendlevel : 1
+         */
+
+        private String id;
+        private String english_name;
+        private String mobile;
+        private String integral;
+        private String avatar;
+        private int level;
+        private int friendlevel;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
         public String getEnglish_name() {
             return english_name;
         }
@@ -109,12 +179,28 @@ public class MyRadiuBean {
             this.english_name = english_name;
         }
 
-        public int getIntegral() {
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public String getIntegral() {
             return integral;
         }
 
-        public void setIntegral(int integral) {
+        public void setIntegral(String integral) {
             this.integral = integral;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
         }
 
         public int getLevel() {

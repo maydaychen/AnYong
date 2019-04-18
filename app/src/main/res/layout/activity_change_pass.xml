@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/bg"
     android:orientation="vertical"
-    tools:context="com.wshoto.user.anyong.ui.activity.ChangePassActivity">
+    tools:context=".ui.activity.LoginActivity">
 
     <RelativeLayout
         android:id="@+id/rl_confirm_title"
@@ -29,128 +30,319 @@
             android:layout_height="wrap_content"
             android:text="@string/tv_change_pass" />
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical">
-
-        <ImageView
-            style="@style/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/sj" />
-
-        <EditText
-            android:id="@+id/et_login_mail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/tv_change_pass_mobile"
-            android:inputType="phone"
-            android:maxLength="11"
-            android:padding="@dimen/margin_size_8dp"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:textColorHint="@color/font_hint" />
-    </LinearLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/logo" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="30dp"
         android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/iv_ems"
-            style="@style/iv_back"
+        <Spinner
+            android:id="@+id/sp_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/nm" />
+            android:layout_centerVertical="true"
+            android:colorControlNormal="@color/white" />
 
         <TextView
-            android:id="@+id/tv_get_ems"
+            android:id="@+id/tv_get_sms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_size_12dp"
-            android:background="@drawable/boder_yellow"
-            android:keepScreenOn="true"
-            android:padding="8dp"
-            android:text="@string/tv_change_pass_sms_send"
-            android:textColor="@color/yellow" />
+            android:padding="@dimen/margin_size_8dp"
+            android:text="@string/yanzhengma_get"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/font_size_16sp" />
 
         <EditText
-            android:id="@+id/et_login_yanzheng"
+            android:id="@+id/et_login_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/tv_get_ems"
-            android:layout_toRightOf="@id/iv_ems"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_get_sms"
+            android:layout_toRightOf="@id/sp_location"
             android:background="@null"
-            android:hint="@string/tv_change_pass_sms"
+            android:drawablePadding="@dimen/margin_size_8dp"
+            android:hint="@string/mobile_hint"
             android:inputType="number"
-            android:maxLength="6"
+            android:maxLength="18"
             android:padding="@dimen/margin_size_8dp"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textColorHint="@color/font_hint" />
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/font_size_14sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/white" />
 
-        <ImageView
-            style="@style/iv_back"
-            android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_login_code"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/nm" />
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:drawablePadding="@dimen/margin_size_8dp"
+            android:hint="@string/confirm_step_2_2"
+            android:inputType="number"
+            android:maxLength="6"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/font_size_14sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/et_login_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:background="@null"
+            android:drawablePadding="@dimen/margin_size_8dp"
             android:hint="@string/tv_change_pass1"
             android:inputType="textPassword"
-            android:padding="@dimen/margin_size_8dp"
+            android:padding="8dp"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textColorHint="@color/font_hint" />
-    </LinearLayout>
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/font_size_14sp" />
+    </RelativeLayout>
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/white" />
 
-        <ImageView
-            style="@style/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/nm" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/et_login_pass2"
+            android:id="@+id/et_login_pass_again"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:background="@null"
+            android:drawablePadding="@dimen/margin_size_8dp"
             android:hint="@string/tv_change_pass2"
             android:inputType="textPassword"
-            android:padding="@dimen/margin_size_8dp"
+            android:padding="8dp"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textColorHint="@color/font_hint" />
-    </LinearLayout>
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/font_size_14sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/white" />
+
 
     <Button
-        android:id="@+id/tv_login"
+        android:id="@+id/tv_step1_next"
         style="@style/button_login"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:text="@string/confirm" />
+
+
 </LinearLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/background"-->
+    <!--android:orientation="vertical"-->
+    <!--tools:context="com.wshoto.user.anyong.ui.activity.ChangePassActivity">-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_confirm_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/title">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/iv_comfirm_back"-->
+            <!--style="@style/iv_back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawableLeft="@drawable/back"-->
+            <!--android:drawablePadding="@dimen/margin_size_8dp"-->
+            <!--android:text="@string/back"-->
+            <!--android:textColor="@color/white" />-->
+
+        <!--<TextView-->
+            <!--style="@style/tv_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/tv_change_pass" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center_vertical">-->
+
+        <!--<ImageView-->
+            <!--style="@style/iv_back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/sj" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/et_login_mail"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@null"-->
+            <!--android:hint="@string/tv_change_pass_mobile"-->
+            <!--android:inputType="phone"-->
+            <!--android:maxLength="11"-->
+            <!--android:padding="@dimen/margin_size_8dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textColorHint="@color/font_hint" />-->
+    <!--</LinearLayout>-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_vertical">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_ems"-->
+            <!--style="@style/iv_back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/nm" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_get_ems"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="@dimen/margin_size_12dp"-->
+            <!--android:background="@drawable/boder_yellow"-->
+            <!--android:keepScreenOn="true"-->
+            <!--android:padding="8dp"-->
+            <!--android:text="@string/tv_change_pass_sms_send"-->
+            <!--android:textColor="@color/yellow" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/et_login_yanzheng"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_toLeftOf="@id/tv_get_ems"-->
+            <!--android:layout_toRightOf="@id/iv_ems"-->
+            <!--android:background="@null"-->
+            <!--android:hint="@string/tv_change_pass_sms"-->
+            <!--android:inputType="number"-->
+            <!--android:maxLength="6"-->
+            <!--android:padding="@dimen/margin_size_8dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textColorHint="@color/font_hint" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_vertical">-->
+
+        <!--<ImageView-->
+            <!--style="@style/iv_back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/nm" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/et_login_pass"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@null"-->
+            <!--android:hint="@string/tv_change_pass1"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:padding="@dimen/margin_size_8dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textColorHint="@color/font_hint" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_vertical">-->
+
+        <!--<ImageView-->
+            <!--style="@style/iv_back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/nm" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/et_login_pass2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@null"-->
+            <!--android:hint="@string/tv_change_pass2"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:padding="@dimen/margin_size_8dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textColorHint="@color/font_hint" />-->
+    <!--</LinearLayout>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/tv_login"-->
+        <!--style="@style/button_login"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:text="@string/confirm" />-->
+<!--</LinearLayout>-->
