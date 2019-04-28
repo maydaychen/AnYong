@@ -87,7 +87,7 @@ public interface BlueService {
     @FormUrlEncoded
     rx.Observable<JSONObject> thankReceiveList(@Field("session") String session);
 
-    @POST("/index.php?r=api/thank/send-thank")
+    @POST("/index.php?r=api/thank/send-thanks")
     @FormUrlEncoded
     rx.Observable<JSONObject> previewThank(@Field("receivers") String receive, @Field("template_id") String themeid,
                                            @Field("thumb") String picture, @Field("session") String session,

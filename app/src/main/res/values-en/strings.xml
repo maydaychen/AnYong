@@ -13,7 +13,7 @@
     <string name="tv_login_forget">Forget Password？</string>
     <string name="tv_login_username">Your EY E-mail Account</string>
     <string name="tv_login_pass">Please enter your password</string>
-    <string name="tv_login_invite">Invitation code (other party number)</string>
+    <string name="tv_login_invite">Invitation code (GPN)</string>
     <string name="thanku">ThankU</string>
     <string name="tv_thank_send">I want to send it too</string>
     <string name="back">Back</string>
@@ -95,10 +95,10 @@
     <string name="english_name">English Full Name</string>
     <string name="hello">Hi</string>
     <string name="confirm_step_2_1">Please enter your phone number and verification code</string>
-    <string name="confirm_step_2_2">Please enter your verification code</string>
+    <string name="confirm_step_2_2">Please enter verification code</string>
     <string name="mobile">Mobile phone number</string>
     <string name="yanzhengma">Verification Code</string>
-    <string name="yanzhengma_get">Get the verification code</string>
+    <string name="yanzhengma_get">Get code</string>
     <string name="sign_success">Sign in successfully</string>
     <string name="get_it">Confirmed</string>
     <string name="over">You are ahead of </string>
@@ -153,7 +153,7 @@
     <string name="point">point(s)</string>
     <string name="join_success">join successfully！</string>
     <string name="friend_apply">More Friends</string>
-    <string name="friend_apply2">Friends Applies</string>
+    <string name="friend_apply2">Accept Friends</string>
     <string name="logout_error">Your account has been logged elsewhere, please login again!</string>
     <string name="exit_hint">Are you sure you want to exit?</string>
     <string name="logout">log out</string>
@@ -185,9 +185,10 @@
 ]]></string>
     <string name="no_location">No Location Found!</string>
     <string name="thank_you_letter">Thank You Letter</string>
-    <string name="inbox">My Ibox</string>
+    <string name="inbox">My Inbox</string>
     <string name="outbox">My Outbox</string>
-    <string name="my_point">My Scores：%1$s</string>
+    <string name="my_point">My Points：%1$s</string>
     <string name="my_rank">My Rank：%1$s</string>
     <string name="delete">delete</string>
+    <string name="now_day">T</string>
 </resources>

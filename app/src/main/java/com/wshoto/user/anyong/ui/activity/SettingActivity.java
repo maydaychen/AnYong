@@ -105,7 +105,7 @@ public class SettingActivity extends InitActivity {
                 showType();
                 break;
             case R.id.tv_background_change_pass:
-                showType();
+                startActivity(new Intent(SettingActivity.this, ChangePassActivity.class));
                 break;
 
         }

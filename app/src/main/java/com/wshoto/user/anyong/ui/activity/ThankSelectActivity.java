@@ -57,12 +57,14 @@ public class ThankSelectActivity extends InitActivity implements ThankUserAdapte
         ButterKnife.bind(this);
 
 
-        tvSelectBack.setOnClickListener(view -> finish());
+        tvSelectBack.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            intent.putExtra("user", (Serializable) list);
+            setResult(RESULT_OK, intent);
+            finish();
+        });
         tvSelectSend.setOnClickListener(view -> {
             Intent intent = new Intent();
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("user", list.toArray());
-//            intent.putExtras(bundle);
             intent.putExtra("user", (Serializable) list);
             setResult(RESULT_OK, intent);
             finish();

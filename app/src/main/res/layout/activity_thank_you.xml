@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f6f6"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.wshoto.user.anyong.ui.activity.ConfirmActivity">
 
@@ -42,6 +42,12 @@
         android:text="@string/tv_thank_send"
         android:textColor="#010101" />
 
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_above="@id/tv_thanku_send"
+        android:src="@drawable/bg_bottom" />
 
     <ImageView
         android:id="@+id/iv_thank"
@@ -57,28 +63,66 @@
     <!--android:layout_above="@id/tv_thanku_send"-->
     <!--android:layout_below="@id/iv_thank" />-->
 
-    <Button
+    <RelativeLayout
         android:id="@+id/bt_mailbox"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/iv_thank"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/boder_yellow_4radius"
-        android:text="@string/inbox"
-        android:textSize="@dimen/font_size_18sp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp">
 
-    <Button
+        <ImageView
+            android:id="@+id/iv_inbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/my_inbox" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/iv_inbox"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:text="@string/inbox"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18sp" />
+    </RelativeLayout>
+
+    <!--<Button-->
+    <!--android:id="@+id/bt_mailbox"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/iv_thank"-->
+    <!--android:layout_marginLeft="40dp"-->
+    <!--android:layout_marginTop="40dp"-->
+    <!--android:background="@drawable/my_inbox"-->
+    <!--android:gravity="right||center"-->
+    <!--android:text="@string/inbox"-->
+    <!--android:textSize="@dimen/font_size_18sp" />-->
+
+
+    <RelativeLayout
         android:id="@+id/bt_sendbox"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
         android:layout_below="@id/bt_mailbox"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/boder_yellow_4radius"
-        android:text="@string/outbox"
-        android:textSize="@dimen/font_size_18sp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp">
 
+        <ImageView
+            android:id="@+id/iv_outbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/my_outbox" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/iv_outbox"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:text="@string/outbox"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18sp" />
+    </RelativeLayout>
 </RelativeLayout>

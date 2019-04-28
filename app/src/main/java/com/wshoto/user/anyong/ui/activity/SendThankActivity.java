@@ -389,14 +389,21 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                     userid = "";
                     username = "";
                     addressBean = (ArrayList<ThankUserBean.DataBean>) data.getSerializableExtra("user");
-                    for (int i = 0; i < addressBean.size() - 1; i++) {
-                        userid += addressBean.get(i).getId() + ",";
-                        username += addressBean.get(i).getEnglish_name() + ",";
+                    if (addressBean.size() > 0) {
+                        for (int i = 0; i < addressBean.size() - 1; i++) {
+                            userid += addressBean.get(i).getId() + ",";
+                            username += addressBean.get(i).getEnglish_name() + ",";
+                        }
+                        userid += addressBean.get(addressBean.size() - 1).getId();
+                        username += addressBean.get(addressBean.size() - 1).getEnglish_name();
+                        Log.i("chenyi", "onActivityResult: " + userid);
+                        mTvThankSelect.setText(username);
+                    } else {
+                        username = "";
+                        userid = "";
+                        mTvThankSelect.setText(getResources().getText(R.string.thank_send_hint));
                     }
-                    userid += addressBean.get(addressBean.size() - 1).getId();
-                    username += addressBean.get(addressBean.size() - 1).getEnglish_name();
-                    Log.i("chenyi", "onActivityResult: " + userid);
-                    mTvThankSelect.setText(username);
+
 //                    userid = Utils.listToString(addressBean, ',');
                 default:
                     break;

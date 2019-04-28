@@ -105,11 +105,11 @@ public class GuideActivity extends InitActivity {
 //            }
 
 //        // 滑动到最后pager时显示“立刻体验”按钮并监听
-            if (position == mList.size() - 1) {
-                btnImExp.setVisibility(View.VISIBLE);
-            } else {
-                btnImExp.setVisibility(View.INVISIBLE);
-            }
+//            if (position == mList.size() - 1) {
+//                btnImExp.setVisibility(View.VISIBLE);
+//            } else {
+//                btnImExp.setVisibility(View.INVISIBLE);
+//            }
         }
 
         @Override

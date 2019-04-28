@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="30dp"
         android:gravity="center_vertical">
 
@@ -30,23 +30,12 @@
             android:layout_centerVertical="true"
             android:colorControlNormal="@color/white" />
 
-        <TextView
-            android:id="@+id/tv_get_sms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/margin_size_8dp"
-            android:text="@string/yanzhengma_get"
-            android:textColor="@color/yellow"
-            android:textSize="@dimen/font_size_16sp" />
 
         <EditText
             android:id="@+id/et_login_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/tv_get_sms"
             android:layout_toRightOf="@id/sp_location"
             android:background="@null"
             android:drawablePadding="@dimen/margin_size_8dp"
@@ -74,7 +63,19 @@
         android:layout_marginRight="30dp"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/tv_get_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/margin_size_8dp"
+            android:text="@string/yanzhengma_get"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/font_size_16sp" />
+
         <EditText
+            android:layout_toLeftOf="@id/tv_get_sms"
             android:id="@+id/et_login_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

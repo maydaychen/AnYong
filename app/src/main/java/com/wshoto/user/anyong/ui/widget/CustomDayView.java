@@ -82,7 +82,7 @@ public class CustomDayView extends DayView {
     private void renderToday(CalendarDate date) {
         if (date != null) {
             if (date.equals(today)) {
-                dateTv.setText("今");
+                dateTv.setText(getResources().getText(R.string.now_day));
                 todayBackground.setVisibility(VISIBLE);
             } else {
                 dateTv.setText(date.day + "");

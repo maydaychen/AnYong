@@ -41,8 +41,7 @@
                 android:layout_marginBottom="@dimen/margin_size_20dp"
                 android:text="@string/back"
                 android:textColor="@color/yellow"
-                android:textSize="@dimen/font_size_20sp"
-                android:visibility="gone" />
+                android:textSize="@dimen/font_size_20sp" />
         </RelativeLayout>
     </FrameLayout>
 
