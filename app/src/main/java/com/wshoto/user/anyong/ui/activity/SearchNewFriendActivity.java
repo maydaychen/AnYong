@@ -69,10 +69,15 @@ public class SearchNewFriendActivity extends InitActivity implements ThankUserAd
 
         tvSelectBack.setOnClickListener(view -> finish());
         tvSelectSend.setOnClickListener(view -> {
+            String id = "";
+            for (int i = 0; i < list.size() - 1; i++) {
+                id += list.get(i).getId() + ",";
+            }
+            id += list.get(list.size() - 1).getId();
             HttpJsonMethod.getInstance().addFriend(
                     new ProgressSubscriber(addFriendOnNext, SearchNewFriendActivity.this),
                     (String) SharedPreferencesUtils.getParam(this, "session", ""),
-                    getIntent().getStringExtra("friend_id"), (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+                    id, (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
         });
     }
 

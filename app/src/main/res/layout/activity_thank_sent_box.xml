@@ -54,7 +54,7 @@
             android:layout_alignBottom="@id/tv_mail_num"
             android:layout_marginBottom="8dp"
             android:layout_toRightOf="@id/tv_mail_num"
-            android:text="封 我发出的邮件"
+            android:text="@string/email_num"
             android:textColor="@color/yellow" />
     </RelativeLayout>
 

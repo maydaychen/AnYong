@@ -8,7 +8,8 @@
         android:id="@+id/rl_confirm_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/title">
+        android:background="@color/title"
+        android:visibility="gone">
 
         <TextView
             style="@style/tv_title"
@@ -42,6 +43,22 @@
                 android:text="@string/back"
                 android:textColor="@color/yellow"
                 android:textSize="@dimen/font_size_20sp" />
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_size_10dp"
+                android:background="@drawable/login_yellow"
+                android:paddingLeft="@dimen/margin_size_20dp"
+                android:paddingTop="@dimen/margin_size_4dp"
+                android:paddingRight="@dimen/margin_size_20dp"
+                android:paddingBottom="@dimen/margin_size_4dp"
+                android:text="登录"
+                android:textSize="@dimen/font_size_18sp" />
         </RelativeLayout>
     </FrameLayout>
 

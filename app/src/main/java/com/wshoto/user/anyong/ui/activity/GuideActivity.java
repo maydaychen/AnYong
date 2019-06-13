@@ -22,6 +22,8 @@ public class GuideActivity extends InitActivity {
     ViewPager viewPager;
     @BindView(R.id.btn_im_exp)
     TextView btnImExp;
+    @BindView(R.id.tv_login)
+    TextView tvLogin;
 
     private ArrayList<View> mList;
 //    private ImageView[] mImageViews;
@@ -35,7 +37,7 @@ public class GuideActivity extends InitActivity {
 
     @Override
     public void initData() {
-
+        tvLogin.setOnClickListener(view -> finish());
     }
 
     private void initViewPager() {
@@ -103,7 +105,14 @@ public class GuideActivity extends InitActivity {
 //                    mImageViews[i].setBackgroundResource(R.drawable.dotcopy42);
 //                }
 //            }
-
+            if (getIntent().getBooleanExtra("login",false)) {
+                // 滑动到最后pager时显示“立刻体验”按钮并监听
+                if (position == mList.size() - 1) {
+                    tvLogin.setVisibility(View.VISIBLE);
+                } else {
+                    tvLogin.setVisibility(View.GONE);
+                }
+            }
 //        // 滑动到最后pager时显示“立刻体验”按钮并监听
 //            if (position == mList.size() - 1) {
 //                btnImExp.setVisibility(View.VISIBLE);

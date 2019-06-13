@@ -1,6 +1,9 @@
 package com.wshoto.user.anyong.ui.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +24,8 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.wshoto.user.anyong.Utils.compareVersion;
 
 public class LoginActivity extends InitActivity {
 
@@ -44,6 +49,7 @@ public class LoginActivity extends InitActivity {
         if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
             SharedPreferencesUtils.setParam(getApplicationContext(), "first", false);
             Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
+            intent.putExtra("login", true);
             startActivity(intent);
 //            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         }
@@ -74,6 +80,7 @@ public class LoginActivity extends InitActivity {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
+        checkUpdate();
 
     }
 
@@ -105,6 +112,31 @@ public class LoginActivity extends InitActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void checkUpdate() {
+        String version = "";
+        try {
+            PackageManager manager = getApplicationContext().getPackageManager();
+            PackageInfo info = manager.getPackageInfo(getApplicationContext().getPackageName(), 0);
+            version = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (compareVersion(version, "1.0.0") < 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+            builder.setMessage(getText(R.string.update));
+            builder.setTitle(R.string.app_name);
+            builder.setCancelable(false);
+
+            builder.setPositiveButton(getText(R.string.confirm), (dialog, which) -> {
+                dialog.dismiss();
+            });
+
+            builder.setNegativeButton(getText(R.string.cancel), (dialog, which) -> dialog.dismiss());
+
+            builder.create().show();
         }
     }
 }

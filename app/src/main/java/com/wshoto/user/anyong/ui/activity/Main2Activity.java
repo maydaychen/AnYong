@@ -153,6 +153,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                     mRlDot.setVisibility(View.GONE);
                 }
                 SharedPreferencesUtils.setParam(getApplicationContext(), "user_id", userInfoBean.getData().getIntegral());//存储用户id
+                SharedPreferencesUtils.setParam(getApplicationContext(), "user_name", userInfoBean.getData().getEnglish_name());//存储用户id
                 tvMainName.setText(userInfoBean.getData().getEnglish_name());
                 tvUserCredit.setText(String.format((String) getResources().getText(R.string.credit1), userInfoBean.getData().getIntegral() + ""));
                 tvUserLevel.setText(String.format((String) getResources().getText(R.string.level), userInfoBean.getData().getNickname()));
@@ -241,7 +242,9 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 startActivity(intent);
                 break;
             case R.id.iv_main_guide:
-                startActivity(new Intent(Main2Activity.this, GuideActivity.class));
+                Intent intent1 = new Intent(Main2Activity.this, GuideActivity.class);
+                intent1.putExtra("login",false);
+                startActivity(intent1);
                 break;
             case R.id.ll_part2:
                 startActivity(new Intent(Main2Activity.this, ThankYouActivity.class));

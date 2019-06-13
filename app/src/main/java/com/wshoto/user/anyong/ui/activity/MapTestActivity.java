@@ -728,8 +728,8 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
             builder.setPositiveButton(getText(R.string.confirm), (dialog, which) -> dialog.dismiss());
 
             builder.setNegativeButton(getText(R.string.no_longer), (dialog, which) -> {
-                dialog.dismiss();
                 SharedPreferencesUtils.setParam(getApplicationContext(), "map_teach", false);
+                dialog.dismiss();
             });
 
             builder.create().show();

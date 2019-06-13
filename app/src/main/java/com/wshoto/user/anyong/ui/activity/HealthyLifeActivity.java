@@ -116,7 +116,7 @@ public class HealthyLifeActivity extends InitActivity {
             mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
             mTvOptionJingzhui.setText(getText(R.string.complete));
         }
-        if (Integer.valueOf((String) SharedPreferencesUtils.getParam(this, "step", "0")) >= 500) {
+        if (Integer.valueOf((String) SharedPreferencesUtils.getParam(this, "step", "0")) >= 8000) {
             if ((Boolean) SharedPreferencesUtils.getParam(this, "fresh", false)) {
                 HttpJsonMethod.getInstance().footstep(
                         new ProgressSubscriber(footsetpOnNext, HealthyLifeActivity.this),

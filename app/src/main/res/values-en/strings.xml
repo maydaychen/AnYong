@@ -28,8 +28,8 @@
     <string name="tv_change_pass_mobile">Please enter your mobile number</string>
     <string name="tv_change_pass_sms">Please enter verification code</string>
     <string name="tv_change_pass_sms_send">Get verification code</string>
-    <string name="tv_change_pass1">Please enter your password</string>
-    <string name="tv_change_pass2">Please enter your password again</string>
+    <string name="tv_change_pass1">Please set your password</string>
+    <string name="tv_change_pass2">Please confirm your password</string>
     <string name="confirm">Confirm</string>
     <string name="tv_confirm">Employee verification</string>
     <string name="confirm1">Welcome!</string>
@@ -149,7 +149,7 @@
     <string name="pic">Gallery</string>
     <string name="send_sussess">Send Successfully!</string>
     <string name="check">check</string>
-    <string name="give_success">Give Successfully!</string>
+    <string name="give_success">Give Success!</string>
     <string name="point">point(s)</string>
     <string name="join_success">join successfully！</string>
     <string name="friend_apply">More Friends</string>
@@ -169,12 +169,12 @@
     <string name="choose_place">Manual check in</string>
     <string name="location">Select City</string>
     <string name="select_city">City</string>
-    <string name="mobile_hint">Please fill in your phone number</string>
+    <string name="mobile_hint">Your phone number</string>
     <string name="change_success">Successfully modified</string>
     <string name="right_pass_hint">Please enter the correct password</string>
     <string name="right_pass_hint2">Password must be 8 or more, number + letter + special symbol</string>
     <string name="operate_successfully">Operate successfully</string>
-    <string name="jiaocheng">Whether to jump to the video link?</string>
+    <string name="jiaocheng">Connect to video link?</string>
     <string name="no_longer">No longer remind</string>
     <string name="map_alert">Click the hand below to complete the check in, a little suprise will be send to frequent users throughout the year!</string>
     <string name="save_success">save successfully!</string>
@@ -191,4 +191,6 @@
     <string name="my_rank">My Rank：%1$s</string>
     <string name="delete">delete</string>
     <string name="now_day">T</string>
+    <string name="email_num">email(s)</string>
+    <string name="update">There are updates available for this app, please follow the relevant steps</string>
 </resources>

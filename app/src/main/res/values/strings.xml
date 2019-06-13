@@ -102,7 +102,7 @@
     <string name="get_it">我知道了</string>
     <string name="over">超过了</string>
     <string name="over_2">%的同事哦!!</string>
-    <string name="sign_1">连续打卡第</string>
+    <string name="sign_1">累计打卡第</string>
     <string name="sign_2">天</string>
     <string name="auto">自动</string>
     <string name="camera">相机</string>
@@ -164,7 +164,7 @@
     <string name="point_success">已领取积分!</string>
     <string name="point_successfully">积分取得成功!</string>
     <string name="complete">完成任务点我</string>
-    <string name="join">我要报名</string>
+    <string name="join">参与活动</string>
     <string name="point_detail">%1$s%2$s%3$s积分</string>
     <string name="choose_place">手动签到</string>
     <string name="location">选择城市</string>
@@ -191,4 +191,6 @@
     <string name="my_rank">我的排名：%1$s</string>
     <string name="delete">删除</string>
     <string name="now_day">今</string>
+    <string name="email_num">封 我收到的邮件</string>
+    <string name="update">此APP有可用更新，请进行相关操作</string>
 </resources>

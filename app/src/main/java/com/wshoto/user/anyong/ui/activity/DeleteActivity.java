@@ -70,6 +70,8 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
     WheelView mArea;
     @BindView(R.id.tv_hint)
     TextView hint;
+    @BindView(R.id.tv_choose)
+    TextView choose;
 
     MonthPager monthPager;
     private SubscriberOnNextListener<JSONObject> listOnNext;
@@ -431,6 +433,7 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                 mAddAddress.setVisibility(View.GONE);
                 city = mCurrentCityName;
                 provice = mCurrentProviceName;
+                choose.setText(city);
                 HttpJsonMethod.getInstance().calendar(
                         new ProgressSubscriber(listOnNext, DeleteActivity.this),
                         (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), provice, city,
@@ -609,6 +612,7 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                 city = location.getCity();
                 provice = location.getProvince();
                 mLocClient.stop();
+                choose.setText(city);
                 HttpJsonMethod.getInstance().calendar(
                         new ProgressSubscriber(listOnNext, DeleteActivity.this),
                         (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), provice, city,
