@@ -193,4 +193,39 @@
     <string name="now_day">T</string>
     <string name="email_num">email(s)</string>
     <string name="update">There are updates available for this app, please follow the relevant steps</string>
+    <string name="dialog_title">This User’s Information Authorization Agreement (the Agreement) is an agreement between EY and the user (you) for the authorized use of personal information. The Agreement is applicable to any service on EY Footprint.    \n\nPlease read the Agreement carefully before you accept. Do not do anything if you disagree or are unable to accurately understand any content in this Agreement. By clicking the “I Agree” button below, you confirm your hereby agreement. Please contact us if you would like to withdraw your consent or request rectification, erasure, restriction of processing or a readily portable copy of your personal data.</string>
+    <string name="dialog_chap1_detail">The types of information on you that we may obtain include:
+        \n1. Account information (such as EY Footprint account number, records of function usage and other information provided during your use of this APP);
+        \n2. Personal contact information (such as name and mobile number);
+        \n3. Text message: The data, information and message records that you send out on your own initiative during your use of this APP.</string>
+    <string name="dialog_chap2_detail">We may obtain your information in the following situations:
+        \n1. Information you provide when accessing or using EY Footprint;
+        \n2. Information we receive and store automatically whenever you communicate with us.</string>
+    <string name="dialog_chap3">\nWhat your information will be used for\n</string>
+    <string name="dialog_chap3_detail">We may use your information to:
+\n1. Provide consultation and communication services at your request;
+\n2. Operate, evaluate and improve EY Footprint modules and content (including developing new functions and judging the quality of our content) based on your feedback and usage rates;
+\n3. Prevent all kinds of illegal or criminal activities and other legal liabilities;
+\n4. Comply with legal regulations and our policy;
+\n5. Share your uploaded articles with other users;
+\n6. Conduct verification processes with codes for password modification and user registration.
+</string>
+    <string name="dialog_chap4">\nSharing and disclosure of user information\n</string>
+    <string name="dialog_chap4_detail">User information is an important part of our business and we will never sell or share your personal information, except as noted below.
+\n1. Third-party service providers:
+We hire external companies to provide application development and backstage construction, management and other services, including but not limited to providing development and operation, maintenance, IT platform and / or technical services, data security or backup services, sending letters or emails, analyzing data, and providing user services such as search results and links. In this case, we may share user information.
+\n2. Get your approval:
+In addition to the above provisions and the conditions stated in the Agreement, you will be notified when your information may be shared with third parties other than the above service providers, and you will have the opportunity to choose not to share your information with these third parties.
+\n3. We may also disclose your information in the following situations: in accordance with the provisions of laws, regulations or legal procedures (such as court decree or summons);
+According to the requirements of government departments (such as administrative agencies and law enforcement agencies);
+Disclosure is necessary or appropriate when we believe that it helps to protect the rights, property and safety of our users or other people, prevent actual damage or financial loss, or investigate suspicious or actual illegal activities. This also includes exchanging information with other companies and organizations to prevent illegal activities such as fraud and to reduce credit risk.
+</string>
+    <string name="dialog_chap5">\nPlease contact us if you would like to withdraw your consent or request rectification, erasure, restriction of processing or a readily portable copy of your personal data.\n</string>
+    <string name="dialog_chap6">\nWe may update the consent to the extent permitted by Chinese law in the future. We will post an announcement in an eye-catching position in the EY Footprint APP to inform you of any important changes to the Agreement.\n</string>
+    <string name="dialog_chap7">\nWe will take appropriate measures to safeguard your personal information from loss, misuse and improper disclosure. Moreover, we will update or delete your information at your request.\n</string>
+    <string name="dialog_chap8">\nHaving read and understood the information above, I voluntarily agree and I herewith express my consent to my information being collected and processed via the EY Footprint APP platform.\n</string>
+    <string name="dialog_chap1">\nScope of user information acquisition\n</string>
+    <string name="dialog_chap2">\nUser information acquisition method\n</string>
+    <string name="dialog_name">Consent statement</string>
+    <string name="dialog_agree">I AGREE</string>
 </resources>

@@ -1,1 +1,1 @@
-include ':app', ':todaystepcounterlib', ':mylibrary', 'calendar','PushSDK','wheel'
+include ':app', ':todaystepcounterlib', 'calendar','PushSDK','wheel'

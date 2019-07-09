@@ -370,4 +370,13 @@ public class HttpJsonMethod {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    public void update(Subscriber<JSONObject> subscriber) {
+        movieService.update("")
+//                .map(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 }

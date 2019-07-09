@@ -7,11 +7,14 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.umeng.message.PushAgent;
+import com.wshoto.user.anyong.Bean.UpdateBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
@@ -36,7 +39,9 @@ public class LoginActivity extends InitActivity {
     @BindView(R.id.et_invite)
     EditText etInvite;
     private SubscriberOnNextListener<JSONObject> LoginOnNext;
-
+    private SubscriberOnNextListener<JSONObject> infoOnNext;
+    private UpdateBean mUpdateBean;
+    private Gson mGson = new Gson();
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -47,10 +52,7 @@ public class LoginActivity extends InitActivity {
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         if ((boolean) SharedPreferencesUtils.getParam(this, "first", true)) {
-            SharedPreferencesUtils.setParam(getApplicationContext(), "first", false);
-            Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
-            intent.putExtra("login", true);
-            startActivity(intent);
+            InstructionsDialog();
 //            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         if (Build.VERSION.SDK_INT >= 21) {
@@ -62,6 +64,11 @@ public class LoginActivity extends InitActivity {
         getSupportActionBar().hide();
         mEtLoginMail.setText((String) SharedPreferencesUtils.getParam(this, "username", ""));
         mEtLoginPass.setText((String) SharedPreferencesUtils.getParam(this, "pass", ""));
+        infoOnNext = jsonObject -> {
+            mUpdateBean = mGson.fromJson(jsonObject.toString(), UpdateBean.class);
+            checkUpdate(mUpdateBean.getData().getVandroid());
+        };
+
     }
 
     @Override
@@ -80,8 +87,8 @@ public class LoginActivity extends InitActivity {
                 Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
             }
         };
-        checkUpdate();
-
+        HttpJsonMethod.getInstance().update(
+                new ProgressSubscriber(infoOnNext, LoginActivity.this));
     }
 
     @OnClick({R.id.tv_login_first, R.id.tv_login_forget, R.id.tv_login})
@@ -115,7 +122,7 @@ public class LoginActivity extends InitActivity {
         }
     }
 
-    private void checkUpdate() {
+    private void checkUpdate(String nowVersion) {
         String version = "";
         try {
             PackageManager manager = getApplicationContext().getPackageManager();
@@ -124,7 +131,7 @@ public class LoginActivity extends InitActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        if (compareVersion(version, "1.0.0") < 0) {
+        if (compareVersion(version, nowVersion) < 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
             builder.setMessage(getText(R.string.update));
             builder.setTitle(R.string.app_name);
@@ -138,5 +145,23 @@ public class LoginActivity extends InitActivity {
 
             builder.create().show();
         }
+    }
+
+    public void InstructionsDialog() {
+
+        AlertDialog.Builder ad = new AlertDialog.Builder(this);
+        ad.setTitle(getText(R.string.dialog_name));
+        ad.setView(LayoutInflater.from(this).inflate(R.layout.instructions_dialog, null));
+        ad.setCancelable(false);
+
+        ad.setPositiveButton(getText(R.string.dialog_agree), (dialog, which) -> {
+            SharedPreferencesUtils.setParam(getApplicationContext(), "first", false);
+            Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
+            intent.putExtra("login", true);
+            startActivity(intent);
+        });
+
+
+        ad.show();
     }
 }

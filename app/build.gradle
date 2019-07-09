@@ -71,7 +71,7 @@ dependencies {
     //    implementation project(':todaystepcounterlib')
     implementation project(':todaystepcounterlib')
     implementation files('libs/BaiduLBS_Android.jar')
-    implementation project(':mylibrary')
+//    implementation project(':mylibrary')
     implementation files('libs/lite-orm-1.7.0.jar')
     implementation files('libs/android-smart-image-view-1.0.0.jar')
     implementation project(':calendar')

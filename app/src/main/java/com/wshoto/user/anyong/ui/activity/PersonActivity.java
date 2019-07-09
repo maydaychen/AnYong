@@ -283,7 +283,6 @@ public class PersonActivity extends InitActivity implements EasyPermissions.Perm
             switch (requestCode) {
                 case 100:
 //         从图库裁减返回
-                    Log.d("wjj", "100");
                     if (data != null) {
                         Uri uri = data.getData();
                         ContentResolver cr = this.getContentResolver();

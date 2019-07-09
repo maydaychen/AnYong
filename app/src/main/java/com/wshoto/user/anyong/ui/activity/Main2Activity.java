@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,6 +34,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.wshoto.user.anyong.Bean.UpdateBean;
 import com.wshoto.user.anyong.Bean.UserInfoBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
@@ -63,6 +65,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
+import static com.wshoto.user.anyong.Utils.compareVersion;
 
 public class Main2Activity extends InitActivity implements EasyPermissions.PermissionCallbacks {
     private static final int RC_CAMERA_PERM = 123;
@@ -101,6 +104,8 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
     private SubscriberOnNextListener<JSONObject> infoOnNext;
     private SubscriberOnNextListener<JSONObject> newerOnNext;
     private SubscriberOnNextListener<JSONObject> scanOnNext;
+    private SubscriberOnNextListener<JSONObject> updateOnNext;
+    private UpdateBean mUpdateBean;
     private Gson mGson = new Gson();
     private boolean isBind = false;
     private String fileName = Environment.getExternalStorageDirectory() + "/anyong.png";
@@ -124,6 +129,8 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 new ProgressSubscriber(infoOnNext, Main2Activity.this),
                 (String) SharedPreferencesUtils.getParam(this, "session", ""),
                 (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+        HttpJsonMethod.getInstance().update(
+                new ProgressSubscriber(updateOnNext, Main2Activity.this));
     }
 
     @Override
@@ -142,6 +149,10 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         // 初始化
         ImageLoader.getInstance().init(configuration);
         newerOnNext = jsonObject -> {
+        };
+        updateOnNext = jsonObject -> {
+            mUpdateBean = mGson.fromJson(jsonObject.toString(), UpdateBean.class);
+            checkUpdate(mUpdateBean.getData().getVandroid());
         };
         infoOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
@@ -220,7 +231,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
 
     }
 
-    @OnClick({R.id.iv_main_sao, R.id.iv_main_email,R.id.iv_main_guide,
+    @OnClick({R.id.iv_main_sao, R.id.iv_main_email, R.id.iv_main_guide,
             R.id.ll_part2, R.id.ll_part3, R.id.ll_part4, R.id.ll_part5, R.id.ll_part6,
             R.id.ll_part7, R.id.ll_part8, R.id.tv_user_credit})
     public void onViewClicked(View view) {
@@ -243,7 +254,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 break;
             case R.id.iv_main_guide:
                 Intent intent1 = new Intent(Main2Activity.this, GuideActivity.class);
-                intent1.putExtra("login",false);
+                intent1.putExtra("login", false);
                 startActivity(intent1);
                 break;
             case R.id.ll_part2:
@@ -522,6 +533,31 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
             // Ask for both permissions
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_location),
                     RC_STORAGE_CONTACTS_PERM, perms);
+        }
+    }
+
+    private void checkUpdate(String nowVersion) {
+        String version = "";
+        try {
+            PackageManager manager = getApplicationContext().getPackageManager();
+            PackageInfo info = manager.getPackageInfo(getApplicationContext().getPackageName(), 0);
+            version = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (compareVersion(version, nowVersion) < 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Main2Activity.this);
+            builder.setMessage(getText(R.string.update));
+            builder.setTitle(R.string.app_name);
+            builder.setCancelable(false);
+
+            builder.setPositiveButton(getText(R.string.confirm), (dialog, which) -> {
+                dialog.dismiss();
+            });
+
+            builder.setNegativeButton(getText(R.string.cancel), (dialog, which) -> dialog.dismiss());
+
+            builder.create().show();
         }
     }
 }

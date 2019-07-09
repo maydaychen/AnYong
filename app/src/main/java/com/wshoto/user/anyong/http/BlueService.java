@@ -35,7 +35,7 @@ public interface BlueService {
     @FormUrlEncoded
     rx.Observable<JSONObject> userRisgist(@Field("email") String number, @Field("gpn") String name,
                                           @Field("mobile") String mobile, @Field("code") String verification,
-                                          @Field("language") String language,@Field("password") String password);
+                                          @Field("language") String language, @Field("password") String password);
 
     @POST("/index.php?r=api/user/user-info")
     @FormUrlEncoded
@@ -178,5 +178,9 @@ public interface BlueService {
     @POST("/index.php?r=api/integral/newer-task")
     @FormUrlEncoded
     rx.Observable<JSONObject> newer(@Field("job_no") String job_no, @Field("language") String language);
+
+    @POST("/index.php?r=api/setting/setting-info")
+    @FormUrlEncoded
+    rx.Observable<JSONObject> update(@Field("job_no") String job_no);
 
 }
