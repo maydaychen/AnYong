@@ -159,7 +159,7 @@
         <activity android:name=".ui.activity.NewFriendInfoActivity" />
         <activity android:name=".ui.activity.FriendInfoActivity" />
         <activity android:name=".ui.activity.LanguageActivity" />
-        <activity android:name=".ui.activity.DeleteActivity" />
+        <activity android:name=".ui.activity.ShuashuaActivity" />
         <activity android:name=".ui.activity.ThankPreviewActivity" />
         <activity android:name=".ui.activity.ThankViewActivity" />
         <activity android:name=".ui.activity.SearchNewFriendActivity" />

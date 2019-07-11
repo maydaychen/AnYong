@@ -42,7 +42,6 @@ public class ThankBoxActivity extends InitActivity {
             if (jsonObject.getInt("code") == 1) {
                 mThankBean = mGson.fromJson(jsonObject.toString(), ThankBean.class);
                 tvMailNum.setText(mThankBean.getData().size() + "");
-
                 rvMailBox.setLayoutManager(new LinearLayoutManager(ThankBoxActivity.this));
                 ThankUListAdapter messageCenterAdapter = new ThankUListAdapter(ThankBoxActivity.this, mThankBean.getData());
                 rvMailBox.addItemDecoration(new RecycleViewGridDivider(ThankBoxActivity.this));

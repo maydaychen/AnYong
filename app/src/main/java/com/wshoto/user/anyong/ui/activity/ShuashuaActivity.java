@@ -53,7 +53,7 @@ import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
-public class DeleteActivity extends InitActivity implements OnWheelChangedListener {
+public class ShuashuaActivity extends InitActivity implements OnWheelChangedListener {
     @BindView(R.id.tb_main)
     TabLayout mTbMain;
     @BindView(R.id.rv_calendar_activity)
@@ -188,7 +188,7 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                 calendarAdapter.setMarkData(markData);
                 calendarAdapter.notifyDataChanged();
             } else {
-                Toast.makeText(DeleteActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShuashuaActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -196,7 +196,7 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
         mylistOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 mCalendarMineBean = mGson.fromJson(jsonObject.toString(), CalendarMineBean.class);
-                rvCalendarActivity.setLayoutManager(new LinearLayoutManager(DeleteActivity.this) {
+                rvCalendarActivity.setLayoutManager(new LinearLayoutManager(ShuashuaActivity.this) {
                     @Override
                     public boolean canScrollVertically() {
                         return false;
@@ -205,7 +205,7 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                 CalendarMineListAdapter messageCenterAdapter = new CalendarMineListAdapter(getApplicationContext(), mCalendarMineBean.getData());
                 rvCalendarActivity.setAdapter(messageCenterAdapter);
                 messageCenterAdapter.setOnItemClickListener((view, data) -> {
-                    Intent intent = new Intent(DeleteActivity.this, EventDetailActivity.class);
+                    Intent intent = new Intent(ShuashuaActivity.this, EventDetailActivity.class);
                     intent.putExtra("mine", true);
                     intent.putExtra("id", mCalendarMineBean.getData().get(data).getId());
                     startActivity(intent);
@@ -223,7 +223,7 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
         timelistOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 mCalendarDayEventBean = mGson.fromJson(jsonObject.toString(), CalendarDayEventBean.class);
-                rvCalendarActivity.setLayoutManager(new LinearLayoutManager(DeleteActivity.this) {
+                rvCalendarActivity.setLayoutManager(new LinearLayoutManager(ShuashuaActivity.this) {
                     @Override
                     public boolean canScrollVertically() {
                         return false;
@@ -232,7 +232,7 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                 CalendarEventListAdapter messageCenterAdapter = new CalendarEventListAdapter(getApplicationContext(), mCalendarDayEventBean.getData());
                 rvCalendarActivity.setAdapter(messageCenterAdapter);
                 messageCenterAdapter.setOnItemClickListener((view, data) -> {
-                    Intent intent = new Intent(DeleteActivity.this, EventDetailActivity.class);
+                    Intent intent = new Intent(ShuashuaActivity.this, EventDetailActivity.class);
                     intent.putExtra("mine", false);
                     intent.putExtra("id", mCalendarDayEventBean.getData().get(data).getId());
                     startActivity(intent);
@@ -281,7 +281,7 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
         updateCities();
         updateAreas();
 
-        mLocClient = new LocationClient(DeleteActivity.this); //声明LocationClient类
+        mLocClient = new LocationClient(ShuashuaActivity.this); //声明LocationClient类
         mLocClient.registerLocationListener(myLocationListener);//注册监听函数
         initLocation();
         mLocClient.start();//开启定位
@@ -404,12 +404,12 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
     private void getData() {
         if (position == 0) {
             HttpJsonMethod.getInstance().timeCalendar(
-                    new ProgressSubscriber(timelistOnNext, DeleteActivity.this),
+                    new ProgressSubscriber(timelistOnNext, ShuashuaActivity.this),
                     (String) SharedPreferencesUtils.getParam(this, "session", ""),
                     currentDate.toString(), provice, city, (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
         } else {
             HttpJsonMethod.getInstance().myCalendar(
-                    new ProgressSubscriber(mylistOnNext, DeleteActivity.this),
+                    new ProgressSubscriber(mylistOnNext, ShuashuaActivity.this),
                     (String) SharedPreferencesUtils.getParam(this, "session", ""),
                     (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
         }
@@ -435,9 +435,9 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                 provice = mCurrentProviceName;
                 choose.setText(city);
                 HttpJsonMethod.getInstance().calendar(
-                        new ProgressSubscriber(listOnNext, DeleteActivity.this),
-                        (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), provice, city,
-                        (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "language", "zh"));
+                        new ProgressSubscriber(listOnNext, ShuashuaActivity.this),
+                        (String) SharedPreferencesUtils.getParam(ShuashuaActivity.this, "session", ""), provice, city,
+                        (String) SharedPreferencesUtils.getParam(ShuashuaActivity.this, "language", "zh"));
                 getData();
                 break;
         }
@@ -614,9 +614,9 @@ public class DeleteActivity extends InitActivity implements OnWheelChangedListen
                 mLocClient.stop();
                 choose.setText(city);
                 HttpJsonMethod.getInstance().calendar(
-                        new ProgressSubscriber(listOnNext, DeleteActivity.this),
-                        (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "session", ""), provice, city,
-                        (String) SharedPreferencesUtils.getParam(DeleteActivity.this, "language", "zh"));
+                        new ProgressSubscriber(listOnNext, ShuashuaActivity.this),
+                        (String) SharedPreferencesUtils.getParam(ShuashuaActivity.this, "session", ""), provice, city,
+                        (String) SharedPreferencesUtils.getParam(ShuashuaActivity.this, "language", "zh"));
                 getData();
                 return;
             }

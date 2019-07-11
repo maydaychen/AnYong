@@ -3,7 +3,6 @@ package com.wshoto.user.anyong;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -77,11 +76,6 @@ public class Utils {
             e.printStackTrace();
         }
         return "";
-    }
-
-    public static float dip2px(float dipValue) {
-        final float scale = Resources.getSystem().getDisplayMetrics().density;
-        return (dipValue * scale + 0.5f);
     }
 
     public static Bitmap stringtoBitmap(String string) {
@@ -159,8 +153,6 @@ public class Utils {
         }
         String[] version1Array = version1.split("\\.");
         String[] version2Array = version2.split("\\.");
-        Log.d("HomePageActivity", "version1Array=="+version1Array.length);
-        Log.d("HomePageActivity", "version2Array=="+version2Array.length);
         int index = 0;
         // 获取最小长度值
         int minLen = Math.min(version1Array.length, version2Array.length);

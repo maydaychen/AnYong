@@ -1,6 +1,5 @@
 package com.wshoto.user.anyong.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -35,14 +34,13 @@ public class ThankYouActivity extends InitActivity {
                 finish();
                 break;
             case R.id.tv_thanku_send:
-                startActivity(new Intent(ThankYouActivity.this, SendThankActivity.class));
+                goActivity(SendThankActivity.class);
                 break;
             case R.id.bt_mailbox:
                 goActivity(ThankBoxActivity.class);
                 break;
             case R.id.bt_sendbox:
                 goActivity(ThankSentBoxActivity.class);
-
                 break;
         }
     }

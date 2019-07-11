@@ -273,7 +273,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 startActivity(new Intent(Main2Activity.this, HealthyLifeActivity.class));
                 break;
             case R.id.ll_part6:
-                startActivity(new Intent(Main2Activity.this, DeleteActivity.class));
+                startActivity(new Intent(Main2Activity.this, ShuashuaActivity.class));
                 break;
             case R.id.ll_part7:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

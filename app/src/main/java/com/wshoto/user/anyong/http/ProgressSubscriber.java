@@ -53,6 +53,11 @@ public class ProgressSubscriber<JSONObject> extends Subscriber<org.json.JSONObje
             mSubscriberOnNextListener.onNext(t);
         } catch (JSONException e) {
             e.printStackTrace();
+            try {
+                mSubscriberOnNextListener.onNext(t);
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

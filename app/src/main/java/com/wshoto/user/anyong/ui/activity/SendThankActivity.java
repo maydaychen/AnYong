@@ -92,6 +92,8 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
 
     private SubscriberOnNextListener<JSONObject> sendOnNext;
     private SubscriberOnNextAndErrorListener<JSONObject> uploadOnNext;
+    private SubscriberOnNextListener<JSONObject> themeContentOnNext;
+    private SubscriberOnNextListener<JSONObject> themeOnNext;
     private ThankThemeBean mThankThemeBean;
     private ThankThemeBean mThankContentBean;
     private ProgressDialog updateDialog = null;
@@ -114,7 +116,40 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
 
     @Override
     public void initData() {
-        SubscriberOnNextListener<JSONObject> themeOnNext = jsonObject -> {
+        themeContentOnNext = jsonObject -> {
+            if (jsonObject.getInt("code") == 1) {
+                List<String> list = new ArrayList();
+                list.add(getText(R.string.temp_choose).toString());
+                mThankContentBean = mGson.fromJson(jsonObject.toString(), ThankThemeBean.class);
+                for (ThankThemeBean.DataBean dataBean : mThankContentBean.getData()) {
+                    list.add(dataBean.getTemplate_name());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //绑定 Adapter到控件
+                spinnerContent.setAdapter(adapter);
+                spinnerContent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        //showPrice(position);
+                        TextView tv = (TextView) view;
+                        tv.setTextColor(getResources().getColor(R.color.yellow));    //设置颜色
+                        tv.setTextSize(14.0f);    //设置大小
+                        tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
+                        if (position != 0) {
+                            mEtThankContent.setText(mThankContentBean.getData().get(position - 1).getTemplate_desc());
+                        } else {
+                            mEtThankContent.setText("");
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+            }
+        };
+        themeOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 List<String> list = new ArrayList();
                 list.add(getText(R.string.temp_choose).toString());
@@ -150,41 +185,13 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
+                HttpJsonMethod.getInstance().thankContent(
+                        new ProgressSubscriber(themeContentOnNext, SendThankActivity.this),
+                        (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                        (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
             }
         };
-        SubscriberOnNextListener<JSONObject> themeContentOnNext = jsonObject -> {
-            if (jsonObject.getInt("code") == 1) {
-                List<String> list = new ArrayList();
-                list.add(getText(R.string.temp_choose).toString());
-                mThankContentBean = mGson.fromJson(jsonObject.toString(), ThankThemeBean.class);
-                for (ThankThemeBean.DataBean dataBean : mThankContentBean.getData()) {
-                    list.add(dataBean.getTemplate_name());
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                //绑定 Adapter到控件
-                spinnerContent.setAdapter(adapter);
-                spinnerContent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        //showPrice(position);
-                        TextView tv = (TextView) view;
-                        tv.setTextColor(getResources().getColor(R.color.yellow));    //设置颜色
-                        tv.setTextSize(14.0f);    //设置大小
-                        tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
-                        if (position != 0) {
-                            mEtThankContent.setText(mThankContentBean.getData().get(position - 1).getTemplate_desc());
-                        } else {
-                            mEtThankContent.setText("");
-                        }
-                    }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
-                });
-            }
-        };
         uploadOnNext = new SubscriberOnNextAndErrorListener<JSONObject>() {
             @Override
             public void onNext(JSONObject jsonObject) throws JSONException {
@@ -223,10 +230,7 @@ public class SendThankActivity extends InitActivity implements EasyPermissions.P
                 (String) SharedPreferencesUtils.getParam(this, "session", ""),
                 (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
 
-        HttpJsonMethod.getInstance().thankContent(
-                new ProgressSubscriber(themeContentOnNext, SendThankActivity.this),
-                (String) SharedPreferencesUtils.getParam(this, "session", ""),
-                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+
     }
 
     @OnClick({R.id.iv_comfirm_back, R.id.tv_thanku_send, R.id.iv_thank_upload, R.id.tv_thank_select})

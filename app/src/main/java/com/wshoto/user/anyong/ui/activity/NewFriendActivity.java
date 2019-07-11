@@ -33,7 +33,6 @@ public class NewFriendActivity extends InitActivity {
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_new_friend);
         ButterKnife.bind(this);
-
     }
 
     @Override

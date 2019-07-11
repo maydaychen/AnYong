@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.wshoto.user.anyong.Bean.MessageCenterBean;
@@ -79,12 +80,13 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
                             list.get(position).getId());
                 });
                 messageCenterAdapter.setOnDeleteClickListener((view, position) -> {
+                    HttpJsonMethod.getInstance().mesageDel(
+                            new ProgressSubscriber(deleteOnNext, MessageCenterActivity.this),
+                            list.get(position).getId());
                     list.remove(position);
                     messageCenterAdapter.notifyDataSetChanged();
                     rvPoints.closeMenu();
-                    HttpJsonMethod.getInstance().mesageDel(
-                            new ProgressSubscriber(readOnNext, MessageCenterActivity.this),
-                            list.get(position).getId());
+
                 });
             } else {
                 rvPoints.setVisibility(View.GONE);
@@ -110,7 +112,7 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
                     startActivity(new Intent(MessageCenterActivity.this, HealthyLifeActivity.class));
                     break;
                 case "5":
-                    startActivity(new Intent(MessageCenterActivity.this, DeleteActivity.class));
+                    startActivity(new Intent(MessageCenterActivity.this, ShuashuaActivity.class));
                     break;
                 case "6":
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -125,8 +127,7 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
                     break;
             }
         };
-        deleteOnNext = jsonObject -> {
-        };
+        deleteOnNext = jsonObject -> Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
 
     }
 
