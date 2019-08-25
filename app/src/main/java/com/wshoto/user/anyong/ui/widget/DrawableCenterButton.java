@@ -9,6 +9,7 @@ import android.widget.Button;
 /**
  * 作者：JTR on 2016/8/31 09:08
  * 邮箱：2091320109@qq.com
+ * 能够使button中的drawable处于中间
  */
 public class DrawableCenterButton extends Button {
 

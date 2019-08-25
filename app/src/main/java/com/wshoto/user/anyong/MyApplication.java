@@ -33,7 +33,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         SDKInitializer.initialize(getApplicationContext());
         super.onCreate();
-
+        //友盟初始化操作
         UMConfigure.init(this, "5b6d4812b27b0a3d44000039", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
                 "d1c5076ee45f9f51fd15f8c58ea5103c");
         PushAgent mPushAgent = PushAgent.getInstance(this);

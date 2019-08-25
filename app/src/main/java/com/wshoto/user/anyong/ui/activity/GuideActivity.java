@@ -32,6 +32,7 @@ public class GuideActivity extends InitActivity {
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_guide);
         ButterKnife.bind(this);
+        //使用viewpager切换引导页
         initViewPager();
     }
 

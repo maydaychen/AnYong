@@ -12,6 +12,7 @@ import android.view.View;
 
 /**
  * Created by Du on 2016/9/25.
+ * recyclerview添加gridview的分割线
  */
 public class RecycleViewGridDivider extends RecyclerView.ItemDecoration {
 

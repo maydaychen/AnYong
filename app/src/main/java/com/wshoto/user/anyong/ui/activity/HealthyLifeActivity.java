@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.jakewharton.rxbinding.view.RxView;
 import com.wshoto.user.anyong.Bean.HealthyTaskBean;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
@@ -19,6 +20,7 @@ import com.wshoto.user.anyong.ui.widget.InitActivity;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,25 +96,29 @@ public class HealthyLifeActivity extends InitActivity {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         if (hour >= 10 && hour <= 18) {
             mTvOptionYanbao.setClickable(true);
-            mTvOptionYanbao.setOnClickListener(v -> {
-                show(1);
-                HttpJsonMethod.getInstance().healthCommit(
-                        new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
-                        (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""),
-                        "1", (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
-            });
+            RxView.clicks(mTvOptionYanbao)
+                    .throttleFirst(3, TimeUnit.SECONDS)
+                    .subscribe((o -> {
+                        show(1);
+                        HttpJsonMethod.getInstance().healthCommit(
+                                new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
+                                (String) com.wshoto.user.anyong.SharedPreferencesUtils.getParam(this, "session", ""),
+                                "1", (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+                    }));
             mTvOptionYanbao.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
             mTvOptionYanbao.setText(getText(R.string.complete));
         }
         if (hour >= 15 && hour <= 20) {
             mTvOptionJingzhui.setClickable(true);
-            mTvOptionJingzhui.setOnClickListener(v -> {
-                show(2);
-                HttpJsonMethod.getInstance().healthCommit(
-                        new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
-                        (String) SharedPreferencesUtils.getParam(this, "session", ""), "2",
-                        (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
-            });
+            RxView.clicks(mTvOptionJingzhui)
+                    .throttleFirst(3, TimeUnit.SECONDS)
+                    .subscribe((o -> {
+                        show(2);
+                        HttpJsonMethod.getInstance().healthCommit(
+                                new ProgressSubscriber(healthCommitOnNext, HealthyLifeActivity.this),
+                                (String) SharedPreferencesUtils.getParam(this, "session", ""), "2",
+                                (String) SharedPreferencesUtils.getParam(this, "language", "zh"));
+                    }));
             mTvOptionJingzhui.setBackground(getResources().getDrawable(R.drawable.boder_healthy_yellow));
             mTvOptionJingzhui.setText(getText(R.string.complete));
         }

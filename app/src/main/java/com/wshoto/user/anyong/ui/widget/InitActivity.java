@@ -19,6 +19,7 @@ import java.util.Locale;
 /**
  * Created by user on 2018/4/26.
  * 2091320109@qq.com
+ * 封装的模板activity
  */
 
 public abstract class InitActivity extends AppCompatActivity {
@@ -50,6 +51,11 @@ public abstract class InitActivity extends AppCompatActivity {
         initData();
     }
 
+    /**
+     * 设置要显示的语言
+     *
+     * @param language zh或者en，中文或者英文
+     */
     protected void selectLanguage(String language) {
         //设置语言类型
         Resources resources = getResources();

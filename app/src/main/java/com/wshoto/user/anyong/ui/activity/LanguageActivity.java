@@ -53,7 +53,6 @@ public class LanguageActivity extends InitActivity {
                 break;
         }
         resources.updateConfiguration(configuration, displayMetrics);
-//
 //        //保存设置语言的类型
         SharedPreferencesUtils.setParam(getApplicationContext(), "language", language);
     }
@@ -62,22 +61,25 @@ public class LanguageActivity extends InitActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_comfirm_back:
+                //返回
                 finish();
                 break;
             case R.id.button:
                 switch (rgLanguage.getCheckedRadioButtonId()) {
                     case R.id.rb_chinese:
+                        //设置中文
                         selectLanguage("zh");
                         SharedPreferencesUtils.setParam(getApplicationContext(), "language_auto", false);
                         break;
                     case R.id.rb_english:
+                        //设置英文
                         selectLanguage("en");
                         SharedPreferencesUtils.setParam(getApplicationContext(), "language_auto", false);
                         break;
                     case R.id.rb_auto:
+                        //设置根据系统语言自动设置
                         SharedPreferencesUtils.setParam(getApplicationContext(), "language_auto", true);
                         String country = Locale.getDefault().getCountry();
-
                         if ("CN".equals(country)) {
                             selectLanguage("zh");
                         } else {
@@ -85,6 +87,7 @@ public class LanguageActivity extends InitActivity {
                         }
                         break;
                 }
+                //设置完成后回到Main2Activity，重构页面
                 Intent intent = new Intent(LanguageActivity.this, Main2Activity.class);
                 startActivity(intent);
                 break;

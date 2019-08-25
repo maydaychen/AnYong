@@ -51,8 +51,8 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
     private MessageCenterBean mMessageBean;
     private List<MessageCenterBean.DataBean> list = new ArrayList<>();
     private Gson mGson = new Gson();
-    private String ID = "";
-    private int mPosition = 0;
+    private String ID = "";//点击的消息id
+    private int mPosition = 0;//点击信息的时候，记录点击的位置
     private static final int RC_BBS = 126;//跳转不定期更新页面申请摄像头权限
 
     @Override
@@ -93,6 +93,13 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
                 hint.setVisibility(View.VISIBLE);
             }
         };
+        //设置消息已读相关操作
+        //1. 正常消息
+        //2. 我的半径添加好友请求
+        //3. 感谢信
+        //4. 健康生活相关任务
+        //5. 刷刷存在感日程提醒
+        //6. 论坛消息
         readOnNext = jsonObject -> {
             switch (ID) {
                 case "1":
@@ -127,6 +134,7 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
                     break;
             }
         };
+        //删除信息操作
         deleteOnNext = jsonObject -> Toast.makeText(this, jsonObject.getJSONObject("message").getString("status"), Toast.LENGTH_SHORT).show();
 
     }
@@ -134,6 +142,7 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
     @Override
     protected void onResume() {
         super.onResume();
+        //每次onresume就更新消息列表
         HttpJsonMethod.getInstance().mesageList(
                 new ProgressSubscriber(messageOnNext, MessageCenterActivity.this),
                 (String) SharedPreferencesUtils.getParam(this, "session", ""),
@@ -145,6 +154,11 @@ public class MessageCenterActivity extends InitActivity implements EasyPermissio
         finish();
     }
 
+    /**
+     * Go bbs.跳转到论坛页面
+     * 需要动态授权，防止没有权限进了论坛不能使用相关功能
+     * 跳转时需要传过去消息的id
+     */
     @AfterPermissionGranted(RC_BBS)
     public void goBBS() {
         String[] perms = {ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};

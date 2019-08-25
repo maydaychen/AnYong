@@ -43,6 +43,7 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.jakewharton.rxbinding.view.RxView;
 import com.wshoto.user.anyong.R;
 import com.wshoto.user.anyong.SharedPreferencesUtils;
 import com.wshoto.user.anyong.http.HttpJsonMethod;
@@ -61,6 +62,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,6 +71,9 @@ import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
+/**
+ * The type 地图签到页面
+ */
 public class MapTestActivity extends InitActivity implements AdapterView.OnItemClickListener,
         OnGetGeoCoderResultListener, BaiduMap.OnMapStatusChangeListener, View.OnClickListener, OnWheelChangedListener {
 
@@ -181,6 +186,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
 
     @Override
     public void initData() {
+        //定位签到逻辑，如果签到成功，展示popupwindow
         locateOnNext = jsonObject -> {
             if (jsonObject.getInt("code") == 1) {
                 showPopupWindow(jsonObject.getJSONObject("data").getString("number"), jsonObject.getJSONObject("data").getString("numberpercentage"));
@@ -193,6 +199,18 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         ivQiandao.setAnimation(mAnimation);
         mAnimation.start();
         sanjiliandong();
+        RxView.clicks(ivQiandao)
+                .throttleFirst(3, TimeUnit.SECONDS)
+                .subscribe((o -> {
+                    if (city.equals("")) {
+                        Toast.makeText(mContext, "请选择所在地区！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        HttpJsonMethod.getInstance().locate(
+                                new ProgressSubscriber(locateOnNext, MapTestActivity.this),
+                                (String) SharedPreferencesUtils.getParam(this, "session", ""),
+                                city, (String) SharedPreferencesUtils.getParam(this, "language", "zh"), lat, lon);
+                    }
+                }));
     }
 
     /**
@@ -463,21 +481,11 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
 
     }
 
-    @OnClick({R.id.iv_comfirm_back, R.id.iv_qiandao, R.id.tv_choose, R.id.tv_choose_cancel, R.id.tv_choose_confirm})
+    @OnClick({R.id.iv_comfirm_back, R.id.tv_choose, R.id.tv_choose_cancel, R.id.tv_choose_confirm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_comfirm_back:
                 finish();
-                break;
-            case R.id.iv_qiandao:
-                if (city.equals("")) {
-                    Toast.makeText(mContext, "请选择所在地区！", Toast.LENGTH_SHORT).show();
-                } else {
-                    HttpJsonMethod.getInstance().locate(
-                            new ProgressSubscriber(locateOnNext, MapTestActivity.this),
-                            (String) SharedPreferencesUtils.getParam(this, "session", ""),
-                            city, (String) SharedPreferencesUtils.getParam(this, "language", "zh"), lat, lon);
-                }
                 break;
             case R.id.tv_choose:
                 mAddAddress.setVisibility(View.VISIBLE);
@@ -491,6 +499,7 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
                 break;
         }
     }
+
 
     private void getLat() {
         // 创建地理编码检索实例
@@ -537,6 +546,12 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
 
     }
 
+    /**
+     * 展示签到成功窗口
+     *
+     * @param number        第几个签到
+     * @param numberPercent 超过了百分之几的人
+     */
     private void showPopupWindow(String number, String numberPercent) {
         View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow_map, null);
         final TextView mTvDays = contentView.findViewById(R.id.tv_pop_days);
@@ -718,6 +733,9 @@ public class MapTestActivity extends InitActivity implements AdapterView.OnItemC
         updateAreas();
     }
 
+    //第一次进来会有小提示，用户可以点击不再提醒来永久隐藏该提示
+    //点击确定之后会dismiss，但是下次进入该页面还是会有
+    //点击不再提醒就不会再提示了
     private void ifShow() {
         if ((boolean) SharedPreferencesUtils.getParam(this, "map_teach", true)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MapTestActivity.this);

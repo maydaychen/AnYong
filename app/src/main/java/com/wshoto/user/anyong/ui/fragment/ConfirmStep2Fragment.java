@@ -57,12 +57,12 @@ public class ConfirmStep2Fragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-    private int recLen = 60;
-    private boolean flag = true;
+    private int recLen = 60;//短信发送后倒计时
+    private boolean flag = true;//是否能够发送短信
     private SubscriberOnNextListener<JSONObject> sendOnNext;
     private SubscriberOnNextListener<JSONObject> confirmOnNext;
     List<String> list = new ArrayList();
-    private String code;
+    private String code;//验证码
 
     public ConfirmStep2Fragment() {
         // Required empty public constructor
@@ -108,7 +108,7 @@ public class ConfirmStep2Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_confirm_step2, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-
+        //大陆、港澳台区号
         list.add("+86");
         list.add("+886");
         list.add("+852");
@@ -147,11 +147,13 @@ public class ConfirmStep2Fragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_get_sms:
+                //获取验证码
                 String tele = mTvStep2Mobile.getText().toString();
-                if (flag) {
+                if (flag) {//本来还要手机号验证，现在有港澳台的手机号，所以干脆不验证了
                     flag = false;
                     mTvGetEms.setClickable(false);
                     handler.post(runnable);
+                    //使用handler倒计时一分钟
                     HttpJsonMethod.getInstance().sendCode(
                             new ProgressSubscriber(sendOnNext, getActivity()), tele, "bind",
                             (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"),
@@ -161,11 +163,13 @@ public class ConfirmStep2Fragment extends Fragment {
                 }
                 break;
             case R.id.tv_step1_next:
+                //判断所有填的信息是否完整
                 if (mTvStep2Mobile.getText().toString().equals("") || mTvGetCode.getText().toString().equals("") ||
                         etLoginPass.getText().toString().equals("") || etLoginPassAgain.getText().toString().equals("")) {
                     Toast.makeText(getContext(), getText(R.string.step1_error), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //判断两次输入的密码是否一致
                 if (!etLoginPassAgain.getText().toString().equals(etLoginPass.getText().toString())) {
                     Toast.makeText(getContext(), getText(R.string.step1_pass), Toast.LENGTH_SHORT).show();
                     return;

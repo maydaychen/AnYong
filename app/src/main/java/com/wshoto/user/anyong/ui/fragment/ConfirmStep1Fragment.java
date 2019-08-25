@@ -60,10 +60,12 @@ public class ConfirmStep1Fragment extends Fragment {
     public void onViewClicked() {
         String num = mEtStep1Number.getText().toString();
         String name = mEtStep1Name.getText().toString();
+        //如果填写的工号不足11位或者为空，就提示GPN不存在
         if (name.length() != 11) {
             Toast.makeText(getContext(), getText(R.string.step1_gpn), Toast.LENGTH_SHORT).show();
             return;
         }
+        //检查填写的邮箱名称是否合法，如果不合法就有相关提示，如果合法就跳到ConfirmStep2Fragment
         if (!num.equals("") && !name.equals("") && num.contains("@cn.ey.com")) {
             mFragmentManager = getActivity().getSupportFragmentManager();
             //注意v4包的配套使用

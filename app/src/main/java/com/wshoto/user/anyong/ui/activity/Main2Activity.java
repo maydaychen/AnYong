@@ -67,6 +67,9 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
 import static com.wshoto.user.anyong.Utils.compareVersion;
 
+/**
+ * The type Main 2 activity.
+ */
 public class Main2Activity extends InitActivity implements EasyPermissions.PermissionCallbacks {
     private static final int RC_CAMERA_PERM = 123;
     private static final int RC_STORAGE_CONTACTS_PERM = 124;
@@ -122,6 +125,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
 
     }
 
+    //每次onResume都会重新获取用户信息以及检查更新
     @Override
     protected void onResume() {
         super.onResume();
@@ -146,7 +150,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         }
         saveImg();
         ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this).writeDebugLogs().build();
-        // 初始化
+        // 初始化ImageLoader
         ImageLoader.getInstance().init(configuration);
         newerOnNext = jsonObject -> {
         };
@@ -231,6 +235,11 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
 
     }
 
+    /**
+     * On view clicked.
+     *
+     * @param view the view
+     */
     @OnClick({R.id.iv_main_sao, R.id.iv_main_email, R.id.iv_main_guide,
             R.id.ll_part2, R.id.ll_part3, R.id.ll_part4, R.id.ll_part5, R.id.ll_part6,
             R.id.ll_part7, R.id.ll_part8, R.id.tv_user_credit})
@@ -299,6 +308,9 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         }
     }
 
+    /**
+     * Init.
+     */
     @AfterPermissionGranted(RC_CAMERA_PERM)
     public void init() {
         if (EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA)) {
@@ -309,6 +321,9 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         }
     }
 
+    /**
+     * Gomap.
+     */
     @AfterPermissionGranted(RC_MAP_CONTACTS_PERM)
     public void gomap() {
         String[] perms = {ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -322,6 +337,9 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         }
     }
 
+    /**
+     * Go bbs.
+     */
     @AfterPermissionGranted(RC_BBS)
     public void goBBS() {
         String[] perms = {ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -376,6 +394,9 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         startActivity(intent1);
     }
 
+    /**
+     * Show.
+     */
     public void show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Main2Activity.this);
         builder.setMessage(getText(R.string.logout_error));
@@ -452,6 +473,13 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         }
     }
 
+    /**
+     * Is date 2 bigger boolean.
+     *
+     * @param str1 the str 1
+     * @return the boolean
+     */
+//比较日期大小
     public boolean isDate2Bigger(String str1) {
         boolean isBigger = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -470,6 +498,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         return isBigger;
     }
 
+    //将网络图片url加载成bitmao
     private void loadImage(String url) {
         // 图片路径
         String uri = (url);
@@ -479,7 +508,7 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         DisplayImageOptions mOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true).cacheOnDisc(true)
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
-
+        //imageloader读取图片
         ImageLoader.getInstance().loadImage(uri, mImageSize, mOptions,
                 new ImageLoadingListener() {
 
@@ -511,6 +540,11 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
                 });
     }
 
+    /**
+     * Save img.
+     */
+    //保存图片到手机
+    //注意需要动态获取权限
     @AfterPermissionGranted(RC_STORAGE_CONTACTS_PERM)
     public void saveImg() {
         String[] perms = {Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
@@ -536,6 +570,10 @@ public class Main2Activity extends InitActivity implements EasyPermissions.Permi
         }
     }
 
+    /**
+     * checkUpdate
+     * 检查版本是否为最新
+     */
     private void checkUpdate(String nowVersion) {
         String version = "";
         try {

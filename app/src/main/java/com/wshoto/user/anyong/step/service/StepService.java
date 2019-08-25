@@ -96,11 +96,7 @@ public class StepService extends Service implements SensorEventListener {
 //        initNotification();
         initTodayData();
         initBroadcastReceiver();
-        new Thread(new Runnable() {
-            public void run() {
-                startStepDetector();
-            }
-        }).start();
+        new Thread(() -> startStepDetector()).start();
         startTimeCount();
 
     }

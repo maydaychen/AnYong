@@ -27,6 +27,7 @@ import java.util.regex.PatternSyntaxException;
  */
 
 public class Utils {
+    //正则检查是否为中国合法手机号
     public static boolean isChinaPhoneLegal(String str) throws PatternSyntaxException {
         String regExp = "^((13[0-9])|(15[0-9])|(18[0-9])|(17[0-9])|(14[0-9]))\\d{8}$";
         Pattern p = Pattern.compile(regExp);
@@ -34,12 +35,14 @@ public class Utils {
         return m.matches();
     }
 
+    //正则检查是否为合法邮箱
     private boolean EmailFormat(String eMAIL1) {//邮箱判断正则表达式
         Pattern pattern = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
         Matcher mc = pattern.matcher(eMAIL1);
         return mc.matches();
     }
 
+    //检查网络是否可用
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivity = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -54,7 +57,7 @@ public class Utils {
         return false;
     }
 
-
+    //进行md5加密操作
     public static String md5(String string) {
         if (TextUtils.isEmpty(string)) {
             return "";
@@ -78,8 +81,8 @@ public class Utils {
         return "";
     }
 
+    //将字符串base64转换成Bitmap类型
     public static Bitmap stringtoBitmap(String string) {
-        //将字符串base64转换成Bitmap类型
         Bitmap bitmap = null;
         try {
             byte[] bitmapArray;
@@ -115,11 +118,13 @@ public class Utils {
         return false;
     }
 
-
-    public static  int Dp2Px(Context context, float dp) {
+    //dp转成PX
+    public static int Dp2Px(Context context, float dp) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
     }
+
+    //字符串形式转成Date格式
     public static String string2Date(String data) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy年MM月dd日"); //加上时间
@@ -133,6 +138,12 @@ public class Utils {
         return "";
     }
 
+    /**
+     * 数组拼接成字符串
+     *
+     * @param list      传入的需要拼接的数组
+     * @param separator 连接符
+     */
     public static String listToString(List list, char separator) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
@@ -158,7 +169,7 @@ public class Utils {
         int minLen = Math.min(version1Array.length, version2Array.length);
         int diff = 0;
         // 循环判断每位的大小
-        Log.d("HomePageActivity", "verTag2=2222="+version1Array[index]);
+        Log.d("HomePageActivity", "verTag2=2222=" + version1Array[index]);
         while (index < minLen
                 && (diff = Integer.parseInt(version1Array[index])
                 - Integer.parseInt(version2Array[index])) == 0) {

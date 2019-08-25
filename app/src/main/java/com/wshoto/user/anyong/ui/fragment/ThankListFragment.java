@@ -65,6 +65,7 @@ public class ThankListFragment extends Fragment {
 //                Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 //            }
         };
+        //查找所有感谢信列表
         HttpJsonMethod.getInstance().thankList(
                 new ProgressSubscriber(thankOnNext, getActivity()), (String) SharedPreferencesUtils.getParam(getActivity(), "session", ""),
                 (String) SharedPreferencesUtils.getParam(getActivity(), "language", "zh"));
