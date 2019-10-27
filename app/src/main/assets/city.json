@@ -19862,6 +19862,19 @@
               "children": []
             }
           ]
+        },
+        {
+          "regionid": "3246",
+          "name": "东区",
+          "parentid": "33",
+          "children": [
+            {
+              "regionid": "3244",
+              "name": "香港特别行政区",
+              "parentid": "3247",
+              "children": []
+            }
+          ]
         }
       ]
     },
